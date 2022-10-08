@@ -1,6 +1,6 @@
 #include "Window.h"
-#include "ObjectManager.h"
 #include "Time.h"
+#include "SceneManager.h"
 
 // 멤버 변수 초기화
 unique_ptr<Window> Window::instance_ = nullptr;
@@ -33,8 +33,13 @@ BOOL Window::InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-        0, 0, 640, 480, nullptr, nullptr, hInstance, nullptr);
+    resolution_ = { 1280, 720 };
+
+    RECT area = { 0, 0, resolution_.x, resolution_.y };
+    AdjustWindowRect(&area, WS_OVERLAPPEDWINDOW, FALSE);
+
+    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX,
+        0, 0, area.right - area.left, area.bottom - area.top, nullptr, nullptr, hInstance, nullptr);
 
     if (!hWnd)
     {
@@ -44,11 +49,18 @@ BOOL Window::InitInstance(HINSTANCE hInstance, int nCmdShow)
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
+    memDC = GetDC(hWnd);
+    new_bitmap = CreateCompatibleBitmap(memDC, resolution_.x, resolution_.y);
+    hdc = CreateCompatibleDC(memDC);
+
+    HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, new_bitmap);
+    DeleteObject(old_bitmap);
+
     // Time 초기화
     Time::GetInstance()->Initiate();
 
-    // ObjectManager 초기화
-    ObjectManager::GetInstance()->Initiate();
+    // SceneManager 초기화
+    SceneManager::GetInstance()->Initiate();
 
     return TRUE;
 }
@@ -63,6 +75,25 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+    {
+        HMENU menu = GetSystemMenu(hWnd, FALSE);
+        EnableMenuItem(menu, SC_MAXIMIZE, MF_DISABLED);
+        EnableMenuItem(menu, SC_MINIMIZE, MF_DISABLED);
+        InvalidateRgn(hWnd, NULL, TRUE);
+    }
+    break;
+    case WM_GETMINMAXINFO:
+    {
+        RECT area = { 0, 0, resolution_.x, resolution_.y };
+        AdjustWindowRect(&area, WS_OVERLAPPEDWINDOW, FALSE);
+
+        ((MINMAXINFO*)lParam)->ptMinTrackSize.x = area.right - area.left;
+        ((MINMAXINFO*)lParam)->ptMinTrackSize.y = area.bottom - area.top;
+        ((MINMAXINFO*)lParam)->ptMaxTrackSize.x = area.right - area.left;
+        ((MINMAXINFO*)lParam)->ptMaxTrackSize.y = area.bottom - area.top;
+    }
+    break;
     case WM_COMMAND:
     {
         int wmId = LOWORD(wParam);
@@ -80,32 +111,10 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
     }
     break;
-    case WM_PAINT:
-    {
-        PAINTSTRUCT ps;
-        HDC hdc, memDC;
-        HBITMAP newBitmap, oldBitmap;
-        RECT buffer;
-        memDC = BeginPaint(hWnd, &ps);
-
-        GetClientRect(hWnd, &buffer);
-        hdc = CreateCompatibleDC(memDC);
-        newBitmap = CreateCompatibleBitmap(memDC, buffer.right, buffer.bottom);
-        oldBitmap = (HBITMAP)SelectObject(hdc, newBitmap);
-        PatBlt(hdc, 0, 0, buffer.right, buffer.bottom, WHITENESS);
-        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
-        OnPaint(hdc);
-
-        GetClientRect(hWnd, &buffer);
-        BitBlt(memDC, 0, 0, buffer.right, buffer.bottom, hdc, 0, 0, SRCCOPY);
-        SelectObject(hdc, oldBitmap);
-        DeleteObject(newBitmap);
-        DeleteDC(hdc);
-        EndPaint(hWnd, &ps);
-    }
-    break;
     case WM_DESTROY:
+        ReleaseDC(hWnd, hdc);
+        DeleteDC(memDC);
+        DeleteObject(new_bitmap);
         PostQuitMessage(0);
         break;
     default:
@@ -134,15 +143,6 @@ INT_PTR CALLBACK Window::About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
     return (INT_PTR)FALSE;
 }
 
-void Window::OnPaint(HDC hdc)
-{
-    Graphics graphics(hdc);
-
-    Pen black_pen(Color(255, 0, 0, 0));
-
-    graphics.DrawRectangle(&black_pen, (int)x_, (int)y_, 30, 30);
-}
-
 Window* Window::GetInstance()
 {
     call_once(flag_, [] // 람다식
@@ -166,38 +166,23 @@ void Window::Logic() // 생명 주기
 
 void Window::Update(float delta_time)
 {
-    ObjectManager::GetInstance()->Update(delta_time);
-
-    float speed = 100 * delta_time * 1.0f;
-
-    if (GetKeyDown(VK_LEFT))
-    {
-        x_ -= speed;
-    }
-
-    if (GetKeyDown(VK_RIGHT))
-    {
-        x_ += speed;
-    }
-
-    if (GetKeyDown(VK_UP))
-    {
-        y_ -= speed;
-    }
-
-    if (GetKeyDown(VK_DOWN))
-    {
-        y_ += speed;
-    }
+    SceneManager::GetInstance()->Update(delta_time);
 }
 
 void Window::LateUpdate(float delta_time)
 {
-    ObjectManager::GetInstance()->LateUpdate(delta_time);
+    SceneManager::GetInstance()->LateUpdate(delta_time);
 }
 
 void Window::Render()
 {
-    ObjectManager::GetInstance()->Render();
-    InvalidateRect(hWnd, NULL, FALSE);
+    Graphics graphics(hdc);
+
+    SolidBrush white_brush(Color(255, 255, 255, 255));
+    
+    graphics.FillRectangle(&white_brush, -1, -1, resolution_.x, resolution_.y);
+
+    SceneManager::GetInstance()->Render(hdc);
+
+    BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
 }

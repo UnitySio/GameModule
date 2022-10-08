@@ -1,31 +1,31 @@
 #include "Object.h"
 
-Object::Object()
+void Object::SetName(LPCWSTR name)
 {
-
+	wsprintf(name_, L"%s", name);
 }
 
-Object::~Object()
+void Object::SetPosition(Vector2 position)
 {
-
+	position_ = position;
 }
 
-void Object::Initiate()
+void Object::SetScale(Vector2 scale)
 {
-
+	scale_ = scale;
 }
 
-void Object::Update()
+LPCWSTR Object::GetName()
 {
-
+	return name_;
 }
 
-void Object::LateUpdate()
+Vector2 Object::GetPosition()
 {
-
+	return position_;
 }
 
-void Object::Render()
+Vector2 Object::GetScale()
 {
-
+	return scale_;
 }

@@ -13,8 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="StateMachine">
+    <Filter Include="Object">
+      <UniqueIdentifier>{33d064f1-a497-4a71-b763-ffd27f344eba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
       <UniqueIdentifier>{ef8f61eb-de7e-4daf-8880-e6514aa6a850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{477367ed-664c-4850-8cc2-88bbed6a0f85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectPool">
+      <UniqueIdentifier>{498a1815-7a32-414b-a288-2514817c1fa3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,23 +42,38 @@
     <ClInclude Include="Window.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="Time.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectPoolManager.h">
+    <ClInclude Include="Vector2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="StateMachine.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>FSM</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPoolManager.h">
+      <Filter>ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Poolable.h">
+      <Filter>ObjectPool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -59,23 +83,38 @@
     <ClCompile Include="Window.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPoolManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="StateMachine.cpp">
-      <Filter>StateMachine</Filter>
+      <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>StateMachine</Filter>
+      <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPoolManager.cpp">
+      <Filter>ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="Poolable.cpp">
+      <Filter>ObjectPool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

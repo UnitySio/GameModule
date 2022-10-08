@@ -17,12 +17,16 @@ class Window
 private:
 	HINSTANCE hInst; // «ˆ¿Á ¿ŒΩ∫≈œΩ∫
 	HWND hWnd;
+	HDC hdc;
+	HDC memDC;
+	HBITMAP new_bitmap;
+	RECT buffer;
+
+	POINT resolution_;
 
 	static LRESULT CALLBACK StaticWndProc(HWND, UINT, WPARAM, LPARAM);
 	LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	static INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
-
-	void OnPaint(HDC hdc);
 
 	// ΩÃ±€≈Ê
 	static unique_ptr<Window> instance_;
@@ -31,9 +35,6 @@ private:
 	void Update(float delta_time);
 	void LateUpdate(float delta_time);
 	void Render();
-
-	float x_ = 0;
-	float y_ = 0;
 public:
 	Window() = default;
 	~Window() = default;
