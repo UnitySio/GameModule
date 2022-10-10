@@ -1,9 +1,16 @@
+#include "pch.h"
 #include "SceneManager.h"
 #include "TestScene.h"
+
+using namespace std;
 
 // 멤버 변수 초기화
 unique_ptr<SceneManager> SceneManager::instance_ = nullptr;
 once_flag SceneManager::flag_;
+
+SceneManager::SceneManager() : scenes_{}, current_scene_()
+{
+}
 
 SceneManager* SceneManager::GetInstance()
 {
@@ -17,9 +24,9 @@ SceneManager* SceneManager::GetInstance()
 
 void SceneManager::Initiate()
 {
-    scenes_[(size_t)SceneType::kTEST] = make_shared<TestScene>();
-    scenes_[(size_t)SceneType::kTEST]->SetName(L"Test Scene");
-    current_scene_ = scenes_[(size_t)SceneType::kTEST];
+    scenes_[(size_t)SceneType::kTESTSCENE] = make_shared<TestScene>();
+    scenes_[(size_t)SceneType::kTESTSCENE]->SetName(L"Test Scene");
+    current_scene_ = scenes_[(size_t)SceneType::kTESTSCENE];
 
     current_scene_->Enter();
 }
@@ -37,4 +44,9 @@ void SceneManager::LateUpdate(float delta_time)
 void SceneManager::Render(HDC hdc)
 {
     current_scene_->Render(hdc);
+}
+
+LPCWSTR SceneManager::GetCurrentScene()
+{
+    return current_scene_->GetName();
 }

@@ -1,4 +1,7 @@
-﻿#include "Game.h"
+﻿#include "pch.h"
+#include "Game.h"
+
+using namespace Gdiplus;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -16,12 +19,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     GdiplusStartup(&gdiplus_token, &gdiplus_startup_input, NULL);
 
     // 전역 문자열을 초기화합니다.
-    LoadStringW(hInstance, IDS_APP_TITLE, Window::GetInstance()->szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_GAME, Window::GetInstance()->szWindowClass, MAX_LOADSTRING);
-    Window::GetInstance()->MyRegisterClass(hInstance);
+    LoadStringW(hInstance, IDS_APP_TITLE, Core::GetInstance()->szTitle, MAX_LOADSTRING);
+    LoadStringW(hInstance, IDC_GAME, Core::GetInstance()->szWindowClass, MAX_LOADSTRING);
+    Core::GetInstance()->MyRegisterClass(hInstance);
 
     // 애플리케이션 초기화를 수행합니다:
-    if (!Window::GetInstance()->InitInstance(hInstance, nCmdShow))
+    if (!Core::GetInstance()->InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
     }
@@ -29,6 +32,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_GAME));
 
     MSG msg;
+
+    // 메모리 누수 확인
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetBreakAlloc(230);
 
     // 기본 메시지 루프입니다:
     while (TRUE)
@@ -46,7 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            Window::GetInstance()->Logic();
+            Core::GetInstance()->Logic();
         }
     }
 

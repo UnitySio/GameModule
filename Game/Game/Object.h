@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Windows.h"
-#include "Vector2.h"
+#include <Windows.h>
 
 class Object
 {
@@ -10,7 +9,7 @@ private:
 	Vector2 position_;
 	Vector2 scale_;
 public:
-	Object() = default;
+	Object();
 	virtual ~Object() = default;
 
 	virtual void Update(float delta_time) = 0;

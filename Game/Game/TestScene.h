@@ -7,9 +7,9 @@ class TestScene : public Scene
 private:
 public:
 	TestScene() = default;
-	virtual ~TestScene() = default;
+	~TestScene() final = default;
 
-	virtual void Enter();
-	virtual void Exit();
+	void Enter() final;
+	void Exit() final;
 };
 

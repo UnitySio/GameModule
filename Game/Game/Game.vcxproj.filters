@@ -16,14 +16,23 @@
     <Filter Include="Object">
       <UniqueIdentifier>{33d064f1-a497-4a71-b763-ffd27f344eba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FSM">
-      <UniqueIdentifier>{ef8f61eb-de7e-4daf-8880-e6514aa6a850}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{477367ed-664c-4850-8cc2-88bbed6a0f85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{d7319f70-30da-4234-a526-57d6ecdcdea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Layer">
+      <UniqueIdentifier>{681fda80-4a40-4140-bac0-d5c3dda0af36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{415332ad-9ef7-4dc4-a62e-a8b1f7971e82}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ObjectPool">
-      <UniqueIdentifier>{498a1815-7a32-414b-a288-2514817c1fa3}</UniqueIdentifier>
+      <UniqueIdentifier>{bc2967e7-6005-45eb-a028-8d9eb4313136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{80df96fa-fc52-49cf-b352-93252ded108f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,20 +48,11 @@
     <ClInclude Include="Game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Scene</Filter>
@@ -69,25 +69,25 @@
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPoolManager.h">
-      <Filter>ObjectPool</Filter>
+    <ClInclude Include="Core.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Poolable.h">
-      <Filter>ObjectPool</Filter>
+    <ClInclude Include="Layer.h">
+      <Filter>Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>Object\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="StateMachine.cpp">
-      <Filter>FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>소스 파일</Filter>
@@ -110,11 +110,20 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPoolManager.cpp">
-      <Filter>ObjectPool</Filter>
+    <ClCompile Include="Core.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Poolable.cpp">
-      <Filter>ObjectPool</Filter>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

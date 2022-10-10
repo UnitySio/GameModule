@@ -1,4 +1,11 @@
+#include "pch.h"
 #include "Object.h"
+
+using namespace std;
+
+Object::Object() : name_{}, position_{}, scale_{}
+{
+}
 
 void Object::SetName(LPCWSTR name)
 {

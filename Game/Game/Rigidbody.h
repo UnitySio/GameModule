@@ -1,5 +1,5 @@
 #pragma once
-class Poolable
+class Rigidbody
 {
 };
 

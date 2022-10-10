@@ -13,13 +13,3 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-
-#include <memory>
-#include <mutex>
-#include <Ole2.h>
-#include <gdiplus.h>
-
-using namespace std;
-using namespace Gdiplus;
-
-#pragma comment(lib, "Gdiplus.lib");

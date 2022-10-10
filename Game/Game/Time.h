@@ -1,21 +1,27 @@
 #pragma once
 
-#include "framework.h"
+#include <Windows.h>
 
 class Time
 {
 private:
 	// ΩÃ±€≈Ê
-	static unique_ptr<Time> instance_;
-	static once_flag flag_;
+	static std::unique_ptr<Time> instance_;
+	static std::once_flag flag_;
 
-	LARGE_INTEGER second_;
-	LARGE_INTEGER time_;
+	LARGE_INTEGER frequency_;
+	LARGE_INTEGER previous_count_;
+	LARGE_INTEGER current_count_;
 
 	float delta_time_;
 	float time_scale_;
+
+	float timer_;
+
+	UINT fps_;
+	UINT counter_;
 public:
-	Time() = default;
+	Time();
 	~Time() = default;
 
 	Time(const Time&) = delete;
@@ -27,5 +33,6 @@ public:
 	void Update();
 
 	float GetDeltaTime();
+	UINT GetFPS();
 };
 
