@@ -13,6 +13,7 @@ void TestScene::Enter()
 	object->SetName(L"Player");
 	object->SetPosition({ 320, 240 });
 	object->SetScale({ 32, 32 });
+	object->SetPivot({ 0.5, 0.5 });
 	layer->CreateObject(object, GroupObjectType::kPLAYER);
 
 	//layer->DestroyObject(layer->FindObject(L"Player"));

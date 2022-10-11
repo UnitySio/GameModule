@@ -11,36 +11,44 @@ Player::Player()
 
 void Player::Update(float delta_time)
 {
-    Vector2 position = GetPosition();
-
-    float move_speed = 300 * delta_time;
-
     HWND hWnd = GetFocus();
+
+    float move_speed = 300;
+
+    float horizontal = 0;
+    float vertical = 0;
+    Vector2 position;
 
     if (hWnd != nullptr)
     {
         if (GetKeyDown(VK_LEFT))
         {
-            position.x -= move_speed;
+            //Translate(Vector2().Left() * move_speed * delta_time);
+            horizontal = -1;
         }
 
         if (GetKeyDown(VK_RIGHT))
         {
-            position.x += move_speed;
+            //Translate(Vector2().Right() * move_speed * delta_time);
+            horizontal = 1;
         }
 
         if (GetKeyDown(VK_UP))
         {
-            position.y -= move_speed;
+            //Translate(Vector2().Up() * move_speed * delta_time);
+            vertical = -1;
         }
 
         if (GetKeyDown(VK_DOWN))
         {
-            position.y += move_speed;
+            //Translate(Vector2().Down() * move_speed * delta_time);
+            vertical = 1;
         }
     }
 
-	SetPosition(position);
+    position.Set(horizontal, vertical);
+    position = position.Normalized() * move_speed * delta_time;
+    SetPosition(GetPosition() + position);
 }
 
 void Player::LateUpdate(float delta_time)
@@ -59,9 +67,7 @@ void Player::Render(HDC hdc)
     Pen black_pen(Color(255, 0, 0, 0));
     Pen red_pen(Color(255, 255, 0, 0));
 
-    Vector2 final_position = GetPosition() - GetScale() * 0.5f;
-
-    graphics.DrawRectangle(&black_pen, final_position.x, final_position.y, GetScale().x, GetScale().y);
+    graphics.DrawRectangle(&black_pen, GetRenderPositon().x, GetRenderPositon().y, GetScale().x, GetScale().y);
 
     PointF pivot_font_position(GetPosition().x, GetPosition().y);
     graphics.DrawString(L"Pivot", -1, &font_style, pivot_font_position, &black_brush);
@@ -72,7 +78,7 @@ void Player::Render(HDC hdc)
 
     WCHAR position_word[1024];
     _stprintf_s(position_word, L"X: %.f, Y: %.f", GetPosition().x, GetPosition().y);
-    PointF scene_font_position(final_position.x + 16, final_position.y + 32);
+    PointF scene_font_position(GetRenderPositon().x + 16, GetRenderPositon().y + 32);
     graphics.DrawString(position_word, -1, &font_style, scene_font_position, &string_format, &black_brush);
 
 }
