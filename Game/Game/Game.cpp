@@ -35,7 +35,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 메모리 누수 확인
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(226);
+    //_CrtSetBreakAlloc(224);
 
     // 기본 메시지 루프입니다:
     while (TRUE)

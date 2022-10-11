@@ -14,14 +14,13 @@ private:
 	HWND hWnd;
 	HDC hdc;
 	HDC memDC;
-	HBITMAP new_bitmap;
-	RECT buffer;
+	HBITMAP new_bitmap_;
+	RECT buffer_;
 
 	POINT resolution_;
 
 	static LRESULT CALLBACK StaticWndProc(HWND, UINT, WPARAM, LPARAM);
 	LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-	static INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
 	// ΩÃ±€≈Ê
 	static unique_ptr<Core> instance_;
@@ -30,6 +29,8 @@ private:
 	void Update(float delta_time);
 	void LateUpdate(float delta_time);
 	void Render();
+
+	float run_timer_;
 public:
 	Core() = default;
 	~Core() = default;

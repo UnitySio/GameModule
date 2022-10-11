@@ -11,7 +11,7 @@ public:
 	float y;
 
 	Vector2 &operator=(const Vector2 &kVector2);
-	Vector2 operator+(const Vector2& kVector2);
+	Vector2 operator+(const Vector2 &kVector2);
 	Vector2 operator-(const Vector2 &kVector2);	
 	Vector2 operator*(const Vector2 &kVector2);
 	Vector2 operator*(float value);
@@ -28,7 +28,7 @@ public:
 	void Set(float x, float y);
 
 	float Magnitude();
-	float SqrMagnitude();
+	float Distance(Vector2 first, Vector2 second);
 
 	bool operator==(const Vector2 &kVector2);
 	bool operator!=(const Vector2 &kVector2);

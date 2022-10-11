@@ -24,7 +24,7 @@ ATOM Core::MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_GAME));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = NULL/*MAKEINTRESOURCEW(IDC_GAME)*/;
+    wcex.lpszMenuName = NULL;
     wcex.lpszClassName = szWindowClass;
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -54,10 +54,10 @@ BOOL Core::InitInstance(HINSTANCE hInstance, int nCmdShow)
     UpdateWindow(hWnd);
 
     memDC = GetDC(hWnd);
-    new_bitmap = CreateCompatibleBitmap(memDC, resolution_.x, resolution_.y);
+    new_bitmap_ = CreateCompatibleBitmap(memDC, resolution_.x, resolution_.y);
     hdc = CreateCompatibleDC(memDC);
 
-    HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, new_bitmap);
+    HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, new_bitmap_);
     DeleteObject(old_bitmap);
 
     // Time 초기화
@@ -85,6 +85,8 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         EnableMenuItem(menu, SC_MAXIMIZE, MF_DISABLED);
         EnableMenuItem(menu, SC_MINIMIZE, MF_DISABLED);
         InvalidateRgn(hWnd, NULL, TRUE);
+
+        run_timer_ = 0;
     }
     break;
     case WM_GETMINMAXINFO:
@@ -109,12 +111,6 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         // 메뉴 선택을 구문 분석합니다:
         switch (wmId)
         {
-        case IDM_ABOUT:
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-            break;
-        case IDM_EXIT:
-            DestroyWindow(hWnd);
-            break;
         default:
             return DefWindowProc(hWnd, message, wParam, lParam);
         }
@@ -123,33 +119,13 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         ReleaseDC(hWnd, hdc);
         DeleteDC(memDC);
-        DeleteObject(new_bitmap);
+        DeleteObject(new_bitmap_);
         PostQuitMessage(0);
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
-}
-
-// 정보 대화 상자의 메시지 처리기
-INT_PTR CALLBACK Core::About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
 }
 
 Core* Core::GetInstance()
@@ -176,6 +152,7 @@ void Core::Logic() // 생명 주기
 void Core::Update(float delta_time)
 {
     SceneManager::GetInstance()->Update(delta_time);
+    run_timer_ += delta_time;
 }
 
 void Core::LateUpdate(float delta_time)
@@ -201,12 +178,15 @@ void Core::Render()
     graphics.DrawString(fps_word, -1, &font_style, fps_font_position, &black_brush);
     
     WCHAR scene_word[1024];
-    wsprintf(scene_word, L"현재 Scene: %s", SceneManager::GetInstance()->GetInstance()->GetCurrentScene());
+    wsprintf(scene_word, L"Current Scene: %s", SceneManager::GetInstance()->GetInstance()->GetCurrentScene());
     PointF scene_font_position(10, 24);
     graphics.DrawString(scene_word, -1, &font_style, scene_font_position, &black_brush);
 
-    PointF font_position(10, 36);
-    graphics.DrawString(L"TIP: 방향키를 사용하여 이동하세요.", -1, &font_style, font_position, &black_brush);
+    // 테스트 코드
+    WCHAR timer_word[1024];
+    _stprintf_s(timer_word, L"Run Time: %.fs", run_timer_);
+    PointF timer_font_position(10, 36);
+    graphics.DrawString(timer_word, -1, &font_style, timer_font_position, &black_brush);
 
     SceneManager::GetInstance()->Render(hdc);
 

@@ -102,7 +102,8 @@ float Vector2::Magnitude()
 	return sqrt(pow(x, 2) + pow(y, 2));
 }
 
-float Vector2::SqrMagnitude()
+float Vector2::Distance(Vector2 first, Vector2 second)
 {
-	return pow(x, 2) + pow(y, 2);
+	Vector2 result = first - second;
+	return result.Magnitude();
 }

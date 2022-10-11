@@ -76,9 +76,11 @@ void Player::Render(HDC hdc)
     StringFormat string_format;
     string_format.SetAlignment(StringAlignmentCenter);
 
+    graphics.DrawLine(&red_pen, 320, 240, (int)GetPosition().x, (int)GetPosition().y);
+    float distance = Vector2().Distance({ 320, 240 }, GetPosition());
+
     WCHAR position_word[1024];
-    _stprintf_s(position_word, L"X: %.f, Y: %.f", GetPosition().x, GetPosition().y);
+    _stprintf_s(position_word, L"Distance: %.f", distance);
     PointF scene_font_position(GetRenderPositon().x + 16, GetRenderPositon().y + 32);
     graphics.DrawString(position_word, -1, &font_style, scene_font_position, &string_format, &black_brush);
-
 }
