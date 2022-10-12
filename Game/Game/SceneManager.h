@@ -26,6 +26,6 @@ public:
 	void Update(float delta_time);
 	void LateUpdate(float delta_time);
 	void Render(HDC hdc);
-	LPCWSTR GetCurrentScene();
+	std::shared_ptr<Scene> GetCurrentScene();
 };
 

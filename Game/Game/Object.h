@@ -2,7 +2,8 @@
 
 #include <Windows.h>
 
-#include "Rigidbody2D.h"
+class BoxCollider2D;
+class Rigidbody2D;
 
 class Object
 {
@@ -12,6 +13,7 @@ private:
 	Vector2 scale_;
 	Vector2 pivot_;
 
+	std::shared_ptr<BoxCollider2D> box_collider2d_;
 	std::shared_ptr<Rigidbody2D> rigidbody2d_;
 public:
 	Object();
@@ -33,7 +35,9 @@ public:
 	Vector2 GetPivot();
 	Vector2 GetRenderPositon();
 
+	std::shared_ptr<BoxCollider2D> GetBoxCollider2D();
 	std::shared_ptr<Rigidbody2D> GetRigidbody2D();
 
+	void AddBoxCollider2D();
 	void AddRigidbody2D();
 };

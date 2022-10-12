@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "Layer.h"
+#include "Object.h"
+
+using namespace std;
 
 Layer::Layer() : name_{}, z_order_(), objects_{}
 {

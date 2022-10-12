@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Layer.h"
+class Layer;
+class Object;
 
 class Scene
 {
@@ -19,6 +20,8 @@ public:
 	virtual void Update(float delta_time);
 	virtual void LateUpdate(float delta_time);
 	virtual void Render(HDC hdc);
+
+	const std::vector<std::shared_ptr<Object>>& GetGroupObject(GroupObjectType type);
 
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;

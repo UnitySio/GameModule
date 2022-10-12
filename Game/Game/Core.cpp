@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "Core.h"
-#include "Time.h"
+#include "TimeManager.h"
 #include "SceneManager.h"
+#include "CollisionManager.h"
 
 using namespace Gdiplus;
 
@@ -59,11 +60,14 @@ BOOL Core::InitInstance(HINSTANCE hInstance, int nCmdShow)
 	HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, new_bitmap_);
 	DeleteObject(old_bitmap);
 
-	// Time 초기화
-	Time::GetInstance()->Initiate();
+	// TimeManager 초기화
+	TimeManager::GetInstance()->Initiate();
 
 	// SceneManager 초기화
 	SceneManager::GetInstance()->Initiate();
+
+	// CollisionManager 초기화
+	CollisionManager::GetInstance()->Initiate();
 
 	return TRUE;
 }
@@ -116,7 +120,6 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 	case WM_DESTROY:
-		// 보류
 		_CrtDumpMemoryLeaks();
 #ifdef _DEBUG
 		FreeConsole();
@@ -144,9 +147,9 @@ Core* Core::GetInstance()
 
 void Core::Logic() // 생명 주기
 {
-	Time::GetInstance()->Update();
+	TimeManager::GetInstance()->Update();
 
-	float delta_time_ = Time::GetInstance()->GetDeltaTime();
+	float delta_time_ = TimeManager::GetInstance()->GetDeltaTime();
 
 	Update(delta_time_);
 	LateUpdate(delta_time_);
@@ -156,6 +159,8 @@ void Core::Logic() // 생명 주기
 void Core::Update(float delta_time)
 {
 	SceneManager::GetInstance()->Update(delta_time);
+	CollisionManager::GetInstance()->Update(delta_time);
+
 	run_timer_ += delta_time;
 }
 
@@ -177,7 +182,7 @@ void Core::Render()
 	graphics.FillRectangle(&white_brush, -1, -1, resolution_.x, resolution_.y);
 
 	WCHAR fps_word[1024];
-	wsprintf(fps_word, L"FPS: %d", Time::GetInstance()->GetFPS());
+	wsprintf(fps_word, L"FPS: %d", TimeManager::GetInstance()->GetFPS());
 	PointF fps_font_position(10, 10);
 	graphics.DrawString(fps_word, -1, &font_style, fps_font_position, &black_brush);
 
@@ -188,7 +193,7 @@ void Core::Render()
 
 	// 테스트 코드
 	WCHAR timer_word[1024];
-	_stprintf_s(timer_word, L"Run Time: %.2fs", run_timer_);
+	_stprintf_s(timer_word, L"Run TimeManager: %.2fs", run_timer_);
 	PointF timer_font_position(10, 36);
 	graphics.DrawString(timer_word, -1, &font_style, timer_font_position, &black_brush);
 

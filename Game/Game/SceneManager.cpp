@@ -46,7 +46,7 @@ void SceneManager::Render(HDC hdc)
     current_scene_->Render(hdc);
 }
 
-LPCWSTR SceneManager::GetCurrentScene()
+shared_ptr<Scene> SceneManager::GetCurrentScene()
 {
-    return current_scene_->GetName();
+    return current_scene_;
 }

@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Scene.h"
+#include "Layer.h"
+
 #include <algorithm>
 
 using namespace std;
@@ -56,4 +58,9 @@ void Scene::Render(HDC hdc)
 	{
 		layers_[i]->Render(hdc);
 	}
+}
+
+const vector<shared_ptr<Object>>& Scene::GetGroupObject(GroupObjectType type)
+{
+	return layers_[0]->objects_[(UINT)type];
 }

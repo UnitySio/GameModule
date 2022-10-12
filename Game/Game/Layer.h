@@ -1,10 +1,12 @@
 #pragma once
 
-#include "Object.h"
+class Object;
 
 class Layer
 {
 private:
+	friend class Scene;
+
 	WCHAR name_[1024];
 	UINT z_order_;
 	std::vector<std::shared_ptr<Object>> objects_[(size_t)GroupObjectType::kEND];

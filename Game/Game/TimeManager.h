@@ -2,11 +2,11 @@
 
 #include <Windows.h>
 
-class Time
+class TimeManager
 {
 private:
 	// ΩÃ±€≈Ê
-	static std::unique_ptr<Time> instance_;
+	static std::unique_ptr<TimeManager> instance_;
 	static std::once_flag flag_;
 
 	LARGE_INTEGER frequency_;
@@ -21,13 +21,13 @@ private:
 	UINT fps_;
 	UINT counter_;
 public:
-	Time();
-	~Time() = default;
+	TimeManager();
+	~TimeManager() = default;
 
-	Time(const Time&) = delete;
-	Time& operator=(const Time&) = delete;
+	TimeManager(const TimeManager&) = delete;
+	TimeManager& operator=(const TimeManager&) = delete;
 
-	static Time* GetInstance();
+	static TimeManager* GetInstance();
 
 	void Initiate();
 	void Update();

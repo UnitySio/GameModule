@@ -1,6 +1,5 @@
 #include "pch.h"
-#include "Player.h"
-#include "Rigidbody2D.h"
+#include "Block.h"
 #include "BoxCollider2D.h"
 
 #include <tchar.h>
@@ -8,69 +7,23 @@
 using namespace std;
 using namespace Gdiplus;
 
-Player::Player()
+Block::Block()
 {
 	AddBoxCollider2D();
 	GetBoxCollider2D()->SetOffset({ 0.f, 0.f });
 	GetBoxCollider2D()->SetScale({ 32.f, 32.f });
-	AddRigidbody2D();
 }
 
-void Player::Update(float delta_time)
+void Block::Update(float delta_time)
 {
-	HWND hWnd = GetFocus();
-
-	float move_speed = 300;
-
-	float horizontal = 0;
-	float vertical = 0;
-	Vector2 position;
-
-	shared_ptr<Rigidbody2D> rigid = GetRigidbody2D();
-
-	if (hWnd != nullptr)
-	{
-		if (GetKey(VK_LEFT))
-		{
-			Translate(Vector2().Left() * move_speed * delta_time);
-			//horizontal = -1;
-			//rigid->AddForce(Vector2().Left() * move_speed);
-		}
-
-		if (GetKey(VK_RIGHT))
-		{
-			Translate(Vector2().Right() * move_speed * delta_time);
-			//horizontal = 1;
-			//rigid->AddForce(Vector2().Right() * move_speed);
-		}
-
-		if (GetKey(VK_UP))
-		{
-			Translate(Vector2().Up() * move_speed * delta_time);
-			//vertical = -1;
-			//rigid->AddForce(Vector2().Up() * 10000);
-		}
-
-		if (GetKey(VK_DOWN))
-		{
-			Translate(Vector2().Down() * move_speed * delta_time);
-			//vertical = 1;
-			//rigid->AddForce(Vector2().Down() * move_speed);
-		}
-	}
-
-	//position.Set(horizontal, vertical);
-	//position = position.Normalized() * move_speed * delta_time;
-	//SetPosition(GetPosition() + position);
-
 }
 
-void Player::LateUpdate(float delta_time)
+void Block::LateUpdate(float delta_time)
 {
 	Object::LateUpdate(delta_time);
 }
 
-void Player::Render(HDC hdc)
+void Block::Render(HDC hdc)
 {
 	Graphics graphics(hdc);
 

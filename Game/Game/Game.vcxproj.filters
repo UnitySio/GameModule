@@ -34,6 +34,9 @@
     <Filter Include="Object\Component">
       <UniqueIdentifier>{80df96fa-fc52-49cf-b352-93252ded108f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Manager">
+      <UniqueIdentifier>{4f861f3e-910e-467d-99de-fd491c32f104}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -48,7 +51,7 @@
     <ClInclude Include="Game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="TimeManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
@@ -81,12 +84,21 @@
     <ClInclude Include="Rigidbody2D.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Object\Component\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
+    <ClCompile Include="TimeManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
@@ -118,6 +130,15 @@
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
       <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Object\Component\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

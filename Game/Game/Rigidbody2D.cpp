@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Rigidbody2D.h"
+#include "Object.h"
 
 using namespace std;
 

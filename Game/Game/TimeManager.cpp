@@ -1,33 +1,33 @@
 #include "pch.h"
-#include "Time.h"
+#include "TimeManager.h"
 
 using namespace std;
 
 // 멤버 변수 초기화
-unique_ptr<Time> Time::instance_ = nullptr;
-once_flag Time::flag_;
+unique_ptr<TimeManager> TimeManager::instance_ = nullptr;
+once_flag TimeManager::flag_;
 
-Time::Time() : frequency_{}, previous_count_{}, current_count_{}, delta_time_(), time_scale_(1.f), timer_(), fps_(), counter_()
+TimeManager::TimeManager() : frequency_{}, previous_count_{}, current_count_{}, delta_time_(), time_scale_(1.f), timer_(), fps_(), counter_()
 {
 }
 
-Time* Time::GetInstance()
+TimeManager* TimeManager::GetInstance()
 {
     call_once(flag_, [] // 람다식
         {
-            instance_.reset(new Time);
+            instance_.reset(new TimeManager);
         });
 
     return instance_.get();
 }
 
-void Time::Initiate()
+void TimeManager::Initiate()
 {
     QueryPerformanceFrequency(&frequency_);
     QueryPerformanceCounter(&previous_count_);
 }
 
-void Time::Update()
+void TimeManager::Update()
 {
     QueryPerformanceCounter(&current_count_);
 
@@ -43,22 +43,17 @@ void Time::Update()
     {
         fps_ = counter_;
 
-#ifdef _DEBUG
-        system("cls");
-        _cprintf("FPS: %d\n", fps_);
-#endif // _DEBUG
-
         timer_ = 0;
         counter_ = 0;
     }
 }
 
-float Time::GetDeltaTime()
+float TimeManager::GetDeltaTime()
 {
     return delta_time_ * time_scale_;
 }
 
-UINT Time::GetFPS()
+UINT TimeManager::GetFPS()
 {
     return fps_;
 }

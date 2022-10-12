@@ -1,11 +1,16 @@
 #pragma once
 #pragma comment(lib, "Gdiplus.lib")
 
+#define _CRTDBG_MAP_ALLOC
+
+#include <stdlib.h>
+#include <crtdbg.h>
 #include <conio.h>
 #include <Ole2.h>
 #include <gdiplus.h>
 #include <mutex>
 #include <vector>
+#include <map>
 
 #include "Vector2.h"
 
