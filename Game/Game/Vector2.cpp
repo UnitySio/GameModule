@@ -9,19 +9,33 @@ Vector2::Vector2(float x, float y) : x(x), y(y)
 {
 }
 
-Vector2 &Vector2::operator=(const Vector2& kVector2)
+Vector2& Vector2::operator+=(const Vector2& kVector2)
+{
+	x += kVector2.x;
+	y += kVector2.y;
+	return *this;
+}
+
+Vector2& Vector2::operator-=(const Vector2& kVector2)
+{
+	x -= kVector2.x;
+	y -= kVector2.y;
+	return *this;
+}
+
+Vector2& Vector2::operator=(const Vector2& kVector2)
 {
 	x = kVector2.x;
 	y = kVector2.y;
 	return *this;
 }
 
-Vector2 Vector2::operator+(const Vector2 &kVector2)
+Vector2 Vector2::operator+(const Vector2& kVector2)
 {
 	return { x + kVector2.x, y + kVector2.y };
 }
 
-Vector2 Vector2::operator-(const Vector2 &kVector2)
+Vector2 Vector2::operator-(const Vector2& kVector2)
 {
 	return { x - kVector2.x, y - kVector2.y };
 }
@@ -41,12 +55,12 @@ Vector2 Vector2::operator/(float value)
 	return { x / value, y / value };
 }
 
-bool Vector2::operator==(const Vector2 &kVector2)
+bool Vector2::operator==(const Vector2& kVector2)
 {
 	return x == kVector2.x && y == kVector2.y;
 }
 
-bool Vector2::operator!=(const Vector2 &kVector2)
+bool Vector2::operator!=(const Vector2& kVector2)
 {
 	return x != kVector2.x || y != kVector2.y;
 }
@@ -89,6 +103,20 @@ Vector2 Vector2::Down()
 Vector2 Vector2::Right()
 {
 	return { 1, 0 };
+}
+
+void Vector2::Normalize()
+{
+	if (Magnitude() > 0)
+	{
+		x /= Magnitude();
+		y /= Magnitude();
+	}
+	else
+	{
+		x = 0;
+		y = 0;
+	}
 }
 
 void Vector2::Set(float x, float y)

@@ -78,10 +78,10 @@
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
+    <ClInclude Include="Rigidbody2D.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Rigidbody2D.h">
+    <ClInclude Include="BoxCollider2D.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,10 +119,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
+    <ClCompile Include="Rigidbody2D.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Rigidbody2D.cpp">
+    <ClCompile Include="BoxCollider2D.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
   </ItemGroup>

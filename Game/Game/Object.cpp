@@ -3,8 +3,16 @@
 
 using namespace std;
 
-Object::Object() : name_{}, position_{}, scale_{}, pivot_{}
+Object::Object() : name_{}, position_{}, scale_{}, pivot_{}, rigidbody2d_()
 {
+}
+
+void Object::LateUpdate(float delta_time)
+{
+	if (rigidbody2d_ != nullptr)
+	{
+		rigidbody2d_->LateUpdate(delta_time);
+	}
 }
 
 void Object::SetName(LPCWSTR name)
@@ -29,7 +37,7 @@ void Object::SetPivot(Vector2 pivot)
 
 void Object::Translate(Vector2 vector2)
 {
-	position_ = position_ + vector2;
+	position_ += vector2;
 }
 
 LPCWSTR Object::GetName()
@@ -55,4 +63,15 @@ Vector2 Object::GetPivot()
 Vector2 Object::GetRenderPositon()
 {
 	return position_ - scale_ * pivot_;
+}
+
+shared_ptr<Rigidbody2D> Object::GetRigidbody2D()
+{
+	return rigidbody2d_;
+}
+
+void Object::AddRigidbody2D()
+{
+	rigidbody2d_ = make_shared<Rigidbody2D>();
+	rigidbody2d_->owner_ = this;
 }

@@ -12,183 +12,185 @@ once_flag Core::flag_;
 // 창 클래스를 등록
 ATOM Core::MyRegisterClass(HINSTANCE hInstance)
 {
-    WNDCLASSEXW wcex;
+	WNDCLASSEXW wcex;
 
-    wcex.cbSize = sizeof(WNDCLASSEX);
+	wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
-    wcex.lpfnWndProc = StaticWndProc;
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_GAME));
-    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = szWindowClass;
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
+	wcex.lpfnWndProc = StaticWndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = hInstance;
+	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_GAME));
+	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wcex.lpszMenuName = NULL;
+	wcex.lpszClassName = szWindowClass;
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
-    return RegisterClassExW(&wcex);
+	return RegisterClassExW(&wcex);
 }
 
 // 인스턴스 핸들을 저장하고 주 창을 만듬
 BOOL Core::InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+	hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-    resolution_ = { 640, 480 };
+	resolution_ = { 640, 480 };
 
-    RECT area = { 0, 0, resolution_.x, resolution_.y };
-    AdjustWindowRect(&area, WS_OVERLAPPEDWINDOW, FALSE);
+	RECT area = { 0, 0, resolution_.x, resolution_.y };
+	AdjustWindowRect(&area, WS_OVERLAPPEDWINDOW, FALSE);
 
-    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX,
-        0, 0, area.right - area.left, area.bottom - area.top, nullptr, nullptr, hInstance, nullptr);
+	hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX,
+		0, 0, area.right - area.left, area.bottom - area.top, nullptr, nullptr, hInstance, nullptr);
 
-    if (!hWnd)
-    {
-        return FALSE;
-    }
+	if (!hWnd)
+	{
+		return FALSE;
+	}
 
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
 
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
+	memDC = GetDC(hWnd);
+	new_bitmap_ = CreateCompatibleBitmap(memDC, resolution_.x, resolution_.y);
+	hdc = CreateCompatibleDC(memDC);
 
-    memDC = GetDC(hWnd);
-    new_bitmap_ = CreateCompatibleBitmap(memDC, resolution_.x, resolution_.y);
-    hdc = CreateCompatibleDC(memDC);
+	HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, new_bitmap_);
+	DeleteObject(old_bitmap);
 
-    HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, new_bitmap_);
-    DeleteObject(old_bitmap);
+	// Time 초기화
+	Time::GetInstance()->Initiate();
 
-    // Time 초기화
-    Time::GetInstance()->Initiate();
+	// SceneManager 초기화
+	SceneManager::GetInstance()->Initiate();
 
-    // SceneManager 초기화
-    SceneManager::GetInstance()->Initiate();
-
-    return TRUE;
+	return TRUE;
 }
 
 // 주 창의 메시지를 처리
 LRESULT Core::StaticWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    return instance_->WndProc(hWnd, message, wParam, lParam);
+	return instance_->WndProc(hWnd, message, wParam, lParam);
 }
 
 LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-    case WM_CREATE:
-    {
-        HMENU menu = GetSystemMenu(hWnd, FALSE);
-        EnableMenuItem(menu, SC_MAXIMIZE, MF_DISABLED);
-        EnableMenuItem(menu, SC_MINIMIZE, MF_DISABLED);
-        InvalidateRgn(hWnd, NULL, TRUE);
+	switch (message)
+	{
+	case WM_CREATE:
+	{
+		HMENU menu = GetSystemMenu(hWnd, FALSE);
+		EnableMenuItem(menu, SC_MAXIMIZE, MF_DISABLED);
+		EnableMenuItem(menu, SC_MINIMIZE, MF_DISABLED);
+		InvalidateRgn(hWnd, NULL, TRUE);
 
-        run_timer_ = 0;
-    }
-    break;
-    case WM_GETMINMAXINFO:
-    {
-        RECT area = { 0, 0, resolution_.x, resolution_.y };
-        AdjustWindowRect(&area, WS_OVERLAPPEDWINDOW, FALSE);
+		run_timer_ = 0;
+	}
+	break;
+	case WM_GETMINMAXINFO:
+	{
+		RECT area = { 0, 0, resolution_.x, resolution_.y };
+		AdjustWindowRect(&area, WS_OVERLAPPEDWINDOW, FALSE);
 
-        ((MINMAXINFO*)lParam)->ptMinTrackSize.x = area.right - area.left;
-        ((MINMAXINFO*)lParam)->ptMinTrackSize.y = area.bottom - area.top;
-        ((MINMAXINFO*)lParam)->ptMaxTrackSize.x = area.right - area.left;
-        ((MINMAXINFO*)lParam)->ptMaxTrackSize.y = area.bottom - area.top;
-    }
-    break;
-    case WM_PAINT:
-    {
-        ValidateRect(hWnd, NULL); // 더 이상 WM_PAINT를 호출하지 않음
-    }
-    break;
-    case WM_COMMAND:
-    {
-        int wmId = LOWORD(wParam);
-        // 메뉴 선택을 구문 분석합니다:
-        switch (wmId)
-        {
-        default:
-            return DefWindowProc(hWnd, message, wParam, lParam);
-        }
-    }
-    break;
-    case WM_DESTROY:
-        ReleaseDC(hWnd, hdc);
-        DeleteDC(memDC);
-        DeleteObject(new_bitmap_);
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.x = area.right - area.left;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.y = area.bottom - area.top;
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.x = area.right - area.left;
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.y = area.bottom - area.top;
+	}
+	break;
+	case WM_PAINT:
+	{
+		ValidateRect(hWnd, NULL); // 더 이상 WM_PAINT를 호출하지 않음
+	}
+	break;
+	case WM_COMMAND:
+	{
+		int wmId = LOWORD(wParam);
+		// 메뉴 선택을 구문 분석합니다:
+		switch (wmId)
+		{
+		default:
+			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
+	}
+	break;
+	case WM_DESTROY:
+#ifdef _DEBUG
+		FreeConsole();
+#endif // _DEBUG
+		ReleaseDC(hWnd, hdc);
+		DeleteDC(memDC);
+		DeleteObject(new_bitmap_);
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	return 0;
 }
 
 Core* Core::GetInstance()
 {
-    call_once(flag_, [] // 람다식
-        {
-            instance_.reset(new Core);
-        });
+	call_once(flag_, [] // 람다식
+		{
+			instance_.reset(new Core);
+		});
 
-    return instance_.get();
+	return instance_.get();
 }
 
 void Core::Logic() // 생명 주기
 {
-    Time::GetInstance()->Update();
+	Time::GetInstance()->Update();
 
-    float delta_time_ = Time::GetInstance()->GetDeltaTime();
+	float delta_time_ = Time::GetInstance()->GetDeltaTime();
 
-    Update(delta_time_);
-    LateUpdate(delta_time_);
-    Render();
+	Update(delta_time_);
+	LateUpdate(delta_time_);
+	Render();
 }
 
 void Core::Update(float delta_time)
 {
-    SceneManager::GetInstance()->Update(delta_time);
-    run_timer_ += delta_time;
+	SceneManager::GetInstance()->Update(delta_time);
+	run_timer_ += delta_time;
 }
 
 void Core::LateUpdate(float delta_time)
 {
-    SceneManager::GetInstance()->LateUpdate(delta_time);
+	SceneManager::GetInstance()->LateUpdate(delta_time);
 }
 
 void Core::Render()
 {
-    Graphics graphics(hdc);
+	Graphics graphics(hdc);
 
-    FontFamily arial_font(L"Arial");
-    Font font_style(&arial_font, 12, FontStyleBold, UnitPixel);
+	FontFamily arial_font(L"Arial");
+	Font font_style(&arial_font, 12, FontStyleBold, UnitPixel);
 
-    SolidBrush white_brush(Color(255, 255, 255, 255));
-    SolidBrush black_brush(Color(255, 0, 0, 0));
-    
-    graphics.FillRectangle(&white_brush, -1, -1, resolution_.x, resolution_.y);
+	SolidBrush white_brush(Color(255, 255, 255, 255));
+	SolidBrush black_brush(Color(255, 0, 0, 0));
 
-    WCHAR fps_word[1024];
-    wsprintf(fps_word, L"FPS: %d", Time::GetInstance()->GetFPS());
-    PointF fps_font_position(10, 10);
-    graphics.DrawString(fps_word, -1, &font_style, fps_font_position, &black_brush);
-    
-    WCHAR scene_word[1024];
-    wsprintf(scene_word, L"Current Scene: %s", SceneManager::GetInstance()->GetInstance()->GetCurrentScene());
-    PointF scene_font_position(10, 24);
-    graphics.DrawString(scene_word, -1, &font_style, scene_font_position, &black_brush);
+	graphics.FillRectangle(&white_brush, -1, -1, resolution_.x, resolution_.y);
 
-    // 테스트 코드
-    WCHAR timer_word[1024];
-    _stprintf_s(timer_word, L"Run Time: %.fs", run_timer_);
-    PointF timer_font_position(10, 36);
-    graphics.DrawString(timer_word, -1, &font_style, timer_font_position, &black_brush);
+	WCHAR fps_word[1024];
+	wsprintf(fps_word, L"FPS: %d", Time::GetInstance()->GetFPS());
+	PointF fps_font_position(10, 10);
+	graphics.DrawString(fps_word, -1, &font_style, fps_font_position, &black_brush);
 
-    SceneManager::GetInstance()->Render(hdc);
+	WCHAR scene_word[1024];
+	wsprintf(scene_word, L"Current Scene: %s", SceneManager::GetInstance()->GetInstance()->GetCurrentScene());
+	PointF scene_font_position(10, 24);
+	graphics.DrawString(scene_word, -1, &font_style, scene_font_position, &black_brush);
 
-    BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
+	// 테스트 코드
+	WCHAR timer_word[1024];
+	_stprintf_s(timer_word, L"Run Time: %.2fs", run_timer_);
+	PointF timer_font_position(10, 36);
+	graphics.DrawString(timer_word, -1, &font_style, timer_font_position, &black_brush);
+
+	SceneManager::GetInstance()->Render(hdc);
+
+	BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
 }

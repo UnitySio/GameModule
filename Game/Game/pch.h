@@ -1,6 +1,7 @@
 #pragma once
 #pragma comment(lib, "Gdiplus.lib")
 
+#include <conio.h>
 #include <Ole2.h>
 #include <gdiplus.h>
 #include <mutex>

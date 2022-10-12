@@ -2,6 +2,8 @@
 
 #include <Windows.h>
 
+#include "Rigidbody2D.h"
+
 class Object
 {
 private:
@@ -9,12 +11,14 @@ private:
 	Vector2 position_;
 	Vector2 scale_;
 	Vector2 pivot_;
+
+	std::shared_ptr<Rigidbody2D> rigidbody2d_;
 public:
 	Object();
 	virtual ~Object() = default;
 
 	virtual void Update(float delta_time) = 0;
-	virtual void LateUpdate(float delta_time) = 0;
+	virtual void LateUpdate(float delta_time);
 	virtual void Render(HDC hdc) = 0;
 
 	void SetName(LPCWSTR name);
@@ -22,10 +26,14 @@ public:
 	void SetScale(Vector2 scale);
 	void SetPivot(Vector2 pivot);
 	void Translate(Vector2 vector2);
-	
+
 	LPCWSTR GetName();
 	Vector2 GetPosition();
 	Vector2 GetScale();
 	Vector2 GetPivot();
 	Vector2 GetRenderPositon();
+
+	std::shared_ptr<Rigidbody2D> GetRigidbody2D();
+
+	void AddRigidbody2D();
 };

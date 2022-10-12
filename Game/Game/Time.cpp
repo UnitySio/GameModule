@@ -43,6 +43,11 @@ void Time::Update()
     {
         fps_ = counter_;
 
+#ifdef _DEBUG
+        system("cls");
+        _cprintf("FPS: %d\n", fps_);
+#endif // _DEBUG
+
         timer_ = 0;
         counter_ = 0;
     }
