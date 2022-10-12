@@ -116,6 +116,8 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 	case WM_DESTROY:
+		// º¸·ù
+		_CrtDumpMemoryLeaks();
 #ifdef _DEBUG
 		FreeConsole();
 #endif // _DEBUG

@@ -15,7 +15,7 @@ void Player::Update(float delta_time)
 {
 	HWND hWnd = GetFocus();
 
-	float move_speed = 1000;
+	float move_speed = 300;
 
 	float horizontal = 0;
 	float vertical = 0;
@@ -25,32 +25,37 @@ void Player::Update(float delta_time)
 
 	if (hWnd != nullptr)
 	{
-		if (GetKeyDown(VK_LEFT))
+		if (GetKey(VK_LEFT))
 		{
-			//Translate(Vector2().Left() * move_speed * delta_time);
+			Translate(Vector2().Left() * move_speed * delta_time);
 			//horizontal = -1;
-			rigid->AddForce(Vector2().Left() * move_speed);
+			//rigid->AddForce(Vector2().Left() * move_speed);
 		}
 
-		if (GetKeyDown(VK_RIGHT))
+		if (GetKey(VK_RIGHT))
 		{
-			//Translate(Vector2().Right() * move_speed * delta_time);
+			Translate(Vector2().Right() * move_speed * delta_time);
 			//horizontal = 1;
-			rigid->AddForce(Vector2().Right() * move_speed);
+			//rigid->AddForce(Vector2().Right() * move_speed);
 		}
 
-		if (GetKeyDown(VK_UP))
+		if (GetKey(VK_UP))
 		{
 			//Translate(Vector2().Up() * move_speed * delta_time);
 			//vertical = -1;
-			rigid->AddForce(Vector2().Up() * move_speed);
+			rigid->AddForce(Vector2().Up() * 10000);
 		}
 
-		if (GetKeyDown(VK_DOWN))
+		if (GetKey(VK_DOWN))
 		{
 			//Translate(Vector2().Down() * move_speed * delta_time);
 			//vertical = 1;
 			rigid->AddForce(Vector2().Down() * move_speed);
+		}
+
+		if (GetKeyDown(VK_SPACE))
+		{
+			rigid->AddForce(Vector2(0, -300) * 5000);
 		}
 	}
 
@@ -58,12 +63,22 @@ void Player::Update(float delta_time)
 	//position = position.Normalized() * move_speed * delta_time;
 	//SetPosition(GetPosition() + position);
 
-	rigid->AddForce(Vector2().Down() * 100);
 }
 
 void Player::LateUpdate(float delta_time)
 {
 	Object::LateUpdate(delta_time);
+	shared_ptr<Rigidbody2D> rigid = GetRigidbody2D();
+
+	if (GetPosition().y < 300)
+	{
+		rigid->AddForce(Vector2().Down() * 1000);
+	}
+	else if (GetPosition().y >= 300)
+	{
+		SetPosition({ GetPosition().x, 300 });
+		rigid->force_ = Vector2().Zero();
+	}
 }
 
 void Player::Render(HDC hdc)

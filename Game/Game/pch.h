@@ -16,7 +16,8 @@
 0x8001 - 이전에도 키가 입력되었으며, 호출 시점에도 키가 입력됨
 */
 
-#define GetKeyDown(virtual_key) (GetAsyncKeyState(virtual_key) & 0x8000)
+#define GetKeyDown(virtual_key) (GetAsyncKeyState(virtual_key) & 0x0001)
+#define GetKey(virtual_key) (GetAsyncKeyState(virtual_key) & 0x8000)
 
 enum class SceneType
 {

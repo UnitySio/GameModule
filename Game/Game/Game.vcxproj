@@ -144,7 +144,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BoxCollider2D.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Layer.h" />
@@ -162,7 +161,6 @@
     <ClInclude Include="Core.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoxCollider2D.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Object.cpp" />
