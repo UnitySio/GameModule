@@ -39,6 +39,11 @@ void Rigidbody2D::LateUpdate(float delta_time)
 	force_ = Vector2().Zero();
 }
 
+Vector2 Rigidbody2D::GetForce()
+{
+	return force_;
+}
+
 void Rigidbody2D::AddForce(Vector2 force)
 {
 	force_ += force; // Èû ´©Àû

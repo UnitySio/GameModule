@@ -19,7 +19,7 @@ private:
 	static std::unique_ptr<CollisionManager> instance_;
 	static std::once_flag flag_;
 
-	std::map<ULONGLONG, bool> info;
+	std::map<ULONGLONG, bool> collision_info_;
 	bool collision_matrix_[(size_t)GroupObjectType::kEND][(size_t)GroupObjectType::kEND];
 public:
 	CollisionManager();

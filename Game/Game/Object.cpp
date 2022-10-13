@@ -22,6 +22,18 @@ void Object::LateUpdate(float delta_time)
 	}
 }
 
+void Object::OnTriggerEnter(shared_ptr<BoxCollider2D> other)
+{
+}
+
+void Object::OnTriggerStay(shared_ptr<BoxCollider2D> other)
+{
+}
+
+void Object::OnTriggerExit(shared_ptr<BoxCollider2D> other)
+{
+}
+
 void Object::SetName(LPCWSTR name)
 {
 	wsprintf(name_, L"%s", name);

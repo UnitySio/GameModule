@@ -23,6 +23,10 @@ public:
 	virtual void LateUpdate(float delta_time);
 	virtual void Render(HDC hdc) = 0;
 
+	virtual void OnTriggerEnter(std::shared_ptr<BoxCollider2D> other);
+	virtual void OnTriggerStay(std::shared_ptr<BoxCollider2D> other);
+	virtual void OnTriggerExit(std::shared_ptr<BoxCollider2D> other);
+
 	void SetName(LPCWSTR name);
 	void SetPosition(Vector2 position);
 	void SetScale(Vector2 scale);

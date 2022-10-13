@@ -36,4 +36,6 @@ public:
 	Vector2 GetScale();
 
 	UINT GetUID();
+
+	Object* GetOwner();
 };

@@ -9,6 +9,7 @@ private:
 
 	Object* owner_;
 
+	Vector2 force_; // 힘
 	float mass_; // 질량
 	float friction_coefficient_; // 마찰 계수
 	float max_speed_; // 최대 속도
@@ -22,7 +23,8 @@ public:
 
 	void LateUpdate(float delta_time);
 
-	Vector2 force_; // 힘
+	Vector2 GetForce();
+
 	void AddForce(Vector2 force);
 };
 

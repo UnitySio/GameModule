@@ -11,7 +11,7 @@ using namespace std;
 unique_ptr<CollisionManager> CollisionManager::instance_ = nullptr;
 once_flag CollisionManager::flag_;
 
-CollisionManager::CollisionManager() : collision_matrix_{}, info{}
+CollisionManager::CollisionManager() : collision_matrix_{}, collision_info_{}
 {
 }
 
@@ -54,7 +54,7 @@ void CollisionManager::Update(float delta_time)
 
                     for (size_t j = 0; j < group2.size(); j++)
                     {
-                        if (group2[i]->GetBoxCollider2D() == nullptr || group1[i] == group2[j])
+                        if (group2[j]->GetBoxCollider2D() == nullptr || group1[i] == group2[j])
                         {
                             continue;
                         }
@@ -63,12 +63,12 @@ void CollisionManager::Update(float delta_time)
                         UID.group1_uid = group1[i]->GetBoxCollider2D()->GetUID();
                         UID.group2_uid = group2[j]->GetBoxCollider2D()->GetUID();
 
-                        iter = info.find(UID.UID);
+                        iter = collision_info_.find(UID.UID);
 
-                        if (info.end() == iter)
+                        if (iter == collision_info_.end())
                         {
-                            info.insert({ UID.UID, false });
-                            iter = info.find(UID.UID);
+                            collision_info_.insert({ UID.UID, false });
+                            iter = collision_info_.find(UID.UID);
                         }
 
                         if (IsCollision(group1[i]->GetBoxCollider2D(), group2[j]->GetBoxCollider2D()))
@@ -130,7 +130,7 @@ bool CollisionManager::IsCollision(shared_ptr<BoxCollider2D> group1, shared_ptr<
     Vector2 group2_position = group2->GetPosition();
     Vector2 group2_scale = group2->GetScale();
 
-    if (abs(group2_position.x - group1_position.x) < (group2_scale.x + group1_scale.x) / 2.f && abs(group2_position.y - group1_position.y) < (group2_scale.y + group1_scale.y) / 2.f)
+    if (abs(group1_position.x - group2_position.x) < (group1_scale.x + group2_scale.x) / 2 && abs(group1_position.y - group2_position.y) < (group1_scale.y + group2_scale.y) / 2)
     {
         return true;
     }

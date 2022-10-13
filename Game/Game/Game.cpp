@@ -41,6 +41,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(224);
 
+	new int;
+
 	// 기본 메시지 루프입니다:
 	while (TRUE)
 	{

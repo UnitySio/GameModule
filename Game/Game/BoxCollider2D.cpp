@@ -20,23 +20,17 @@ void BoxCollider2D::LateUpdate(float delta_time)
 
 void BoxCollider2D::OnTriggerEnter(std::shared_ptr<BoxCollider2D> other)
 {
-#ifdef _DEBUG
-	_cprintf("OnTriggerEnter\n");
-#endif // _DEBUG
+	owner_->OnTriggerEnter(other);
 }
 
 void BoxCollider2D::OnTriggerStay(std::shared_ptr<BoxCollider2D> other)
 {
-#ifdef _DEBUG
-	_cprintf("OnTriggerStay\n");
-#endif // _DEBUG
+	owner_->OnTriggerStay(other);
 }
 
 void BoxCollider2D::OnTriggerExit(std::shared_ptr<BoxCollider2D> other)
 {
-#ifdef _DEBUG
-	_cprintf("OnTriggerExit\n");
-#endif // _DEBUG
+	owner_->OnTriggerExit(other);
 }
 
 void BoxCollider2D::SetOffset(Vector2 vector2)
@@ -62,4 +56,9 @@ Vector2 BoxCollider2D::GetScale()
 UINT BoxCollider2D::GetUID()
 {
 	return uid_;
+}
+
+Object* BoxCollider2D::GetOwner()
+{
+	return owner_;
 }

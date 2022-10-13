@@ -32,30 +32,30 @@ void Player::Update(float delta_time)
 	{
 		if (GetKey(VK_LEFT))
 		{
-			Translate(Vector2().Left() * move_speed * delta_time);
+			//Translate(Vector2().Left() * move_speed * delta_time);
 			//horizontal = -1;
-			//rigid->AddForce(Vector2().Left() * move_speed);
+			rigid->AddForce(Vector2().Left() * move_speed);
 		}
 
 		if (GetKey(VK_RIGHT))
 		{
-			Translate(Vector2().Right() * move_speed * delta_time);
+			//Translate(Vector2().Right() * move_speed * delta_time);
 			//horizontal = 1;
-			//rigid->AddForce(Vector2().Right() * move_speed);
+			rigid->AddForce(Vector2().Right() * move_speed);
 		}
 
 		if (GetKey(VK_UP))
 		{
-			Translate(Vector2().Up() * move_speed * delta_time);
+			//Translate(Vector2().Up() * move_speed * delta_time);
 			//vertical = -1;
-			//rigid->AddForce(Vector2().Up() * 10000);
+			rigid->AddForce(Vector2().Up() * move_speed);
 		}
 
 		if (GetKey(VK_DOWN))
 		{
-			Translate(Vector2().Down() * move_speed * delta_time);
+			//Translate(Vector2().Down() * move_speed * delta_time);
 			//vertical = 1;
-			//rigid->AddForce(Vector2().Down() * move_speed);
+			rigid->AddForce(Vector2().Down() * move_speed);
 		}
 	}
 
@@ -77,11 +77,13 @@ void Player::Render(HDC hdc)
 	FontFamily arial_font(L"Arial");
 	Font font_style(&arial_font, 12, FontStyleBold, UnitPixel);
 
+	SolidBrush white_brush(Color(255, 255, 255, 255));
 	SolidBrush black_brush(Color(255, 0, 0, 0));
 
 	Pen black_pen(Color(255, 0, 0, 0));
 	Pen red_pen(Color(255, 255, 0, 0));
 
+	graphics.FillRectangle(&white_brush, GetRenderPositon().x, GetRenderPositon().y, GetScale().x, GetScale().y);
 	graphics.DrawRectangle(&black_pen, GetRenderPositon().x, GetRenderPositon().y, GetScale().x, GetScale().y);
 
 	PointF pivot_font_position(GetPosition().x, GetPosition().y);
@@ -98,4 +100,21 @@ void Player::Render(HDC hdc)
 	_stprintf_s(position_word, L"Distance: %.f", distance);
 	PointF scene_font_position(GetRenderPositon().x + 16, GetRenderPositon().y + 32);
 	graphics.DrawString(position_word, -1, &font_style, scene_font_position, &string_format, &black_brush);
+}
+
+void Player::OnTriggerEnter(shared_ptr<BoxCollider2D> other)
+{
+	Object* other_owner = other->GetOwner();
+	other_owner->GetRigidbody2D()->AddForce(GetRigidbody2D()->GetForce() * 2);
+}
+
+void Player::OnTriggerStay(shared_ptr<BoxCollider2D> other)
+{
+	Object* other_owner = other->GetOwner();
+
+	other_owner->GetRigidbody2D()->AddForce(GetRigidbody2D()->GetForce() * 2);
+}
+
+void Player::OnTriggerExit(shared_ptr<BoxCollider2D> other)
+{
 }
