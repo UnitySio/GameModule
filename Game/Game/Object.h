@@ -35,10 +35,10 @@ public:
 	void Translate(Vector2 vector2);
 
 	LPCWSTR GetName();
-	Vector2 GetAbsolutePosition(); // Àý´ë ÁÂÇ¥
+	Vector2 GetPosition();
 	Vector2 GetScale();
 	Vector2 GetPivot();
-	Vector2 GetRelativePosition(); // »ó´ë ÁÂÇ¥
+	Vector2 GetPivotPosition();
 
 	std::shared_ptr<BoxCollider2D> GetBoxCollider2D();
 	std::shared_ptr<Rigidbody2D> GetRigidbody2D();

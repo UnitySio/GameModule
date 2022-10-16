@@ -16,7 +16,7 @@ BoxCollider2D::BoxCollider2D(const BoxCollider2D& kBoxCollider2D) : owner_(), of
 
 void BoxCollider2D::LateUpdate(float delta_time)
 {
-	Vector2 position = owner_->GetAbsolutePosition();
+	Vector2 position = owner_->GetPosition();
 	Vector2 pivot = owner_->GetPivot();
 	Vector2 scale = owner_->GetScale();
 
@@ -48,7 +48,7 @@ void BoxCollider2D::SetScale(Vector2 vector2)
 	scale_ = vector2;
 }
 
-Vector2 BoxCollider2D::GetAbsolutePosition()
+Vector2 BoxCollider2D::GetPosition()
 {
 	return position_;
 }

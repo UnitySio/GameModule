@@ -26,7 +26,7 @@ void Block::LateUpdate(float delta_time)
 
 void Block::Render(HDC hdc)
 {
-	Rectangle(hdc, GetRelativePosition().x, GetRelativePosition().y, GetRelativePosition().x + GetScale().x, GetRelativePosition().y + GetScale().y);
+	Rectangle(hdc, GetPivotPosition().x, GetPivotPosition().y, GetPivotPosition().x + GetScale().x, GetPivotPosition().y + GetScale().y);
 }
 
 void Block::OnTriggerEnter(shared_ptr<BoxCollider2D> other)

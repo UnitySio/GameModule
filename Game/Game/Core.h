@@ -3,8 +3,6 @@
 #include "resource.h"
 #include "framework.h"
 
-using namespace std;
-
 #define MAX_LOADSTRING 100
 
 class Core
@@ -23,8 +21,11 @@ private:
 	LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	// ΩÃ±€≈Ê
-	static shared_ptr<Core> instance_;
-	static once_flag flag_;
+	static std::shared_ptr<Core> instance_;
+	static std::once_flag flag_;
+
+	HANDLE thread_;
+	DWORD thread_id_;
 
 	void Update(float delta_time);
 	void LateUpdate(float delta_time);

@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "CollisionManager.h"
 
+using namespace std;
 using namespace Gdiplus;
 
 // 멤버 변수 초기화
@@ -151,6 +152,7 @@ void Core::Logic() // 생명 주기
 
 	float delta_time_ = TimeManager::GetInstance()->GetDeltaTime();
 
+
 	Update(delta_time_);
 	LateUpdate(delta_time_);
 	Render();
@@ -198,7 +200,7 @@ void Core::Render()
 
 	// 테스트 코드
 	WCHAR timer_word[1024];
-	_stprintf_s(timer_word, L"Run TimeManager: %.2fs", run_timer_);
+	_stprintf_s(timer_word, L"Run Time: %.2fs", run_timer_);
 	PointF timer_font_position(10, 36);
 	graphics.DrawString(timer_word, -1, &font_style, timer_font_position, &black_brush);
 

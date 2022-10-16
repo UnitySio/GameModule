@@ -55,7 +55,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		else
+		else // Dead Time
 		{
 			Core::GetInstance()->Logic();
 		}

@@ -32,9 +32,9 @@ void CollisionManager::Release()
 
 void CollisionManager::LateUpdate(float delta_time)
 {
-	for (size_t row = 0; row < (size_t)LayerType::kEND; row++)
+	for (size_t row = 0; row < (size_t)LayerType::kEnd; row++)
 	{
-		for (size_t column = 0; column < (size_t)LayerType::kEND - row; column++)
+		for (size_t column = 0; column < (size_t)LayerType::kEnd - row; column++)
 		{
 			if (collision_matrix_[row][column])
 			{
@@ -129,10 +129,10 @@ void CollisionManager::SetCollisionMatrix(LayerType first_layer, LayerType secon
 
 bool CollisionManager::IsCollision(shared_ptr<BoxCollider2D> first_layer, shared_ptr<BoxCollider2D> second_layer)
 {
-	Vector2 first_layer_position = first_layer->GetAbsolutePosition();
+	Vector2 first_layer_position = first_layer->GetPosition();
 	Vector2 first_layer_scale = first_layer->GetScale();
 
-	Vector2 second_layer_position = second_layer->GetAbsolutePosition();
+	Vector2 second_layer_position = second_layer->GetPosition();
 	Vector2 second_layer_scale = second_layer->GetScale();
 
 	if (fabs(first_layer_position.x - second_layer_position.x) < (first_layer_scale.x + second_layer_scale.x) / 2 && fabs(first_layer_position.y - second_layer_position.y) < (first_layer_scale.y + second_layer_scale.y) / 2)

@@ -11,7 +11,7 @@ private:
 	static std::shared_ptr<SceneManager> instance_;
 	static std::once_flag flag_;
 
-	std::shared_ptr<Scene> scenes_[(size_t)SceneType::kEND];
+	std::shared_ptr<Scene> scenes_[(size_t)SceneType::kEnd];
 	std::shared_ptr<Scene> current_scene_;
 public:
 	SceneManager();

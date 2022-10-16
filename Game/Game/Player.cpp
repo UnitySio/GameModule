@@ -95,7 +95,7 @@ void Player::Render(HDC hdc)
 
 	//graphics.DrawImage(img_, GetRenderPosition().x, GetRenderPosition().y, GetScale().x, GetScale().y);
 
-	TransparentBlt(hdc, GetRelativePosition().x, GetRelativePosition().y, GetScale().x, GetScale().y, memDC_, 32, 0, 32, 32, RGB(0, 255, 38));
+	TransparentBlt(hdc, GetPivotPosition().x, GetPivotPosition().y, GetScale().x, GetScale().y, memDC_, 32, 0, 32, 32, RGB(0, 255, 38));
 }
 
 void Player::OnTriggerEnter(shared_ptr<BoxCollider2D> other)

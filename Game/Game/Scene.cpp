@@ -38,7 +38,7 @@ LPCWSTR Scene::GetName()
 
 void Scene::Update(float delta_time)
 {
-	for (size_t i = 0; i < (size_t)LayerType::kEND; i++)
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{
@@ -49,7 +49,7 @@ void Scene::Update(float delta_time)
 
 void Scene::LateUpdate(float delta_time)
 {
-	for (size_t i = 0; i < (size_t)LayerType::kEND; i++)
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{
@@ -60,7 +60,7 @@ void Scene::LateUpdate(float delta_time)
 
 void Scene::Render(HDC hdc)
 {
-	for (size_t i = 0; i < (size_t)LayerType::kEND; i++)
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{

@@ -29,9 +29,9 @@ void SceneManager::Release()
 
 void SceneManager::Initiate()
 {
-    scenes_[(size_t)SceneType::kTESTSCENE] = make_shared<TestScene>();
-    scenes_[(size_t)SceneType::kTESTSCENE]->SetName(L"Test Scene");
-    current_scene_ = scenes_[(size_t)SceneType::kTESTSCENE];
+    scenes_[(size_t)SceneType::kTestScene] = make_shared<TestScene>();
+    scenes_[(size_t)SceneType::kTestScene]->SetName(L"Test Scene");
+    current_scene_ = scenes_[(size_t)SceneType::kTestScene];
 
     current_scene_->Enter();
 }

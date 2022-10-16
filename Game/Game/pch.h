@@ -27,15 +27,15 @@
 
 enum class SceneType
 {
-	kTESTSCENE = 0,
-	kEND // 항상 마지막에 있어야 함
+	kTestScene = 0,
+	kEnd // 항상 마지막에 있어야 함
 };
 
 enum class LayerType
 {
-	kDEFAULT = 0,
-	kPLAYER,
-	kEND // 항상 마지막에 있어야 함
+	kDefault = 0,
+	kPlayer,
+	kEnd // 항상 마지막에 있어야 함
 };
 
 class pch

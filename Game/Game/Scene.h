@@ -7,7 +7,7 @@ class Scene
 private:
 	WCHAR name_[1024];
 	//std::vector<std::shared_ptr<Layer>> layers_;
-	std::vector<std::shared_ptr<Object>> objects_[(size_t)LayerType::kEND];
+	std::vector<std::shared_ptr<Object>> objects_[(size_t)LayerType::kEnd];
 public:
 	Scene();
 	virtual ~Scene() = default;

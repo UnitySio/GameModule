@@ -91,7 +91,7 @@ LPCWSTR Object::GetName()
 	return name_;
 }
 
-Vector2 Object::GetAbsolutePosition()
+Vector2 Object::GetPosition()
 {
 	return position_;
 }
@@ -106,7 +106,7 @@ Vector2 Object::GetPivot()
 	return pivot_;
 }
 
-Vector2 Object::GetRelativePosition()
+Vector2 Object::GetPivotPosition()
 {
 	return position_ - scale_ * pivot_;
 }
