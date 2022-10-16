@@ -9,6 +9,29 @@ Object::Object() : name_{}, position_{}, scale_{}, pivot_{}, box_collider2d_(), 
 {
 }
 
+Object::Object(const Object& kOrigin) : name_{}, position_ { kOrigin.position_ }, scale_{ kOrigin.scale_ }, pivot_{ kOrigin.pivot_ }, box_collider2d_(), rigidbody2d_()
+{
+	//OutputDebugString(L"복사 생성자");
+
+	wsprintf(name_, L"%s", kOrigin.name_);
+
+	if (kOrigin.box_collider2d_)
+	{
+		box_collider2d_ = make_shared<BoxCollider2D>(*(BoxCollider2D*)kOrigin.box_collider2d_.get());
+		box_collider2d_->owner_ = this;
+	}
+
+	if (kOrigin.rigidbody2d_)
+	{
+		rigidbody2d_ = make_shared<Rigidbody2D>(*(Rigidbody2D*)kOrigin.rigidbody2d_.get());
+		rigidbody2d_->owner_ = this;
+	}
+}
+
+void Object::Update(float delta_time)
+{
+}
+
 void Object::LateUpdate(float delta_time)
 {
 	if (box_collider2d_ != nullptr)
@@ -20,6 +43,10 @@ void Object::LateUpdate(float delta_time)
 	{
 		rigidbody2d_->LateUpdate(delta_time);
 	}
+}
+
+void Object::Render(HDC hdc)
+{
 }
 
 void Object::OnTriggerEnter(shared_ptr<BoxCollider2D> other)
@@ -64,7 +91,7 @@ LPCWSTR Object::GetName()
 	return name_;
 }
 
-Vector2 Object::GetPosition()
+Vector2 Object::GetAbsolutePosition()
 {
 	return position_;
 }
@@ -79,7 +106,7 @@ Vector2 Object::GetPivot()
 	return pivot_;
 }
 
-Vector2 Object::GetRenderPositon()
+Vector2 Object::GetRelativePosition()
 {
 	return position_ - scale_ * pivot_;
 }

@@ -19,12 +19,16 @@ private:
 	Vector2 friction_; // ¸¶Âû
 public:
 	Rigidbody2D();
+	Rigidbody2D(const Rigidbody2D& kOrigin);
 	~Rigidbody2D() = default;
+
+	Rigidbody2D& operator=(Rigidbody2D&) = delete;
 
 	void LateUpdate(float delta_time);
 
-	Vector2 GetForce();
-
 	void AddForce(Vector2 force);
+	void SetForce(Vector2 force);
+
+	Vector2 GetVelocity();
 };
 

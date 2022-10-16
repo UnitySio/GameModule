@@ -5,21 +5,26 @@
 using namespace std;
 
 // 멤버 변수 초기화
-unique_ptr<SceneManager> SceneManager::instance_ = nullptr;
+shared_ptr<SceneManager> SceneManager::instance_ = nullptr;
 once_flag SceneManager::flag_;
 
 SceneManager::SceneManager() : scenes_{}, current_scene_()
 {
 }
 
-SceneManager* SceneManager::GetInstance()
+shared_ptr<SceneManager> SceneManager::GetInstance()
 {
     call_once(flag_, [] // 람다식
         {
             instance_.reset(new SceneManager);
         });
 
-    return instance_.get();
+    return instance_;
+}
+
+void SceneManager::Release()
+{
+    instance_.reset();
 }
 
 void SceneManager::Initiate()

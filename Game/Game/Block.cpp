@@ -10,8 +10,8 @@ using namespace Gdiplus;
 Block::Block()
 {
 	AddBoxCollider2D();
-	GetBoxCollider2D()->SetOffset({ 0.f, 0.f });
-	GetBoxCollider2D()->SetScale({ 32.f, 32.f });
+	GetBoxCollider2D()->SetOffset({ 0, 0 });
+	GetBoxCollider2D()->SetScale({ 200, 200 });
 	AddRigidbody2D();
 }
 
@@ -26,24 +26,33 @@ void Block::LateUpdate(float delta_time)
 
 void Block::Render(HDC hdc)
 {
-	Graphics graphics(hdc);
-
-	SolidBrush white_brush(Color(255, 255, 255, 255));
-
-	Pen black_pen(Color(255, 0, 0, 0));
-
-	graphics.FillRectangle(&white_brush, GetRenderPositon().x, GetRenderPositon().y, GetScale().x, GetScale().y);
-	graphics.DrawRectangle(&black_pen, GetRenderPositon().x, GetRenderPositon().y, GetScale().x, GetScale().y);
+	Rectangle(hdc, GetRelativePosition().x, GetRelativePosition().y, GetRelativePosition().x + GetScale().x, GetRelativePosition().y + GetScale().y);
 }
 
 void Block::OnTriggerEnter(shared_ptr<BoxCollider2D> other)
 {
+	Object* other_owner = other->GetOwner();
+
+	if (wcscmp(other_owner->GetName(), L"Player") == 0)
+	{
+	}
 }
 
 void Block::OnTriggerStay(shared_ptr<BoxCollider2D> other)
 {
+	Object* other_owner = other->GetOwner();
+
+	if (wcscmp(other_owner->GetName(), L"Player") == 0)
+	{
+	}
 }
 
 void Block::OnTriggerExit(shared_ptr<BoxCollider2D> other)
 {
+	Object* other_owner = other->GetOwner();
+
+	if (wcscmp(other_owner->GetName(), L"Player") == 0)
+	{
+
+	}
 }

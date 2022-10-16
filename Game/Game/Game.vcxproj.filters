@@ -22,9 +22,6 @@
     <Filter Include="Core">
       <UniqueIdentifier>{d7319f70-30da-4234-a526-57d6ecdcdea9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Layer">
-      <UniqueIdentifier>{681fda80-4a40-4140-bac0-d5c3dda0af36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FSM">
       <UniqueIdentifier>{415332ad-9ef7-4dc4-a62e-a8b1f7971e82}</UniqueIdentifier>
     </Filter>
@@ -75,9 +72,6 @@
     <ClInclude Include="Core.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Layer</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -121,9 +115,6 @@
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Layer</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>

@@ -17,11 +17,12 @@ private:
 	std::shared_ptr<Rigidbody2D> rigidbody2d_;
 public:
 	Object();
+	Object(const Object& kOrigin);
 	virtual ~Object() = default;
 
-	virtual void Update(float delta_time) = 0;
+	virtual void Update(float delta_time);
 	virtual void LateUpdate(float delta_time);
-	virtual void Render(HDC hdc) = 0;
+	virtual void Render(HDC hdc);
 
 	virtual void OnTriggerEnter(std::shared_ptr<BoxCollider2D> other);
 	virtual void OnTriggerStay(std::shared_ptr<BoxCollider2D> other);
@@ -34,10 +35,10 @@ public:
 	void Translate(Vector2 vector2);
 
 	LPCWSTR GetName();
-	Vector2 GetPosition();
+	Vector2 GetAbsolutePosition(); // Àý´ë ÁÂÇ¥
 	Vector2 GetScale();
 	Vector2 GetPivot();
-	Vector2 GetRenderPositon();
+	Vector2 GetRelativePosition(); // »ó´ë ÁÂÇ¥
 
 	std::shared_ptr<BoxCollider2D> GetBoxCollider2D();
 	std::shared_ptr<Rigidbody2D> GetRigidbody2D();

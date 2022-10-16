@@ -1,4 +1,5 @@
 #pragma once
+#pragma comment(lib, "Msimg32.lib")
 #pragma comment(lib, "Gdiplus.lib")
 
 #define _CRTDBG_MAP_ALLOC
@@ -30,7 +31,7 @@ enum class SceneType
 	kEND // 항상 마지막에 있어야 함
 };
 
-enum class GroupObjectType
+enum class LayerType
 {
 	kDEFAULT = 0,
 	kPLAYER,
@@ -40,4 +41,3 @@ enum class GroupObjectType
 class pch
 {
 };
-

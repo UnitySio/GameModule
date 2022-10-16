@@ -6,7 +6,7 @@ class TimeManager
 {
 private:
 	// ΩÃ±€≈Ê
-	static std::unique_ptr<TimeManager> instance_;
+	static std::shared_ptr<TimeManager> instance_;
 	static std::once_flag flag_;
 
 	LARGE_INTEGER frequency_;
@@ -27,7 +27,9 @@ public:
 	TimeManager(const TimeManager&) = delete;
 	TimeManager& operator=(const TimeManager&) = delete;
 
-	static TimeManager* GetInstance();
+	static std::shared_ptr<TimeManager> GetInstance();
+
+	void Release();
 
 	void Initiate();
 	void Update();

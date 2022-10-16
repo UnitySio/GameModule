@@ -32,7 +32,7 @@ public:
 	void SetOffset(Vector2 vector2);
 	void SetScale(Vector2 vector2);
 
-	Vector2 GetPosition();
+	Vector2 GetAbsolutePosition();
 	Vector2 GetScale();
 
 	UINT GetUID();

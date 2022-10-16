@@ -6,9 +6,10 @@ union COLLIDER_UID
 {
 	struct
 	{
-		UINT group1_uid;
-		UINT group2_uid;
+		UINT first_collider_uid;
+		UINT second_collider_uid;
 	};
+
 	ULONGLONG UID;
 };
 
@@ -16,11 +17,11 @@ class CollisionManager
 {
 private:
 	// ΩÃ±€≈Ê
-	static std::unique_ptr<CollisionManager> instance_;
+	static std::shared_ptr<CollisionManager> instance_;
 	static std::once_flag flag_;
 
 	std::map<ULONGLONG, bool> collision_info_;
-	bool collision_matrix_[(size_t)GroupObjectType::kEND][(size_t)GroupObjectType::kEND];
+	bool collision_matrix_[(size_t)LayerType::kEND][(size_t)LayerType::kEND];
 public:
 	CollisionManager();
 	~CollisionManager() = default;
@@ -28,11 +29,12 @@ public:
 	CollisionManager(const CollisionManager&) = delete;
 	CollisionManager& operator=(const CollisionManager&) = delete;
 
-	static CollisionManager* GetInstance();
+	static std::shared_ptr<CollisionManager> GetInstance();
 
-	void Initiate();
-	void Update(float delta_time);
-	void SetCollisionMatrix(GroupObjectType group1, GroupObjectType group2);
-	bool IsCollision(std::shared_ptr<BoxCollider2D> group1, std::shared_ptr<BoxCollider2D> group2);
+	void Release();
+
+	void LateUpdate(float delta_time);
+	void SetCollisionMatrix(LayerType first_layer, LayerType second_layer);
+	bool IsCollision(std::shared_ptr<BoxCollider2D> first_layer, std::shared_ptr<BoxCollider2D> second_layer);
 };
 

@@ -23,7 +23,7 @@ private:
 	LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	// ΩÃ±€≈Ê
-	static unique_ptr<Core> instance_;
+	static shared_ptr<Core> instance_;
 	static once_flag flag_;
 
 	void Update(float delta_time);
@@ -44,7 +44,9 @@ public:
 	ATOM MyRegisterClass(HINSTANCE hinstance);
 	BOOL InitInstance(HINSTANCE, int);
 
-	static Core* GetInstance();
+	static std::shared_ptr<Core> GetInstance();
 
 	void Logic();
+
+	HDC GetHDC();
 };

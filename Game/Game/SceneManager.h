@@ -8,7 +8,7 @@ class SceneManager
 {
 private:
 	// ΩÃ±€≈Ê
-	static std::unique_ptr<SceneManager> instance_;
+	static std::shared_ptr<SceneManager> instance_;
 	static std::once_flag flag_;
 
 	std::shared_ptr<Scene> scenes_[(size_t)SceneType::kEND];
@@ -20,7 +20,9 @@ public:
 	SceneManager(const SceneManager&) = delete;
 	SceneManager& operator=(const SceneManager&) = delete;
 
-	static SceneManager* GetInstance();
+	static std::shared_ptr<SceneManager> GetInstance();
+
+	void Release();
 
 	void Initiate();
 	void Update(float delta_time);

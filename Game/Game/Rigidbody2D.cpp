@@ -8,6 +8,10 @@ Rigidbody2D::Rigidbody2D() : owner_(), mass_(1), friction_coefficient_(100), max
 {
 }
 
+Rigidbody2D::Rigidbody2D(const Rigidbody2D& kOrigin) : owner_(), mass_(1), friction_coefficient_(100), max_speed_(500), force_{}, acceleration_{}, velocity_{}
+{
+}
+
 void Rigidbody2D::LateUpdate(float delta_time)
 {
 	// F = m * a (Èû = Áú·® * °¡¼Óµµ)
@@ -39,12 +43,17 @@ void Rigidbody2D::LateUpdate(float delta_time)
 	force_ = Vector2().Zero();
 }
 
-Vector2 Rigidbody2D::GetForce()
-{
-	return force_;
-}
-
 void Rigidbody2D::AddForce(Vector2 force)
 {
 	force_ += force; // Èû ´©Àû
+}
+
+void Rigidbody2D::SetForce(Vector2 force)
+{
+	force_ = force;
+}
+
+Vector2 Rigidbody2D::GetVelocity()
+{
+	return velocity_;
 }

@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "TestScene.h"
-#include "Layer.h"
 #include "Player.h"
 #include "Block.h"
 #include "CollisionManager.h"
@@ -9,26 +8,31 @@ using namespace std;
 
 void TestScene::Enter()
 {
-	shared_ptr<Layer> layer = CreateLayer(L"Default", 0);
-	CreateLayer(L"UI", UINT_MAX);
+	shared_ptr<Object> ground = make_unique<Block>();
+	ground->SetName(L"Block 1");
+	ground->SetPosition({ 320, 480 });
+	ground->SetScale({ 200, 200 });
+	ground->SetPivot({ 0.5, 1 });
+	CreateObject(ground, LayerType::kDEFAULT);
 
-	shared_ptr<Object> player = make_unique<Player>();
+	shared_ptr<Object> ground2 = make_unique<Block>(*(Block*)ground.get());
+	ground2->SetPosition({ 540, 380 });
+	CreateObject(ground2, LayerType::kDEFAULT);
+
+	shared_ptr<Object> player = make_shared<Player>();
 	player->SetName(L"Player");
-	player->SetPosition({ 320, 240 });
-	player->SetScale({ 32, 32 });
+	player->SetPosition({ 0, 0 });
+	player->SetScale({ 64, 64 });
 	player->SetPivot({ 0.5, 0.5 });
-	layer->CreateObject(player, GroupObjectType::kPLAYER);
+	CreateObject(player, LayerType::kDEFAULT);
 
-	//layer->DestroyObject(layer->FindObject(L"Player"));
+	//shared_ptr<Object> playera = make_shared<Player>(*(Player*)player.get());
+	//playera->SetPosition({ 280, 240 });
+	//CreateObject(playera, LayerType::kDEFAULT);
 
-	shared_ptr<Object> object = make_unique<Block>();
-	object->SetName(L"Block");
-	object->SetPosition({ 100, 100 });
-	object->SetScale({ 32, 32 });
-	object->SetPivot({ 0.5, 0.5 });
-	layer->CreateObject(object, GroupObjectType::kDEFAULT);
+	//CreateObject(o, LayerType::kDEFAULT);
 
-	CollisionManager::GetInstance()->SetCollisionMatrix(GroupObjectType::kPLAYER, GroupObjectType::kDEFAULT);
+	CollisionManager::GetInstance()->SetCollisionMatrix(LayerType::kDEFAULT, LayerType::kDEFAULT);
 }
 
 void TestScene::Exit()

@@ -2,12 +2,13 @@
 #include "Core.h"
 #include "TimeManager.h"
 #include "SceneManager.h"
+#include "Scene.h"
 #include "CollisionManager.h"
 
 using namespace Gdiplus;
 
 // 멤버 변수 초기화
-unique_ptr<Core> Core::instance_ = nullptr;
+shared_ptr<Core> Core::instance_ = nullptr;
 once_flag Core::flag_;
 
 // 창 클래스를 등록
@@ -66,9 +67,6 @@ BOOL Core::InitInstance(HINSTANCE hInstance, int nCmdShow)
 	// SceneManager 초기화
 	SceneManager::GetInstance()->Initiate();
 
-	// CollisionManager 초기화
-	CollisionManager::GetInstance()->Initiate();
-
 	return TRUE;
 }
 
@@ -120,10 +118,12 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 	case WM_DESTROY:
-		_CrtDumpMemoryLeaks();
-#ifdef _DEBUG
-		FreeConsole();
-#endif // _DEBUG
+		// Smart Pointer Singleton 수동으로 메모리 해제
+		TimeManager::GetInstance()->Release();
+		SceneManager::GetInstance()->Release();
+		CollisionManager::GetInstance()->Release();
+		instance_.reset();
+
 		ReleaseDC(hWnd, hdc);
 		DeleteDC(memDC);
 		DeleteObject(new_bitmap_);
@@ -135,14 +135,14 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-Core* Core::GetInstance()
+shared_ptr<Core> Core::GetInstance()
 {
 	call_once(flag_, [] // 람다식
 		{
 			instance_.reset(new Core);
 		});
 
-	return instance_.get();
+	return instance_;
 }
 
 void Core::Logic() // 생명 주기
@@ -156,10 +156,14 @@ void Core::Logic() // 생명 주기
 	Render();
 }
 
+HDC Core::GetHDC()
+{
+	return hdc;
+}
+
 void Core::Update(float delta_time)
 {
 	SceneManager::GetInstance()->Update(delta_time);
-	CollisionManager::GetInstance()->Update(delta_time);
 
 	run_timer_ += delta_time;
 }
@@ -167,6 +171,7 @@ void Core::Update(float delta_time)
 void Core::LateUpdate(float delta_time)
 {
 	SceneManager::GetInstance()->LateUpdate(delta_time);
+	CollisionManager::GetInstance()->LateUpdate(delta_time);
 }
 
 void Core::Render()
@@ -187,7 +192,7 @@ void Core::Render()
 	graphics.DrawString(fps_word, -1, &font_style, fps_font_position, &black_brush);
 
 	WCHAR scene_word[1024];
-	wsprintf(scene_word, L"Current Scene: %s", SceneManager::GetInstance()->GetInstance()->GetCurrentScene());
+	wsprintf(scene_word, L"Current Scene: %s", SceneManager::GetInstance()->GetCurrentScene()->GetName());
 	PointF scene_font_position(10, 24);
 	graphics.DrawString(scene_word, -1, &font_style, scene_font_position, &black_brush);
 

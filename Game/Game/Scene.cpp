@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Scene.h"
-#include "Layer.h"
+#include "Object.h"
 
 #include <algorithm>
 
@@ -20,7 +20,7 @@ LPCWSTR Scene::GetName()
 	return name_;
 }
 
-shared_ptr<Layer> Scene::CreateLayer(LPCWSTR name, UINT z_order)
+/*shared_ptr<Layer> Scene::CreateLayer(LPCWSTR name, UINT z_order)
 {
 	shared_ptr<Layer> new_layer = make_shared<Layer>();
 	new_layer->SetName(name);
@@ -34,33 +34,47 @@ shared_ptr<Layer> Scene::CreateLayer(LPCWSTR name, UINT z_order)
 		});
 
 	return new_layer;
-}
+}*/
 
 void Scene::Update(float delta_time)
 {
-	for (size_t i = 0; i < layers_.size(); i++)
+	for (size_t i = 0; i < (size_t)LayerType::kEND; i++)
 	{
-		layers_[i]->Update(delta_time);
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->Update(delta_time);
+		}
 	}
 }
 
 void Scene::LateUpdate(float delta_time)
 {
-	for (size_t i = 0; i < layers_.size(); i++)
+	for (size_t i = 0; i < (size_t)LayerType::kEND; i++)
 	{
-		layers_[i]->LateUpdate(delta_time);
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->LateUpdate(delta_time);
+		}
 	}
 }
 
 void Scene::Render(HDC hdc)
 {
-	for (size_t i = 0; i < layers_.size(); i++)
+	for (size_t i = 0; i < (size_t)LayerType::kEND; i++)
 	{
-		layers_[i]->Render(hdc);
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->Render(hdc);
+		}
 	}
 }
 
-const vector<shared_ptr<Object>>& Scene::GetGroupObject(GroupObjectType type)
+void Scene::CreateObject(std::shared_ptr<Object> object, LayerType type)
 {
-	return layers_[0]->objects_[(UINT)type];
+	objects_[(size_t)type].push_back(object);
+}
+
+const vector<shared_ptr<Object>>& Scene::GetGroupObject(LayerType type)
+{
+	return objects_[(UINT)type];
 }

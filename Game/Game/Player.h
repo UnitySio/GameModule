@@ -5,9 +5,15 @@
 class Player : public Object
 {
 private:
+	Gdiplus::Image* img_;
+
+	float timer_;
+
+	HBITMAP bitmap_;
+	HDC memDC_;
 public:
 	Player();
-	~Player() final = default;
+	~Player() final;
 
 	void Update(float delta_time) final;
 	void LateUpdate(float delta_time) final;

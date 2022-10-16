@@ -2,6 +2,8 @@
 #include "BoxCollider2D.h"
 #include "Object.h"
 
+using namespace Gdiplus;
+
 UINT BoxCollider2D::next_uid_ = 0;
 
 BoxCollider2D::BoxCollider2D() : owner_(), offset_{}, position_{}, scale_{}, uid_(next_uid_++)
@@ -14,8 +16,11 @@ BoxCollider2D::BoxCollider2D(const BoxCollider2D& kBoxCollider2D) : owner_(), of
 
 void BoxCollider2D::LateUpdate(float delta_time)
 {
-	Vector2 position = owner_->GetPosition();
-	position_ = offset_ + position;
+	Vector2 position = owner_->GetAbsolutePosition();
+	Vector2 pivot = owner_->GetPivot();
+	Vector2 scale = owner_->GetScale();
+
+	position_ = position - ((scale * pivot) - scale / 2) + offset_;
 }
 
 void BoxCollider2D::OnTriggerEnter(std::shared_ptr<BoxCollider2D> other)
@@ -43,7 +48,7 @@ void BoxCollider2D::SetScale(Vector2 vector2)
 	scale_ = vector2;
 }
 
-Vector2 BoxCollider2D::GetPosition()
+Vector2 BoxCollider2D::GetAbsolutePosition()
 {
 	return position_;
 }
