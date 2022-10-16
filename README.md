@@ -8,4 +8,4 @@ WinAPI에서 간단하게 게임을 만들 수 있도록 하기 위해 개발 �
 * GDI, GDI+
 
 ### Developer Comment
-* Direct2D 또는 Direct3D로 그래픽 라이브러리 교체를 권장합니다.
+* 기본적으로 사용되는 GDI와 GDI+ 그래픽 라이브러리의 경우 CPU 자원만을 사용해서 처리를 하기 때문에 Direct2D 또는 Direct3D로 그래픽 라이브러리 교체를 권장합니다.
