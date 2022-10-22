@@ -5,6 +5,9 @@ WinAPI에서 간단하게 게임을 만들 수 있도록 하기 위해 개발하
 ### Using Language
 * C++
 
+### Using IDE
+* VC++
+
 ### Naming Convention
 * [Google Naming Convention](https://google.github.io/styleguide/cppguide.html#General_Naming_Rules)
 
