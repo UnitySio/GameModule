@@ -11,6 +11,9 @@ WinAPI에서 간단하게 게임을 만들 수 있도록 하기 위해 개발하
 ### Using Graphic Library
 * GDI, GDI+
 
+### Using Sound Library
+* FMMOD
+
 ### Life Cycle
 * 업데이트 예정
 
