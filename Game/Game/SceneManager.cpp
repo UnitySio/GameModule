@@ -1,57 +1,95 @@
 #include "pch.h"
 #include "SceneManager.h"
-#include "TestScene.h"
+#include "Scene.h"
+#include "DefaultScene.h"
 
 using namespace std;
+using namespace Gdiplus;
 
 // 멤버 변수 초기화
 shared_ptr<SceneManager> SceneManager::instance_ = nullptr;
 once_flag SceneManager::flag_;
 
-SceneManager::SceneManager() : scenes_{}, current_scene_()
+SceneManager::SceneManager() :
+	scenes_(),
+	current_scene_()
 {
 }
 
 shared_ptr<SceneManager> SceneManager::GetInstance()
 {
-    call_once(flag_, [] // 람다식
-        {
-            instance_.reset(new SceneManager);
-        });
+	call_once(flag_, [] // 람다식
+		{
+			instance_.reset(new SceneManager);
+		});
 
-    return instance_;
+	return instance_;
 }
 
 void SceneManager::Release()
 {
-    instance_.reset();
+	instance_.reset();
 }
 
 void SceneManager::Initiate()
 {
-    scenes_[(size_t)SceneType::kTestScene] = make_shared<TestScene>();
-    scenes_[(size_t)SceneType::kTestScene]->SetName(L"Test Scene");
-    current_scene_ = scenes_[(size_t)SceneType::kTestScene];
+	shared_ptr<Scene> default_scene = make_shared<DefaultScene>();
+	CreateScene(default_scene, SceneType::kDefault, L"Default");
 
-    current_scene_->Enter();
+	LoadScene(SceneType::kDefault);
 }
 
-void SceneManager::Update(float delta_time)
+void SceneManager::CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR name)
 {
-    current_scene_->Update(delta_time);
+	scene->SetName(name);
+
+	scenes_[(size_t)scene_type] = scene;
 }
 
-void SceneManager::LateUpdate(float delta_time)
+void SceneManager::LoadScene(SceneType scene_type)
 {
-    current_scene_->LateUpdate(delta_time);
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->Exit();
+	}
+
+	current_scene_ = scenes_[(size_t)scene_type];
+	current_scene_->Enter();
 }
 
-void SceneManager::Render(HDC hdc)
+void SceneManager::Update()
 {
-    current_scene_->Render(hdc);
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->Update();
+	}
+}
+
+void SceneManager::LateUpdate()
+{
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->LateUpdate();
+	}
+}
+
+void SceneManager::PhysicsUpdate()
+{
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->PhysicsUpdate();
+	}
+}
+
+void SceneManager::Render()
+{
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->Render();
+	}
 }
 
 shared_ptr<Scene> SceneManager::GetCurrentScene()
 {
-    return current_scene_;
+	return current_scene_;
 }

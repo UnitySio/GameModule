@@ -1,75 +1,98 @@
 #include "pch.h"
 #include "Vector2.h"
 
-Vector2::Vector2() : x(0), y(0)
+Vector2::Vector2() :
+	x_(),
+	y_()
 {
 }
 
-Vector2::Vector2(float x, float y) : x(x), y(y)
+Vector2::Vector2(float x_, float y_)
 {
+	this->x_ = x_;
+	this->y_ = y_;
 }
 
 Vector2& Vector2::operator+=(const Vector2& kVector2)
 {
-	x += kVector2.x;
-	y += kVector2.y;
+	x_ += kVector2.x_;
+	y_ += kVector2.y_;
 	return *this;
 }
 
 Vector2& Vector2::operator-=(const Vector2& kVector2)
 {
-	x -= kVector2.x;
-	y -= kVector2.y;
+	x_ -= kVector2.x_;
+	y_ -= kVector2.y_;
+	return *this;
+}
+
+Vector2& Vector2::operator*=(const Vector2& kVector2)
+{
+	x_ *= kVector2.x_;
+	y_ *= kVector2.y_;
+	return *this;
+}
+
+Vector2& Vector2::operator/=(const Vector2& kVector2)
+{
+	x_ /= kVector2.x_;
+	y_ /= kVector2.y_;
 	return *this;
 }
 
 Vector2& Vector2::operator=(const Vector2& kVector2)
 {
-	x = kVector2.x;
-	y = kVector2.y;
+	x_ = kVector2.x_;
+	y_ = kVector2.y_;
 	return *this;
 }
 
 Vector2 Vector2::operator+(const Vector2& kVector2)
 {
-	return { x + kVector2.x, y + kVector2.y };
+	return { x_ + kVector2.x_, y_ + kVector2.y_ };
 }
 
 Vector2 Vector2::operator-(const Vector2& kVector2)
 {
-	return { x - kVector2.x, y - kVector2.y };
+	return { x_ - kVector2.x_, y_ - kVector2.y_ };
 }
 
 Vector2 Vector2::operator*(const Vector2& kVector2)
 {
-	return { x * kVector2.x, y * kVector2.y };
+	return { x_ * kVector2.x_, y_ * kVector2.y_ };
+}
+
+Vector2 Vector2::operator/(const Vector2& kVector2)
+{
+	return { x_ / kVector2.x_, y_ / kVector2.y_ };
+}
+
+Vector2 Vector2::operator+(float value)
+{
+	return { x_ + value, y_ + value };
+}
+
+Vector2 Vector2::operator-(float value)
+{
+	return { x_ - value, y_ - value };
 }
 
 Vector2 Vector2::operator*(float value)
 {
-	return { x * value, y * value };
+	return { x_ * value, y_ * value };
 }
 
 Vector2 Vector2::operator/(float value)
 {
-	return { x / value, y / value };
-}
-
-bool Vector2::operator==(const Vector2& kVector2)
-{
-	return x == kVector2.x && y == kVector2.y;
-}
-
-bool Vector2::operator!=(const Vector2& kVector2)
-{
-	return x != kVector2.x || y != kVector2.y;
+	return { x_ / value, y_ / value };
 }
 
 Vector2 Vector2::Normalized()
 {
 	if (Magnitude() > 0)
 	{
-		return { x / Magnitude(), y / Magnitude() };
+		return { x_ /= Magnitude(), y_ /= Magnitude() };
 	}
 
 	return { 0, 0 };
@@ -77,61 +100,71 @@ Vector2 Vector2::Normalized()
 
 Vector2 Vector2::Zero()
 {
-	return { 0, 0 };
+	return Vector2({ 0, 0 });
 }
 
 Vector2 Vector2::One()
 {
-	return { 1, 1 };
+	return Vector2({ 1, 1 });
 }
 
 Vector2 Vector2::Up()
 {
-	return { 0, -1 };
-}
-
-Vector2 Vector2::Left()
-{
-	return { -1, 0 };
+	return Vector2({ 0, -1 });
 }
 
 Vector2 Vector2::Down()
 {
-	return { 0, 1 };
+	return Vector2({ 0, 1 });
+}
+
+Vector2 Vector2::Left()
+{
+	return Vector2({ -1, 0 });
 }
 
 Vector2 Vector2::Right()
 {
-	return { 1, 0 };
+	return Vector2({ 1, 0 });
+}
+
+bool Vector2::operator==(const Vector2& kVector2)
+{
+	return x_ == kVector2.x_ && y_ == kVector2.y_;
+}
+
+bool Vector2::operator!=(const Vector2& kVector2)
+{
+	return x_ != kVector2.x_ || y_ != kVector2.y_;
+}
+
+void Vector2::Set(float x_, float y_)
+{
+	this->x_ = x_;
+	this->y_ = y_;
 }
 
 void Vector2::Normalize()
 {
 	if (Magnitude() > 0)
 	{
-		x /= Magnitude();
-		y /= Magnitude();
+		x_ /= Magnitude();
+		y_ /= Magnitude();
 	}
 	else
 	{
-		x = 0;
-		y = 0;
+		x_ = 0;
+		y_ = 0;
 	}
-}
-
-void Vector2::Set(float x, float y)
-{
-	this->x = x;
-	this->y = y;
 }
 
 float Vector2::Magnitude()
 {
-	return sqrt(pow(x, 2) + pow(y, 2));
+	return sqrt(pow(x_, 2) + pow(y_, 2));
 }
 
 float Vector2::Distance(Vector2 first, Vector2 second)
 {
-	Vector2 result = first - second;
-	return result.Magnitude();
+	Vector2 sub = first - second;
+	return sub.Magnitude();
 }

@@ -13,7 +13,7 @@ private:
 
 	HDC hdc;
 	HDC memDC;
-	HBITMAP new_bitmap_;
+	HBITMAP bitmap_;
 
 	POINT resolution_;
 	RECT view_area_;
@@ -43,8 +43,8 @@ public:
 	HDC GetHDC();
 
 	void Logic();
-	void Update();
-	void LateUpdate();
+	void Update(); // Update는 매 프레임 마다 실행됩니다.
+	void LateUpdate(); // LateUpdate는 모든 Update 함수가 처리된 후 실행됩니다.
+	void PhysicsUpdate();
 	void Render();
 };
-

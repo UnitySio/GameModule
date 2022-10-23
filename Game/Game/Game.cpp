@@ -1,4 +1,9 @@
-﻿#include "pch.h"
+﻿#define _CRTDBG_MAP_ALLOC
+
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#include "pch.h"
 #include "Game.h"
 
 using namespace Gdiplus;
@@ -19,12 +24,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	GdiplusStartup(&gdiplus_token, &gdiplus_startup_input, NULL);
 
 	// 전역 문자열을 초기화합니다.
-	LoadStringW(hInstance, IDS_APP_TITLE, Core::GetInstance()->szTitle, MAX_LOADSTRING);
-	LoadStringW(hInstance, IDC_GAME, Core::GetInstance()->szWindowClass, MAX_LOADSTRING);
-	Core::GetInstance()->MyRegisterClass(hInstance);
+	LoadStringW(hInstance, IDS_APP_TITLE, Window::GetInstance()->szTitle, MAX_LOADSTRING);
+	LoadStringW(hInstance, IDC_GAME, Window::GetInstance()->szWindowClass, MAX_LOADSTRING);
+	Window::GetInstance()->MyRegisterClass(hInstance);
 
 	// 애플리케이션 초기화를 수행합니다:
-	if (!Core::GetInstance()->InitInstance(hInstance, nCmdShow))
+	if (!Window::GetInstance()->InitInstance(hInstance, nCmdShow))
 	{
 		return FALSE;
 	}
@@ -34,11 +39,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MSG msg;
 
 #ifdef _DEBUG
-	AllocConsole();
-
-	// 메모리 누수 확인
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(219);
 #endif // _DEBUG
 
 	// 기본 메시지 루프입니다:
@@ -57,15 +58,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else // Dead Time
 		{
-			Core::GetInstance()->Logic();
+			Window::GetInstance()->Logic();
 		}
 	}
 
 #ifdef _DEBUG
-	FreeConsole();
-
 	_CrtDumpMemoryLeaks();
 #endif // _DEBUG
+
 
 	GdiplusShutdown(gdiplus_token);
 

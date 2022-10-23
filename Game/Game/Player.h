@@ -1,25 +1,20 @@
 #pragma once
 
 #include "Object.h"
+#include "Sprite.h"
 
 class Player : public Object
 {
 private:
-	Gdiplus::Image* img_;
+	float move_speed_;
 
-	float timer_;
-
-	HBITMAP bitmap_;
-	HDC memDC_;
+	Sprite sprite_;
 public:
 	Player();
-	~Player() final;
+	~Player() final = default;
 
-	void Update(float delta_time) final;
-	void LateUpdate(float delta_time) final;
-	void Render(HDC hdc) final;
-
-	void OnTriggerEnter(std::shared_ptr<BoxCollider2D> other) final;
-	void OnTriggerStay(std::shared_ptr<BoxCollider2D> other) final;
-	void OnTriggerExit(std::shared_ptr<BoxCollider2D> other) final;
+	void Update() final;
+	void LateUpdate() final;
+	void PhysicsUpdate() final;
+	void Render() final;
 };

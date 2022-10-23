@@ -2,11 +2,11 @@
 #include "Scene.h"
 #include "Object.h"
 
-#include <algorithm>
-
 using namespace std;
 
-Scene::Scene() : name_{}
+Scene::Scene() :
+	name_(),
+	objects_()
 {
 }
 
@@ -15,66 +15,57 @@ void Scene::SetName(LPCWSTR name)
 	wsprintf(name_, L"%s", name);
 }
 
+void Scene::CreateObject(shared_ptr<Object> object, LayerType layer_type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale)
+{
+	object->SetName(name);
+	object->SetPosition(position);
+	object->SetRotation(rotation);
+	object->SetScale(scale);
+
+	objects_[(size_t)layer_type].push_back(object);
+}
+
 LPCWSTR Scene::GetName()
 {
 	return name_;
 }
 
-/*shared_ptr<Layer> Scene::CreateLayer(LPCWSTR name, UINT z_order)
-{
-	shared_ptr<Layer> new_layer = make_shared<Layer>();
-	new_layer->SetName(name);
-	new_layer->SetZOrder(z_order);
-
-	layers_.push_back(new_layer);
-
-	sort(layers_.begin(), layers_.end(), [](shared_ptr<Layer> first, shared_ptr<Layer> second)
-		{
-			return first->GetZOrder() < second->GetZOrder();
-		});
-
-	return new_layer;
-}*/
-
-void Scene::Update(float delta_time)
+void Scene::Update()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for (size_t j = 0; j < objects_[i].size(); j++)
-		{
-			objects_[i][j]->Update(delta_time);
-		}
+		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
+			object->Update();
+			});
 	}
 }
 
-void Scene::LateUpdate(float delta_time)
+void Scene::LateUpdate()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for (size_t j = 0; j < objects_[i].size(); j++)
-		{
-			objects_[i][j]->LateUpdate(delta_time);
-		}
+		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
+			object->LateUpdate();
+			});
 	}
 }
 
-void Scene::Render(HDC hdc)
+void Scene::PhysicsUpdate()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for (size_t j = 0; j < objects_[i].size(); j++)
-		{
-			objects_[i][j]->Render(hdc);
-		}
+		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
+			object->PhysicsUpdate();
+			});
 	}
 }
 
-void Scene::CreateObject(std::shared_ptr<Object> object, LayerType type)
+void Scene::Render()
 {
-	objects_[(size_t)type].push_back(object);
-}
-
-const vector<shared_ptr<Object>>& Scene::GetGroupObject(LayerType type)
-{
-	return objects_[(UINT)type];
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
+	{
+		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
+			object->Render();
+			});
+	}
 }

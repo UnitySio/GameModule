@@ -1,7 +1,6 @@
 #pragma once
 
-#include <Windows.h>
-
+// 클래스 전방 선언
 class Scene;
 
 class SceneManager
@@ -23,11 +22,13 @@ public:
 	static std::shared_ptr<SceneManager> GetInstance();
 
 	void Release();
-
 	void Initiate();
-	void Update(float delta_time);
-	void LateUpdate(float delta_time);
-	void Render(HDC hdc);
+	void CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR name);
+	void LoadScene(SceneType scene_type);
+	void Update();
+	void LateUpdate();
+	void PhysicsUpdate();
+	void Render();
+
 	std::shared_ptr<Scene> GetCurrentScene();
 };
-
