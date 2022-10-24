@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Object.h"
-#include "Sprite.h"
+#include "Texture.h"
 
 class Player : public Object
 {
 private:
 	float move_speed_;
 
-	Sprite sprite_;
+	std::shared_ptr<Texture> sprite_;
 public:
 	Player();
 	~Player() final = default;

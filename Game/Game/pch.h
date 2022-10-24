@@ -3,6 +3,8 @@
 #pragma comment(lib, "fmod_vc.lib")
 #pragma comment(lib, "Gdiplus.lib")
 
+#include <stdlib.h>
+#include <crtdbg.h>
 #include <Ole2.h>
 #include <gdiplus.h>
 #include <mutex>
@@ -12,6 +14,7 @@
 #include "Vector2.h"
 #include "TimeManager.h"
 
+#define _CRTDBG_MAP_ALLOC
 #define DELTA_TIME TimeManager::GetInstance()->GetDeltaTime()
 
 enum class SceneType : size_t

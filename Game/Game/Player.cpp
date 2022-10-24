@@ -1,13 +1,18 @@
 #include "pch.h"
 #include "Player.h"
 #include "Window.h"
+#include "SpriteRenderer.h"
 
 using namespace std;
 
 Player::Player() :
 	move_speed_(100.f)
 {
-	sprite_.Load(L"Resources/Character_Sheet.bmp");
+	sprite_ = make_shared<Texture>();
+	sprite_->Load(L"Resources/Character_Sheet.bmp");
+
+	AddSpriteRenderer();
+	GetSpriteRenderer()->SetSprite(sprite_);
 }
 
 void Player::Update()
@@ -48,4 +53,5 @@ void Player::PhysicsUpdate()
 
 void Player::Render()
 {
+	Object::Render();
 }
