@@ -8,7 +8,7 @@ class SpriteRenderer
 private:
 	friend class Object;
 
-	std::weak_ptr<Object> owner_;
+	Object* owner_;
 
 	std::shared_ptr<Texture> sprite_;
 public:

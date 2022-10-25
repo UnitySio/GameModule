@@ -152,6 +152,9 @@ void Window::Logic()
 
 void Window::Update()
 {
+	GetCursorPos(&mouse_position_);
+	ScreenToClient(hWnd, &mouse_position_);
+
 	TimeManager::GetInstance()->Update();
 	SceneManager::GetInstance()->Update();
 }
@@ -188,10 +191,19 @@ void Window::Render()
 	SceneManager::GetInstance()->Render();
 
 	WCHAR scene_name_word[1024];
+	WCHAR mouse_position_word[1024];
+
 	wsprintf(scene_name_word, L"Current Scene: %s", SceneManager::GetInstance()->GetCurrentScene()->GetName());
+	wsprintf(mouse_position_word, L"%d, %d", mouse_position_.x, mouse_position_.y);
 
 	SetBkMode(hdc, TRANSPARENT); // TextOut 배경색 제거
 	TextOut(hdc, 0, 0, scene_name_word, wcslen(scene_name_word));
+	TextOut(hdc, mouse_position_.x + 16, mouse_position_.y + 16, mouse_position_word, wcslen(mouse_position_word));
 
 	BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
+}
+
+Vector2 Window::GetMousePosition()
+{
+	return { (float)mouse_position_.x, (float)mouse_position_.y };
 }

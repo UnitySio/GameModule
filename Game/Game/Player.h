@@ -7,12 +7,6 @@ class Player : public Object
 {
 private:
 	float move_speed_;
-
-	std::vector<std::shared_ptr<Texture>> sprites_;
-
-	int idx_;
-
-	float timer_;
 public:
 	Player();
 	~Player() final = default;

@@ -24,13 +24,13 @@ Object::Object(const Object& kOrigin) :
 	if (kOrigin.sprite_renderer_ != nullptr)
 	{
 		sprite_renderer_ = make_shared<SpriteRenderer>(*(SpriteRenderer*)kOrigin.sprite_renderer_.get());
-		sprite_renderer_->owner_ = weak_from_this();
+		sprite_renderer_->owner_ = this;
 	}
 
 	if (kOrigin.animator_ != nullptr)
 	{
 		animator_ = make_shared<Animator>(*(Animator*)kOrigin.animator_.get());
-		animator_->owner_ = weak_from_this();
+		animator_->owner_ = this;
 	}
 }
 
@@ -62,17 +62,21 @@ void Object::Translate(Vector2 translation)
 void Object::AddSpriteRenderer()
 {
 	sprite_renderer_ = make_shared<SpriteRenderer>();
-	sprite_renderer_->owner_ = weak_from_this();
+	sprite_renderer_->owner_ = this;
 }
 
 void Object::AddAnimator()
 {
 	animator_ = make_shared<Animator>();
-	animator_->owner_ = weak_from_this();
+	animator_->owner_ = this;
 }
 
 void Object::Update()
 {
+	if (animator_ != nullptr)
+	{
+		animator_->Update();
+	}
 }
 
 void Object::LateUpdate()

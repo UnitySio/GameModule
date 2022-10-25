@@ -6,68 +6,45 @@
 using namespace std;
 
 Player::Player() :
-	move_speed_(100.f),
-	idx_(),
-	timer_()
+	move_speed_(100.f)
 {
-	WCHAR word[128];
-	for (int i = 0; i < 4; i++)
-	{
-		wsprintf(word, L"Resources/%d.bmp", i);
-		shared_ptr<Texture> sprite_ = make_shared<Texture>();
-		sprite_->Load(word);
-		sprite_->SetPivot({ 0.5f, 1.f });
-		sprites_.push_back(sprite_);
-	}
-
-	//sprites_[1]->SetPivot({ 0.5f, 0.5f });
-	//sprites_[3]->SetPivot({ 0.5f, 0.5f });
+	shared_ptr<Texture> sprite_ = make_shared<Texture>();
+	sprite_->Load(L"Resources/0.bmp");
+	sprite_->SetPivot({ 0.5f, 1.f });
 
 	AddSpriteRenderer();
-	GetSpriteRenderer()->SetSprite(sprites_[0]);
+	GetSpriteRenderer()->SetSprite(sprite_);
 
 	AddAnimator();
 }
 
 void Player::Update()
 {
+	Object::Update();
+
 	HWND focus = GetFocus();
 
 	if (focus != nullptr)
 	{
-		if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+		if (GetAsyncKeyState('A') & 0x8000)
 		{
 			Translate(Vector2().Left() * move_speed_ * DELTA_TIME);
 		}
 
-		if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		if (GetAsyncKeyState('D') & 0x8000)
 		{
 			Translate(Vector2().Right() * move_speed_ * DELTA_TIME);
 		}
 
-		if (GetAsyncKeyState(VK_UP) & 0x8000)
+		if (GetAsyncKeyState('W') & 0x8000)
 		{
 			Translate(Vector2().Up() * move_speed_ * DELTA_TIME);
 		}
 
-		if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+		if (GetAsyncKeyState('S') & 0x8000)
 		{
 			Translate(Vector2().Down() * move_speed_ * DELTA_TIME);
 		}
-	}
-
-	timer_ += DELTA_TIME;
-
-	if (timer_ >= 1.f / 5.f)
-	{
-		if (idx_ > 3)
-		{
-			idx_ = 0;
-		}
-
-		GetSpriteRenderer()->SetSprite(sprites_[idx_++]);
-
-		timer_ = 0;
 	}
 }
 
@@ -82,4 +59,16 @@ void Player::PhysicsUpdate()
 void Player::Render()
 {
 	Object::Render();
+
+	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+	{
+		HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(255, 0, 0));
+		HPEN old_pen = (HPEN)SelectObject(WINDOW->GetHDC(), new_pen);
+
+		MoveToEx(WINDOW->GetHDC(), GetPosition().x_, GetPosition().y_, NULL);
+		LineTo(WINDOW->GetHDC(), MOUSE_POSITION.x_, MOUSE_POSITION.y_);
+
+		SelectObject(WINDOW->GetHDC(), old_pen);
+		DeleteObject(new_pen);
+	}
 }

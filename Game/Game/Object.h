@@ -3,7 +3,7 @@
 class SpriteRenderer;
 class Animator;
 
-class Object : public std::enable_shared_from_this<Object>
+class Object
 {
 private:
 	WCHAR name_[128];

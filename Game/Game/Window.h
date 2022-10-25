@@ -24,6 +24,8 @@ private:
 	// 싱글톤
 	static std::shared_ptr<Window> instance_;
 	static std::once_flag flag_;
+
+	POINT mouse_position_;
 public:
 	Window();
 	~Window() = default;
@@ -47,4 +49,6 @@ public:
 	void LateUpdate(); // LateUpdate는 모든 Update 함수가 처리된 후 실행됩니다.
 	void PhysicsUpdate();
 	void Render();
+
+	Vector2 GetMousePosition();
 };

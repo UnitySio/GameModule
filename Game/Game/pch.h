@@ -16,7 +16,9 @@
 #include "TimeManager.h"
 
 #define _CRTDBG_MAP_ALLOC
+#define WINDOW Window::GetInstance()
 #define DELTA_TIME TimeManager::GetInstance()->GetDeltaTime()
+#define MOUSE_POSITION Window::GetInstance()->GetMousePosition()
 
 enum class SceneType : size_t
 {
