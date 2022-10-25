@@ -1,6 +1,7 @@
 #pragma once
 
 class SpriteRenderer;
+class Animator;
 
 class Object : public std::enable_shared_from_this<Object>
 {
@@ -12,6 +13,7 @@ private:
 	Vector2 scale_;
 
 	std::shared_ptr<SpriteRenderer> sprite_renderer_;
+	std::shared_ptr<Animator> animator_;
 public:
 	Object();
 	Object(const Object& kOrigin); // 오브젝트가 복사되었을 때
@@ -23,6 +25,7 @@ public:
 	void SetScale(Vector2 scale);
 	void Translate(Vector2 translation);
 	void AddSpriteRenderer();
+	void AddAnimator();
 
 	virtual void Update();
 	virtual void LateUpdate();
@@ -34,4 +37,5 @@ public:
 	Vector2 GetScale();
 
 	std::shared_ptr<SpriteRenderer> GetSpriteRenderer();
+	std::shared_ptr<Animator> GetAnimator();
 };

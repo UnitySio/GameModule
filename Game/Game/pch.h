@@ -1,6 +1,6 @@
 #pragma once
 #pragma comment(lib, "Msimg32.lib")
-#pragma comment(lib, "fmod_vc.lib")
+//#pragma comment(lib, "fmod_vc.lib")
 #pragma comment(lib, "Gdiplus.lib")
 
 #include <stdlib.h>

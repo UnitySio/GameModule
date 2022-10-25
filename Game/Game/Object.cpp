@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Object.h"
 #include "SpriteRenderer.h"
+#include "Animator.h"
 
 using namespace std;
 
@@ -24,6 +25,12 @@ Object::Object(const Object& kOrigin) :
 	{
 		sprite_renderer_ = make_shared<SpriteRenderer>(*(SpriteRenderer*)kOrigin.sprite_renderer_.get());
 		sprite_renderer_->owner_ = weak_from_this();
+	}
+
+	if (kOrigin.animator_ != nullptr)
+	{
+		animator_ = make_shared<Animator>(*(Animator*)kOrigin.animator_.get());
+		animator_->owner_ = weak_from_this();
 	}
 }
 
@@ -56,6 +63,12 @@ void Object::AddSpriteRenderer()
 {
 	sprite_renderer_ = make_shared<SpriteRenderer>();
 	sprite_renderer_->owner_ = weak_from_this();
+}
+
+void Object::AddAnimator()
+{
+	animator_ = make_shared<Animator>();
+	animator_->owner_ = weak_from_this();
 }
 
 void Object::Update()
@@ -96,4 +109,9 @@ Vector2 Object::GetScale()
 shared_ptr<SpriteRenderer> Object::GetSpriteRenderer()
 {
 	return sprite_renderer_;
+}
+
+shared_ptr<Animator> Object::GetAnimator()
+{
+	return animator_;
 }

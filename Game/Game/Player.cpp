@@ -25,6 +25,8 @@ Player::Player() :
 
 	AddSpriteRenderer();
 	GetSpriteRenderer()->SetSprite(sprites_[0]);
+
+	AddAnimator();
 }
 
 void Player::Update()
