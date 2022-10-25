@@ -7,7 +7,8 @@
 Texture::Texture() :
 	bitmap_(),
 	bitmap_info_(),
-	memDC()
+	memDC(),
+	pivot_{}
 {
 }
 
@@ -15,14 +16,6 @@ Texture::~Texture()
 {
 	DeleteDC(memDC);
 	DeleteObject(bitmap_);
-}
-
-Texture& Texture::operator=(const Texture& kTexture)
-{
-	bitmap_ = kTexture.bitmap_;
-	bitmap_info_ = kTexture.bitmap_info_;
-	memDC = kTexture.memDC;
-	return *this;
 }
 
 void Texture::Load(LPCWSTR path)
@@ -38,12 +31,17 @@ void Texture::Load(LPCWSTR path)
 	GetObject(bitmap_, sizeof(BITMAP), &bitmap_info_);
 }
 
-LONG Texture::GetWidth()
+void Texture::SetPivot(Vector2 pivot)
+{
+	pivot_ = pivot;
+}
+
+int Texture::GetWidth()
 {
 	return bitmap_info_.bmWidth;
 }
 
-LONG Texture::GetHeight()
+int Texture::GetHeight()
 {
 	return bitmap_info_.bmHeight;
 }

@@ -9,15 +9,16 @@ private:
 	BITMAP bitmap_info_;
 
 	HDC memDC;
+
+	Vector2 pivot_;
 public:
 	Texture();
 	~Texture();
 
-	Texture& operator=(const Texture& kTexture);
-
 	void Load(LPCWSTR path);
+	void SetPivot(Vector2 pivot);
 
-	LONG GetWidth();
-	LONG GetHeight();
+	int GetWidth();
+	int GetHeight();
 };
 

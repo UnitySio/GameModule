@@ -24,5 +24,8 @@ void SpriteRenderer::SetSprite(shared_ptr<Texture> sprite)
 
 void SpriteRenderer::Render(Vector2 position, Vector2 scale)
 {
-	TransparentBlt(Window::GetInstance()->GetHDC(), position.x_, position.y_, scale.x_, scale.y_, sprite_->memDC, 0, 0, sprite_->GetWidth(), sprite_->GetHeight(), RGB(0, 128, 0));
+	Vector2 multiple = { sprite_->GetWidth() * scale.x_, sprite_->GetHeight() * scale.y_ };
+	Vector2 pivot_position = position - multiple * sprite_->pivot_;
+	
+	TransparentBlt(Window::GetInstance()->GetHDC(), pivot_position.x_, pivot_position.y_, multiple.x_, multiple.y_, sprite_->memDC, 0, 0, sprite_->GetWidth(), sprite_->GetHeight(), RGB(0, 128, 0));
 }

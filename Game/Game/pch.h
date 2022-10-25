@@ -8,6 +8,7 @@
 #include <Ole2.h>
 #include <gdiplus.h>
 #include <mutex>
+#include <vector>
 #include <list>
 #include <algorithm>
 

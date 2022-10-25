@@ -6,13 +6,25 @@
 using namespace std;
 
 Player::Player() :
-	move_speed_(100.f)
+	move_speed_(100.f),
+	idx_(),
+	timer_()
 {
-	sprite_ = make_shared<Texture>();
-	sprite_->Load(L"Resources/Character_Sheet.bmp");
+	WCHAR word[128];
+	for (int i = 0; i < 4; i++)
+	{
+		wsprintf(word, L"Resources/%d.bmp", i);
+		shared_ptr<Texture> sprite_ = make_shared<Texture>();
+		sprite_->Load(word);
+		sprite_->SetPivot({ 0.5f, 1.f });
+		sprites_.push_back(sprite_);
+	}
+
+	//sprites_[1]->SetPivot({ 0.5f, 0.5f });
+	//sprites_[3]->SetPivot({ 0.5f, 0.5f });
 
 	AddSpriteRenderer();
-	GetSpriteRenderer()->SetSprite(sprite_);
+	GetSpriteRenderer()->SetSprite(sprites_[0]);
 }
 
 void Player::Update()
@@ -40,6 +52,20 @@ void Player::Update()
 		{
 			Translate(Vector2().Down() * move_speed_ * DELTA_TIME);
 		}
+	}
+
+	timer_ += DELTA_TIME;
+
+	if (timer_ >= 1.f / 5.f)
+	{
+		if (idx_ > 3)
+		{
+			idx_ = 0;
+		}
+
+		GetSpriteRenderer()->SetSprite(sprites_[idx_++]);
+
+		timer_ = 0;
 	}
 }
 
