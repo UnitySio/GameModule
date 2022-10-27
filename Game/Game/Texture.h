@@ -3,6 +3,7 @@ class Texture
 {
 private:
 	friend class SpriteRenderer;
+	friend class Temp;
 
 	HBITMAP bitmap_;
 

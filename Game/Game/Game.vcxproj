@@ -167,6 +167,7 @@
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Temp.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Vector2.h" />
@@ -184,6 +186,7 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -195,6 +198,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="Temp.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Vector2.cpp" />

@@ -18,11 +18,12 @@ private:
 
 	float timer_;
 
-	std::vector<std::shared_ptr<Texture>> sprites_;
+	std::map<LPCWSTR, std::vector<std::shared_ptr<Texture>>> clips_;
 public:
 	Animator();
 	Animator(const Animator& kOrigin);
 	~Animator() = default;
 
+	void AddClip(LPCWSTR name, std::vector<std::shared_ptr<Texture>> clip);
 	void Update();
 };

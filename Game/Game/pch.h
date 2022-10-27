@@ -10,6 +10,7 @@
 #include <mutex>
 #include <vector>
 #include <list>
+#include <map>
 #include <algorithm>
 
 #include "Vector2.h"

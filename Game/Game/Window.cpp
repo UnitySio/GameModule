@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Window.h"
+#include "InputManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
 
@@ -56,6 +57,7 @@ BOOL Window::InitInstance(HINSTANCE hInstance, int nCmdShow)
 	DeleteObject(old_bitmap);
 
 	TimeManager::GetInstance()->Initiate();
+	InputManager::GetInstance()->Initiate();
 	SceneManager::GetInstance()->Initiate();
 
 	return TRUE;
@@ -115,7 +117,8 @@ Window::Window() :
 	memDC(),
 	bitmap_(),
 	szTitle(),
-	szWindowClass()
+	szWindowClass(),
+	mouse_position_{}
 {
 	resolution_ = { 640, 480 };
 	view_area_ = { 0, 0, resolution_.x, resolution_.y };
@@ -156,6 +159,7 @@ void Window::Update()
 	ScreenToClient(hWnd, &mouse_position_);
 
 	TimeManager::GetInstance()->Update();
+	InputManager::GetInstance()->Update();
 	SceneManager::GetInstance()->Update();
 }
 
@@ -175,7 +179,7 @@ void Window::Render()
 	HPEN new_pen = CreatePen(PS_NULL, 0, RGB(255, 255, 255));
 	HPEN old_pen = (HPEN)SelectObject(hdc, new_pen);
 
-	HBRUSH new_brush = CreateSolidBrush(RGB(255, 255, 255));
+	HBRUSH new_brush = CreateSolidBrush(RGB(0, 128, 0));
 	HBRUSH old_brush = (HBRUSH)SelectObject(hdc, new_brush);
 
 	Rectangle(hdc, 0, 0, resolution_.x, resolution_.y);
