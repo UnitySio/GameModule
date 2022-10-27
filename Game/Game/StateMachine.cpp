@@ -11,7 +11,6 @@ void StateMachine::Initiate()
 	if (current_state_ != nullptr)
 	{
 		current_state_->Enter();
-		OutputDebugString(L"ASDF\n");
 	}
 }
 
@@ -23,7 +22,7 @@ void StateMachine::Update()
 	}
 }
 
-std::shared_ptr<State> StateMachine::GetInitiateState()
+shared_ptr<State> StateMachine::GetInitiateState()
 {
 	return nullptr;
 }

@@ -3,24 +3,17 @@
 #include "Window.h"
 #include "SpriteRenderer.h"
 #include "InputManager.h"
-#include "PlayerIdle.h"
-#include "PlayerWalk.h"
-#include "PlayerAttack.h"
 
 using namespace std;
 
-std::shared_ptr<State> Player::GetInitiateState()
+shared_ptr<State> Player::GetInitiateState()
 {
-	return states_[0];
+	return nullptr;
 }
 
 Player::Player() :
 	move_speed_(100.f)
 {
-	states_[0] = make_shared<PlayerIdle>(this);
-	states_[1] = make_shared<PlayerWalk>(this);
-	states_[2] = make_shared<PlayerAttack>(this);
-
 	shared_ptr<Texture> sprite_ = make_shared<Texture>();
 	sprite_->Load(L"Resources/0.bmp");
 	sprite_->SetPivot({ 0.5f, 1.f });

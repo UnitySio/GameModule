@@ -8,17 +8,11 @@
 class Player : public Object, public StateMachine
 {
 private:
-	friend class PlayerIdle;
-	friend class PlayerWalk;
-	friend class PlayerAttack;
-
 	float move_speed_;
 
 	std::shared_ptr<Temp> temp_;
-
-	std::shared_ptr<State> states_[3];
 protected:
-	std::shared_ptr<State> GetInitiateState() override;
+	std::shared_ptr<State> GetInitiateState();
 public:
 	Player();
 	~Player() final = default;

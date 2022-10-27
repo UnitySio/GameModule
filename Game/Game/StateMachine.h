@@ -14,8 +14,7 @@ protected:
 	virtual std::shared_ptr<State> GetInitiateState();
 public:
 	StateMachine() = default;
-	~StateMachine() = default;
+	virtual ~StateMachine() = default;
 
 	void ChangeState(std::shared_ptr<State> state);
 };
-

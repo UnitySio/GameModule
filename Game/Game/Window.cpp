@@ -100,6 +100,7 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_DESTROY:
 		TimeManager::GetInstance()->Release();
+		InputManager::GetInstance()->Release();
 		SceneManager::GetInstance()->Release();
 		instance_.reset();
 		PostQuitMessage(0);
