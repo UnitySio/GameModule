@@ -20,6 +20,7 @@
 #define WINDOW Window::GetInstance()
 #define DELTA_TIME TimeManager::GetInstance()->GetDeltaTime()
 #define MOUSE_POSITION Window::GetInstance()->GetMousePosition()
+#define INPUT_MANAGER InputManager::GetInstance()
 
 enum class SceneType : size_t
 {

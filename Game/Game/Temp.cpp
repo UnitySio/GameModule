@@ -18,6 +18,7 @@ Temp::Temp() :
 {
 	clips_.insert({ "IDLE", { 0, 6 } });
 	clips_.insert({ "WALK", { 6, 8 } });
+	clips_.insert({ "ATTACK", { 14, 12 } });
 }
 
 void Temp::SetTexture(shared_ptr<Texture> texture)

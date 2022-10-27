@@ -34,6 +34,7 @@ void InputManager::Initiate()
 	AddKey('A');
 	AddKey('S');
 	AddKey('D');
+	AddKey(MK_LBUTTON);
 }
 
 void InputManager::AddKey(int key)

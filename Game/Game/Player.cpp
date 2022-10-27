@@ -3,12 +3,24 @@
 #include "Window.h"
 #include "SpriteRenderer.h"
 #include "InputManager.h"
+#include "PlayerIdle.h"
+#include "PlayerWalk.h"
+#include "PlayerAttack.h"
 
 using namespace std;
+
+std::shared_ptr<State> Player::GetInitiateState()
+{
+	return states_[0];
+}
 
 Player::Player() :
 	move_speed_(100.f)
 {
+	states_[0] = make_shared<PlayerIdle>(this);
+	states_[1] = make_shared<PlayerWalk>(this);
+	states_[2] = make_shared<PlayerAttack>(this);
+
 	shared_ptr<Texture> sprite_ = make_shared<Texture>();
 	sprite_->Load(L"Resources/0.bmp");
 	sprite_->SetPivot({ 0.5f, 1.f });
@@ -25,77 +37,15 @@ Player::Player() :
 	temp_ = make_shared<Temp>();
 	temp_->SetTexture(sprite_sheet_);
 	temp_->Slice(6, 17);
+
+	StateMachine::Initiate();
 }
 
 void Player::Update()
 {
 	//Object::Update();
 	temp_->Update();
-
-	HWND focus = GetFocus();
-
-	if (focus != nullptr)
-	{
-		if (InputManager::GetInstance()->GetKeyDown('A'))
-		{
-			temp_->SetClip("WALK");
-		}
-
-		if (InputManager::GetInstance()->GetKey('A'))
-		{
-			Translate(Vector2().Left() * move_speed_ * DELTA_TIME);
-		}
-
-		if (InputManager::GetInstance()->GetKeyUp('A'))
-		{
-			temp_->SetClip("IDLE");
-		}
-
-		if (InputManager::GetInstance()->GetKeyDown('D'))
-		{
-			temp_->SetClip("WALK");
-		}
-
-		if (InputManager::GetInstance()->GetKey('D'))
-		{
-			Translate(Vector2().Right() * move_speed_ * DELTA_TIME);
-		}
-
-		if (InputManager::GetInstance()->GetKeyUp('D'))
-		{
-			temp_->SetClip("IDLE");
-		}
-
-		if (InputManager::GetInstance()->GetKeyDown('W'))
-		{
-			temp_->SetClip("WALK");
-		}
-
-		if (InputManager::GetInstance()->GetKey('W'))
-		{
-			Translate(Vector2().Up() * move_speed_ * DELTA_TIME);
-		}
-
-		if (InputManager::GetInstance()->GetKeyUp('W'))
-		{
-			temp_->SetClip("IDLE");
-		}
-
-		if (InputManager::GetInstance()->GetKeyDown('S'))
-		{
-			temp_->SetClip("WALK");
-		}
-
-		if (InputManager::GetInstance()->GetKey('S'))
-		{
-			Translate(Vector2().Down() * move_speed_ * DELTA_TIME);
-		}
-
-		if (InputManager::GetInstance()->GetKeyUp('S'))
-		{
-			temp_->SetClip("IDLE");
-		}
-	}
+	StateMachine::Update();
 }
 
 void Player::LateUpdate()
