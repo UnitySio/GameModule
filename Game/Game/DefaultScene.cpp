@@ -12,7 +12,7 @@ DefaultScene::DefaultScene()
 void DefaultScene::Enter()
 {
 	shared_ptr<Object> player = make_shared<Player>();
-	CreateObject(player, LayerType::kDefault, L"Player", { 32.f, 32.f }, { 0.f, 0.f }, { 3.f, 3.f });
+	CreateObject(player, LayerType::kDefault, L"Player", { 320.f, 240.f }, { 0.f, 0.f }, { 3.f, 3.f });
 }
 
 void DefaultScene::Exit()

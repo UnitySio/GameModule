@@ -5,41 +5,52 @@
 
 using namespace std;
 
+Coroutine Animator::Play()
+{
+	while (is_play_)
+	{
+		if (!clips_[current_clip_].is_loop_ && owner_->sprite_renderer_->current_frame_ == clips_[current_clip_].frame_count - 1)
+		{
+			is_play_ = false;
+		}
+
+		co_await suspend_always{};
+
+		owner_->sprite_renderer_->current_frame_ = (owner_->sprite_renderer_->current_frame_ + 1) % clips_[current_clip_].frame_count;
+	}
+}
+
 Animator::Animator() :
 	owner_(),
-	frame_rate_(5),
-	current_frame_(),
-	is_play_(true),
-	timer_()
+	clips_{},
+	is_play_(),
+	timer_(),
+	frame_rate_(15),
+	current_clip_()
 {
-	WCHAR word[128];
-
-	vector<shared_ptr<Texture>> sprites;
-
-	for (int i = 0; i < 4; i++)
-	{
-		wsprintf(word, L"Resources/%d.bmp", i);
-		shared_ptr<Texture> sprite_ = make_shared<Texture>();
-		sprite_->Load(word);
-		sprite_->SetPivot({ 0.5f, 1.f });
-		sprites.push_back(sprite_);
-	}
-
-	clips_.insert({ L"Walk", sprites });
 }
 
 Animator::Animator(const Animator& kOrigin) :
-	owner_(kOrigin.owner_),
-	frame_rate_(kOrigin.frame_rate_),
-	current_frame_(),
+	owner_(),
+	clips_{ kOrigin.clips_ },
 	is_play_(),
-	timer_()
+	timer_(),
+	frame_rate_(kOrigin.frame_rate_),
+	current_clip_()
 {
 }
 
-void Animator::AddClip(LPCWSTR name, std::vector<std::shared_ptr<Texture>> clip)
+void Animator::AddClip(size_t clip, bool is_loop, UINT start_frame, UINT frame_count)
 {
-	clips_.insert({ name, clip });
+	clips_.insert({ clip, { is_loop, start_frame, frame_count } });
+}
+
+void Animator::SetClip(size_t clip)
+{
+	current_clip_ = clip;
+	owner_->sprite_renderer_->current_frame_ = 0;
+	is_play_ = true;
+	timer_ = 0;
 }
 
 void Animator::Update()
@@ -50,8 +61,8 @@ void Animator::Update()
 
 		if (timer_ >= 1.f / frame_rate_)
 		{
-			owner_->GetSpriteRenderer()->SetSprite(clips_[L"Walk"][current_frame_]);
-			current_frame_ = (current_frame_ + 1) % clips_[L"Walk"].size();
+			coroutine.co_handler_.resume();
+
 			timer_ = 0;
 		}
 	}

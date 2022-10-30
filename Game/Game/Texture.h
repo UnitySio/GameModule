@@ -3,7 +3,6 @@ class Texture
 {
 private:
 	friend class SpriteRenderer;
-	friend class Temp;
 
 	HBITMAP bitmap_;
 
@@ -12,14 +11,13 @@ private:
 	HDC memDC;
 
 	Vector2 pivot_;
+	Vector2 frame_scale_;
+
+	std::vector<Vector2> frames_;
 public:
 	Texture();
 	~Texture();
 
-	void Load(LPCWSTR path);
+	void Load(LPCWSTR path, UINT row = 1, UINT col = 1);
 	void SetPivot(Vector2 pivot);
-
-	int GetWidth();
-	int GetHeight();
 };
-

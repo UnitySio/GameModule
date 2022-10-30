@@ -1,6 +1,6 @@
 #pragma once
 #pragma comment(lib, "Msimg32.lib")
-//#pragma comment(lib, "fmod_vc.lib")
+#pragma comment(lib, "fmod_vc.lib")
 #pragma comment(lib, "Gdiplus.lib")
 
 #include <stdlib.h>
@@ -32,6 +32,18 @@ enum class LayerType : size_t
 {
 	kDefault = 0,
 	kEnd // kEnd는 항상 마지막에 있어야 합니다.
+};
+
+enum class PlayerStateType : size_t
+{
+	kIdle = 0,
+	kWalk
+};
+
+enum class PlayerClipType : size_t
+{
+	kIdle = 0,
+	kWalk
 };
 
 class pch

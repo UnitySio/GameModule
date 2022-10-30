@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "SpriteRenderer.h"
 #include "Animator.h"
+#include "Rigidbody2D.h"
 
 using namespace std;
 
@@ -10,7 +11,9 @@ Object::Object() :
 	position_{},
 	rotation_{},
 	scale_{},
-	sprite_renderer_()
+	sprite_renderer_(),
+	animator_(),
+	rigidbody2d_()
 {
 }
 
@@ -31,6 +34,12 @@ Object::Object(const Object& kOrigin) :
 	{
 		animator_ = make_shared<Animator>(*(Animator*)kOrigin.animator_.get());
 		animator_->owner_ = this;
+	}
+
+	if (kOrigin.rigidbody2d_ != nullptr)
+	{
+		rigidbody2d_ = make_shared<Rigidbody2D>(*(Rigidbody2D*)kOrigin.rigidbody2d_.get());
+		rigidbody2d_->owner_ = this;
 	}
 }
 
@@ -71,6 +80,12 @@ void Object::AddAnimator()
 	animator_->owner_ = this;
 }
 
+void Object::AddRigidbody2D()
+{
+	rigidbody2d_ = make_shared<Rigidbody2D>();
+	rigidbody2d_->owner_ = this;
+}
+
 void Object::Update()
 {
 	if (animator_ != nullptr)
@@ -85,6 +100,10 @@ void Object::LateUpdate()
 
 void Object::PhysicsUpdate()
 {
+	if (rigidbody2d_ != nullptr)
+	{
+		rigidbody2d_->PhysicsUpdate();
+	}
 }
 
 void Object::Render()
@@ -118,4 +137,9 @@ shared_ptr<SpriteRenderer> Object::GetSpriteRenderer()
 shared_ptr<Animator> Object::GetAnimator()
 {
 	return animator_;
+}
+
+std::shared_ptr<Rigidbody2D> Object::GetRigidbody2D()
+{
+	return rigidbody2d_;
 }

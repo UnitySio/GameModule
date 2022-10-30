@@ -8,7 +8,9 @@ Texture::Texture() :
 	bitmap_(),
 	bitmap_info_(),
 	memDC(),
-	pivot_{}
+	pivot_{},
+	frame_scale_{},
+	frames_{}
 {
 }
 
@@ -18,7 +20,7 @@ Texture::~Texture()
 	DeleteObject(bitmap_);
 }
 
-void Texture::Load(LPCWSTR path)
+void Texture::Load(LPCWSTR path, UINT row, UINT col)
 {
 	bitmap_ = (HBITMAP)LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 	assert(bitmap_);
@@ -29,19 +31,21 @@ void Texture::Load(LPCWSTR path)
 	DeleteObject(old_bitmap);
 
 	GetObject(bitmap_, sizeof(BITMAP), &bitmap_info_);
+
+	frame_scale_.x_ = bitmap_info_.bmWidth / row;
+	frame_scale_.y_ = bitmap_info_.bmHeight / col;
+
+	for (size_t i = 0; i < col; i++)
+	{
+		for (size_t j = 0; j < row; j++)
+		{
+			Vector2 frame = { frame_scale_.x_ * j, frame_scale_.y_ * i };
+			frames_.push_back({ frame });
+		}
+	}
 }
 
 void Texture::SetPivot(Vector2 pivot)
 {
 	pivot_ = pivot;
-}
-
-int Texture::GetWidth()
-{
-	return bitmap_info_.bmWidth;
-}
-
-int Texture::GetHeight()
-{
-	return bitmap_info_.bmHeight;
 }

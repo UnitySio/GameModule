@@ -2,10 +2,14 @@
 
 class SpriteRenderer;
 class Animator;
+class Rigidbody2D;
 
 class Object
 {
 private:
+	friend class SpriteRenderer;
+	friend class Animator;
+
 	WCHAR name_[128];
 
 	Vector2 position_;
@@ -14,6 +18,7 @@ private:
 
 	std::shared_ptr<SpriteRenderer> sprite_renderer_;
 	std::shared_ptr<Animator> animator_;
+	std::shared_ptr<Rigidbody2D> rigidbody2d_;
 public:
 	Object();
 	Object(const Object& kOrigin); // 오브젝트가 복사되었을 때
@@ -26,6 +31,7 @@ public:
 	void Translate(Vector2 translation);
 	void AddSpriteRenderer();
 	void AddAnimator();
+	void AddRigidbody2D();
 
 	virtual void Update();
 	virtual void LateUpdate();
@@ -38,4 +44,5 @@ public:
 
 	std::shared_ptr<SpriteRenderer> GetSpriteRenderer();
 	std::shared_ptr<Animator> GetAnimator();
+	std::shared_ptr<Rigidbody2D> GetRigidbody2D();
 };

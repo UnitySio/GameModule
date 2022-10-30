@@ -44,35 +44,40 @@ void InputManager::AddKey(int key)
 
 void InputManager::Update()
 {
-	map<int, Key>::iterator iter = keys_.begin();
+	HWND focus = GetFocus();
 
-	for (; iter != keys_.end(); ++iter)
+	if (focus != nullptr)
 	{
-		if (GetAsyncKeyState(iter->first) & 0x8000)
+		map<int, Key>::iterator iter = keys_.begin();
+
+		for (; iter != keys_.end(); ++iter)
 		{
-			if (iter->second.is_down)
+			if (GetAsyncKeyState(iter->first) & 0x8000)
 			{
-				iter->second.type = KeyType::kHold;
+				if (iter->second.is_down)
+				{
+					iter->second.type = KeyType::kHold;
+				}
+				else
+				{
+					iter->second.type = KeyType::kDown;
+				}
+
+				iter->second.is_down = true;
 			}
 			else
 			{
-				iter->second.type = KeyType::kDown;
-			}
+				if (iter->second.is_down)
+				{
+					iter->second.type = KeyType::kUp;
+				}
+				else
+				{
+					iter->second.type = KeyType::kNone;
+				}
 
-			iter->second.is_down = true;
-		}
-		else
-		{
-			if (iter->second.is_down)
-			{
-				iter->second.type = KeyType::kUp;
+				iter->second.is_down = false;
 			}
-			else
-			{
-				iter->second.type = KeyType::kNone;
-			}
-
-			iter->second.is_down = false;
 		}
 	}
 }

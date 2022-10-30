@@ -1,29 +1,43 @@
 #pragma once
 
+#include "Coroutine.h"
+
 class Object;
 class Texture;
 
 class Animator
 {
 private:
+	struct Clip
+	{
+		bool is_loop_;
+		size_t start_frame;
+		size_t frame_count;
+	};
+
 	friend class Object;
+	friend class SpriteRenderer;
 
 	Object* owner_;
 
-	UINT frame_rate_;
-
-	size_t current_frame_;
+	std::map<size_t, Clip> clips_;
 
 	bool is_play_;
 
 	float timer_;
 
-	std::map<LPCWSTR, std::vector<std::shared_ptr<Texture>>> clips_;
+	UINT frame_rate_;
+
+	size_t current_clip_;
 public:
 	Animator();
 	Animator(const Animator& kOrigin);
 	~Animator() = default;
 
-	void AddClip(LPCWSTR name, std::vector<std::shared_ptr<Texture>> clip);
+	Coroutine coroutine = Play();
+	Coroutine Play();
+
+	void AddClip(size_t clip, bool is_loop, UINT start_frame, UINT frame_count);
+	void SetClip(size_t clip);
 	void Update();
 };
