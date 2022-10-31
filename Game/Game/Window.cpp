@@ -146,12 +146,21 @@ HDC Window::GetHDC()
 	return hdc;
 }
 
+DWORD WINAPI Window::LogicThread(LPVOID lpParam)
+{
+	while (instance_->is_loop_)
+	{
+		instance_->Update();
+		instance_->LateUpdate();
+		instance_->PhysicsUpdate();
+		instance_->Render();
+	}
+
+	return 0;
+}
+
 void Window::Logic()
 {
-	Update();
-	LateUpdate();
-	PhysicsUpdate();
-	Render();
 }
 
 void Window::Update()
@@ -191,19 +200,7 @@ void Window::Render()
 	SelectObject(hdc, old_brush);
 	DeleteObject(new_brush);
 
-	// TODO: 여기에 코드를 입력합니다.
-
 	SceneManager::GetInstance()->Render();
-
-	WCHAR scene_name_word[1024];
-	WCHAR mouse_position_word[1024];
-
-	wsprintf(scene_name_word, L"Current Scene: %s", SceneManager::GetInstance()->GetCurrentScene()->GetName());
-	wsprintf(mouse_position_word, L"%d, %d", mouse_position_.x, mouse_position_.y);
-
-	SetBkMode(hdc, TRANSPARENT); // TextOut 배경색 제거
-	TextOut(hdc, 0, 0, scene_name_word, wcslen(scene_name_word));
-	TextOut(hdc, mouse_position_.x + 16, mouse_position_.y + 16, mouse_position_word, wcslen(mouse_position_word));
 
 	BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
 }

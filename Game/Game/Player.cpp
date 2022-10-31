@@ -76,35 +76,38 @@ void Player::Update()
 		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
-	// 이동 중
-	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
+	if (is_ground_)
 	{
-		if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
+		if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 		{
-			ChangeState(states_[(size_t)PlayerStateType::kWalk]);
+			if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kWalk]);
+			}
+		}
+		else
+		{
+			if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+			}
 		}
 	}
-	else // 이동 중이 아님
+	else
 	{
-		if (is_ground_ && current_state_ != states_[(size_t)PlayerStateType::kIdle])
+		if (GetRigidbody2D()->GetVelocity().y_ < 0)
 		{
-			ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+			if (current_state_ != states_[(size_t)PlayerStateType::kJump])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kJump]);
+			}
 		}
-	}
-
-	if (GetRigidbody2D()->GetVelocity().y_ > 0)
-	{
-		if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
+		else if (GetRigidbody2D()->GetVelocity().y_ > 0)
 		{
-			ChangeState(states_[(size_t)PlayerStateType::kFalling]);
-		}
-	}
-
-	if (GetRigidbody2D()->GetVelocity().y_ < 0)
-	{
-		if (current_state_ != states_[(size_t)PlayerStateType::kJump])
-		{
-			ChangeState(states_[(size_t)PlayerStateType::kJump]);
+			if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kFalling]);
+			}
 		}
 	}
 
@@ -122,10 +125,10 @@ void Player::Update()
 		GetRigidbody2D()->AddForce(Vector2().Down() * 1000);
 	}
 
-	if (INPUT_MANAGER->GetKey('W'))
+	if (INPUT_MANAGER->GetKeyDown('W'))
 	{
 		is_ground_ = false;
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500 });
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
 	}
 
 	if (is_ground_)
@@ -133,7 +136,7 @@ void Player::Update()
 		if (INPUT_MANAGER->GetKeyDown('S'))
 		{
 			is_ground_ = false;
-			GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_ + (500 * direction_), -500 });
+			GetRigidbody2D()->SetVelocity({ 500.f * direction_, -500.f });
 		}
 	}
 }
@@ -151,7 +154,7 @@ void Player::PhysicsUpdate()
 		if (GetPosition().y_ >= 480)
 		{
 			is_ground_ = true;
-			GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0 });
+			GetRigidbody2D()->SetVelocity({ 0, 0 });
 		}
 	}
 }

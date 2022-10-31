@@ -39,14 +39,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
+	WINDOW->hThread = CreateThread(NULL, 0, WINDOW->LogicThread, NULL, 0, NULL);
+
 	// 기본 메시지 루프입니다:
-	while (TRUE)
+	while (WINDOW->is_loop_)
 	{
 		// 윈도우 메시지가 있을 경우 TRUE, 없을 경우 FALSE
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			if (WM_QUIT == msg.message)
 			{
+				WINDOW->is_loop_ = false;
 				break;
 			}
 

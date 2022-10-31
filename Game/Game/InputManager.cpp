@@ -80,6 +80,24 @@ void InputManager::Update()
 			}
 		}
 	}
+	else
+	{
+		map<int, Key>::iterator iter = keys_.begin();
+
+		for (; iter != keys_.end(); ++iter)
+		{
+			iter->second.is_down = false;
+			if (iter->second.type == KeyType::kDown ||
+				iter->second.type == KeyType::kHold)
+			{
+				iter->second.type = KeyType::kUp;
+			}
+			else
+			{
+				iter->second.type = KeyType::kNone;
+			}
+		}
+	}
 }
 
 bool InputManager::GetKeyDown(int key)
