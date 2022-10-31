@@ -19,6 +19,8 @@ public:
 	SpriteRenderer(const SpriteRenderer& kOrigin);
 	~SpriteRenderer() = default;
 
+	SpriteRenderer& operator=(const SpriteRenderer& kSpriteRenderer) = delete;
+
 	void SetSprite(std::shared_ptr<Texture> sprite);
 	void Render(Vector2 position, Vector2 scale);
 };

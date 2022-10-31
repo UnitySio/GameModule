@@ -9,15 +9,23 @@ private:
 
 	Object* owner_;
 
-	Vector2 velocity_;
+	Vector2 force_; // 힘
+	Vector2 acceleration_; // 가속도
+	Vector2 friction_; // 마찰력
+	Vector2 velocity_; // 속도
+
+	float mass_; // 질량
+	float friction_coefficient_; // 마찰 계수
 public:
 	Rigidbody2D();
 	Rigidbody2D(const Rigidbody2D& kOrigin);
 	~Rigidbody2D() = default;
 
+	Rigidbody2D& operator=(const Rigidbody2D& kRigidbody2D) = delete;
+
 	void SetVelocity(Vector2 velocity);
+	void AddForce(Vector2 force);
 	void PhysicsUpdate();
 
 	Vector2 GetVelocity();
 };
-

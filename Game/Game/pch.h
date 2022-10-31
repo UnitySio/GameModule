@@ -1,6 +1,6 @@
 #pragma once
 #pragma comment(lib, "Msimg32.lib")
-#pragma comment(lib, "fmod_vc.lib")
+//#pragma comment(lib, "fmod_vc.lib")
 #pragma comment(lib, "Gdiplus.lib")
 
 #include <stdlib.h>
@@ -37,13 +37,17 @@ enum class LayerType : size_t
 enum class PlayerStateType : size_t
 {
 	kIdle = 0,
-	kWalk
+	kWalk,
+	kJump,
+	kFalling
 };
 
 enum class PlayerClipType : size_t
 {
 	kIdle = 0,
-	kWalk
+	kWalk,
+	kJump,
+	kFalling
 };
 
 class pch

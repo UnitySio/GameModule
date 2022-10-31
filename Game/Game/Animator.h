@@ -34,6 +34,8 @@ public:
 	Animator(const Animator& kOrigin);
 	~Animator() = default;
 
+	Animator& operator=(const Animator& kAnimator) = delete;
+
 	Coroutine coroutine = Play();
 	Coroutine Play();
 

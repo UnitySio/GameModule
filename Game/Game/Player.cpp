@@ -7,6 +7,8 @@
 #include "InputManager.h"
 #include "PlayerIdle.h"
 #include "PlayerWalk.h"
+#include "PlayerJump.h"
+#include "PlayerFalling.h"
 
 using namespace std;
 
@@ -16,19 +18,22 @@ shared_ptr<State> Player::GetInitiateState()
 }
 
 Player::Player() :
-	move_speed_(100.f),
-	direction_(1)
+	move_speed_(200.f),
+	direction_(1),
+	is_ground_()
 {
 	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
 	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
+	states_[(size_t)PlayerStateType::kJump] = make_shared<PlayerJump>(this);
+	states_[(size_t)PlayerStateType::kFalling] = make_shared<PlayerFalling>(this);
 
 	right_ = make_shared<Texture>();
 	right_->Load(L"Resources/WarriorRightSheet.bmp", 6, 17);
-	right_->SetPivot({ 0.385f, 1.f });
+	right_->SetPivot({ 0.385f, 0.97f });
 
 	left_ = make_shared<Texture>();
 	left_->Load(L"Resources/WarriorLeftSheet.bmp", 6, 17);
-	left_->SetPivot({ 0.625f, 1.f });
+	left_->SetPivot({ 0.625f, 0.97f });
 
 	AddSpriteRenderer();
 	GetSpriteRenderer()->SetSprite(right_);
@@ -36,6 +41,8 @@ Player::Player() :
 	AddAnimator();
 	GetAnimator()->AddClip((size_t)PlayerClipType::kIdle, true, 0, 6);
 	GetAnimator()->AddClip((size_t)PlayerClipType::kWalk, true, 6, 8);
+	GetAnimator()->AddClip((size_t)PlayerClipType::kJump, false, 41, 3);
+	GetAnimator()->AddClip((size_t)PlayerClipType::kFalling, false, 44, 5);
 
 	AddRigidbody2D();
 
@@ -50,7 +57,7 @@ void Player::Update()
 	if (INPUT_MANAGER->GetKey('D'))
 	{
 		direction_ = 1;
-		GetRigidbody2D()->SetVelocity({ 100, GetRigidbody2D()->GetVelocity().y_ });
+		GetRigidbody2D()->SetVelocity({ move_speed_, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
 	if (INPUT_MANAGER->GetKeyUp('D'))
@@ -61,7 +68,7 @@ void Player::Update()
 	if (INPUT_MANAGER->GetKey('A'))
 	{
 		direction_ = -1;
-		GetRigidbody2D()->SetVelocity({ -100, GetRigidbody2D()->GetVelocity().y_ });
+		GetRigidbody2D()->SetVelocity({ -move_speed_, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
 	if (INPUT_MANAGER->GetKeyUp('A'))
@@ -69,28 +76,8 @@ void Player::Update()
 		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
-	if (INPUT_MANAGER->GetKey('W'))
-	{
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -100 });
-	}
-
-	if (INPUT_MANAGER->GetKeyUp('W'))
-	{
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0 });
-	}
-
-	if (INPUT_MANAGER->GetKey('S'))
-	{
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 100 });
-	}
-
-	if (INPUT_MANAGER->GetKeyUp('S'))
-	{
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0 });
-	}
-
 	// 이동 중
-	if (GetRigidbody2D()->GetVelocity() != Vector2().Zero())
+	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 	{
 		if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
 		{
@@ -99,9 +86,25 @@ void Player::Update()
 	}
 	else // 이동 중이 아님
 	{
-		if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
+		if (is_ground_ && current_state_ != states_[(size_t)PlayerStateType::kIdle])
 		{
 			ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+		}
+	}
+
+	if (GetRigidbody2D()->GetVelocity().y_ > 0)
+	{
+		if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
+		{
+			ChangeState(states_[(size_t)PlayerStateType::kFalling]);
+		}
+	}
+
+	if (GetRigidbody2D()->GetVelocity().y_ < 0)
+	{
+		if (current_state_ != states_[(size_t)PlayerStateType::kJump])
+		{
+			ChangeState(states_[(size_t)PlayerStateType::kJump]);
 		}
 	}
 
@@ -113,6 +116,26 @@ void Player::Update()
 	{
 		GetSpriteRenderer()->SetSprite(left_);
 	}
+
+	if (!is_ground_)
+	{
+		GetRigidbody2D()->AddForce(Vector2().Down() * 1000);
+	}
+
+	if (INPUT_MANAGER->GetKey('W'))
+	{
+		is_ground_ = false;
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500 });
+	}
+
+	if (is_ground_)
+	{
+		if (INPUT_MANAGER->GetKeyDown('S'))
+		{
+			is_ground_ = false;
+			GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_ + (500 * direction_), -500 });
+		}
+	}
 }
 
 void Player::LateUpdate()
@@ -122,6 +145,15 @@ void Player::LateUpdate()
 void Player::PhysicsUpdate()
 {
 	Object::PhysicsUpdate();
+
+	if (!is_ground_)
+	{
+		if (GetPosition().y_ >= 480)
+		{
+			is_ground_ = true;
+			GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0 });
+		}
+	}
 }
 
 void Player::Render()
