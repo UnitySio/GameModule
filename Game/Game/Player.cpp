@@ -49,11 +49,8 @@ Player::Player() :
 	StateMachine::Initiate();
 }
 
-void Player::Update()
+void Player::InputUpdate()
 {
-	Object::Update();
-	StateMachine::Update();
-
 	if (INPUT_MANAGER->GetKey('D'))
 	{
 		direction_ = 1;
@@ -75,6 +72,27 @@ void Player::Update()
 	{
 		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
+
+	if (INPUT_MANAGER->GetKeyDown('W'))
+	{
+		is_ground_ = false;
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
+	}
+
+	if (is_ground_)
+	{
+		if (INPUT_MANAGER->GetKeyDown('S'))
+		{
+			is_ground_ = false;
+			GetRigidbody2D()->SetVelocity({ 500.f * direction_, -500.f });
+		}
+	}
+}
+
+void Player::Update()
+{
+	Object::Update();
+	StateMachine::Update();
 
 	if (is_ground_)
 	{
@@ -123,21 +141,6 @@ void Player::Update()
 	if (!is_ground_)
 	{
 		GetRigidbody2D()->AddForce(Vector2().Down() * 1000);
-	}
-
-	if (INPUT_MANAGER->GetKeyDown('W'))
-	{
-		is_ground_ = false;
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
-	}
-
-	if (is_ground_)
-	{
-		if (INPUT_MANAGER->GetKeyDown('S'))
-		{
-			is_ground_ = false;
-			GetRigidbody2D()->SetVelocity({ 500.f * direction_, -500.f });
-		}
 	}
 }
 

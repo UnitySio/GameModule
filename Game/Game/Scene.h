@@ -24,6 +24,7 @@ public:
 	virtual void Exit() = 0;
 
 	// 가상 함수
+	virtual void InputUpdate();
 	virtual void Update();
 	virtual void LateUpdate();
 	virtual void PhysicsUpdate();

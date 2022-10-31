@@ -24,6 +24,7 @@ public:
 	Player();
 	~Player() final = default;
 
+	void InputUpdate() final;
 	void Update() final;
 	void LateUpdate() final;
 	void PhysicsUpdate() final;

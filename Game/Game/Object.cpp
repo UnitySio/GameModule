@@ -86,6 +86,10 @@ void Object::AddRigidbody2D()
 	rigidbody2d_->owner_ = this;
 }
 
+void Object::InputUpdate()
+{
+}
+
 void Object::Update()
 {
 	if (animator_ != nullptr)

@@ -30,6 +30,16 @@ LPCWSTR Scene::GetName()
 	return name_;
 }
 
+void Scene::InputUpdate()
+{
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
+	{
+		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
+			object->InputUpdate();
+			});
+	}
+}
+
 void Scene::Update()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)

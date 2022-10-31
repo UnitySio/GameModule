@@ -33,6 +33,7 @@ public:
 	void AddAnimator();
 	void AddRigidbody2D();
 
+	virtual void InputUpdate();
 	virtual void Update();
 	virtual void LateUpdate();
 	virtual void PhysicsUpdate();

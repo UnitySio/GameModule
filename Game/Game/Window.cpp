@@ -98,7 +98,10 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		ValidateRect(hWnd, NULL);
 	}
 	break;
+	break;
 	case WM_DESTROY:
+		is_logic_loop_ = false;
+		WaitForSingleObject(hThread, INFINITE); // Thread가 완료될 때까지 대기
 		TimeManager::GetInstance()->Release();
 		InputManager::GetInstance()->Release();
 		SceneManager::GetInstance()->Release();
@@ -148,12 +151,14 @@ HDC Window::GetHDC()
 
 DWORD WINAPI Window::LogicThread(LPVOID lpParam)
 {
-	while (instance_->is_loop_)
+	while (TRUE)
 	{
-		instance_->Update();
-		instance_->LateUpdate();
-		instance_->PhysicsUpdate();
-		instance_->Render();
+		instance_->Logic();
+
+		if (!instance_->is_logic_loop_)
+		{
+			break;
+		}
 	}
 
 	return 0;
@@ -161,6 +166,16 @@ DWORD WINAPI Window::LogicThread(LPVOID lpParam)
 
 void Window::Logic()
 {
+	instance_->Update();
+	instance_->LateUpdate();
+	instance_->PhysicsUpdate();
+	instance_->Render();
+}
+
+void Window::InputUpdate()
+{
+	InputManager::GetInstance()->Update();
+	SceneManager::GetInstance()->InputUpdate();
 }
 
 void Window::Update()
@@ -169,7 +184,6 @@ void Window::Update()
 	ScreenToClient(hWnd, &mouse_position_);
 
 	TimeManager::GetInstance()->Update();
-	InputManager::GetInstance()->Update();
 	SceneManager::GetInstance()->Update();
 }
 

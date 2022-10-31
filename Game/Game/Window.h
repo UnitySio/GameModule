@@ -47,9 +47,10 @@ public:
 	HANDLE hThread;
 	static DWORD WINAPI LogicThread(LPVOID lpParam);
 
-	bool is_loop_ = true;
+	bool is_logic_loop_ = true;
 
 	void Logic();
+	void InputUpdate();
 	void Update(); // Update는 매 프레임 마다 실행됩니다.
 	void LateUpdate(); // LateUpdate는 모든 Update 함수가 처리된 후 실행됩니다.
 	void PhysicsUpdate();

@@ -10,7 +10,7 @@ class Animator
 private:
 	struct Clip
 	{
-		bool is_loop_;
+		bool is_logic_loop_;
 		size_t start_frame;
 		size_t frame_count;
 	};

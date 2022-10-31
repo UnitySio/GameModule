@@ -57,6 +57,14 @@ void SceneManager::LoadScene(SceneType scene_type)
 	current_scene_->Enter();
 }
 
+void SceneManager::InputUpdate()
+{
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->InputUpdate();
+	}
+}
+
 void SceneManager::Update()
 {
 	if (current_scene_ != nullptr)

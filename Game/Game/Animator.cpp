@@ -9,7 +9,7 @@ Coroutine Animator::Play()
 {
 	while (is_play_)
 	{
-		if (!clips_[current_clip_].is_loop_ && owner_->sprite_renderer_->current_frame_ == clips_[current_clip_].frame_count - 1)
+		if (!clips_[current_clip_].is_logic_loop_ && owner_->sprite_renderer_->current_frame_ == clips_[current_clip_].frame_count - 1)
 		{
 			is_play_ = false;
 		}
