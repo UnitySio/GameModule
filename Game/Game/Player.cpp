@@ -9,6 +9,7 @@
 #include "PlayerWalk.h"
 #include "PlayerJump.h"
 #include "PlayerFalling.h"
+#include "PlayerAttack.h"
 
 using namespace std;
 
@@ -20,12 +21,14 @@ shared_ptr<State> Player::GetInitiateState()
 Player::Player() :
 	move_speed_(200.f),
 	direction_(1),
-	is_ground_()
+	is_ground_(),
+	is_attack_()
 {
 	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
 	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
 	states_[(size_t)PlayerStateType::kJump] = make_shared<PlayerJump>(this);
 	states_[(size_t)PlayerStateType::kFalling] = make_shared<PlayerFalling>(this);
+	states_[(size_t)PlayerStateType::kAttack] = make_shared<PlayerAttack>(this);
 
 	right_ = make_shared<Texture>();
 	right_->Load(L"Resources/WarriorRightSheet.bmp", 6, 17);
@@ -43,6 +46,7 @@ Player::Player() :
 	GetAnimator()->AddClip((size_t)PlayerClipType::kWalk, true, 6, 8);
 	GetAnimator()->AddClip((size_t)PlayerClipType::kJump, false, 41, 3);
 	GetAnimator()->AddClip((size_t)PlayerClipType::kFalling, false, 44, 5);
+	GetAnimator()->AddClip((size_t)PlayerClipType::kAttack, false, 14, 12);
 
 	AddRigidbody2D();
 
@@ -51,29 +55,29 @@ Player::Player() :
 
 void Player::InputUpdate()
 {
-	if (INPUT_MANAGER->GetKey('D'))
+	if (INPUT_MANAGER->GetKey(VK_RIGHT))
 	{
 		direction_ = 1;
 		GetRigidbody2D()->SetVelocity({ move_speed_, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
-	if (INPUT_MANAGER->GetKeyUp('D'))
+	if (INPUT_MANAGER->GetKeyUp(VK_RIGHT))
 	{
 		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
-	if (INPUT_MANAGER->GetKey('A'))
+	if (INPUT_MANAGER->GetKey(VK_LEFT))
 	{
 		direction_ = -1;
 		GetRigidbody2D()->SetVelocity({ -move_speed_, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
-	if (INPUT_MANAGER->GetKeyUp('A'))
+	if (INPUT_MANAGER->GetKeyUp(VK_LEFT))
 	{
 		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
-	if (INPUT_MANAGER->GetKeyDown('W'))
+	if (INPUT_MANAGER->GetKeyDown(VK_UP))
 	{
 		is_ground_ = false;
 		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
@@ -81,10 +85,20 @@ void Player::InputUpdate()
 
 	if (is_ground_)
 	{
-		if (INPUT_MANAGER->GetKeyDown('S'))
+		if (INPUT_MANAGER->GetKeyDown(VK_DOWN))
 		{
 			is_ground_ = false;
 			GetRigidbody2D()->SetVelocity({ 500.f * direction_, -500.f });
+		}
+	}
+
+	if (INPUT_MANAGER->GetKey(VK_LCONTROL))
+	{
+		is_attack_ = true;
+
+		if (current_state_ != states_[(size_t)PlayerStateType::kAttack])
+		{
+			ChangeState(states_[(size_t)PlayerStateType::kAttack]);
 		}
 	}
 }
@@ -94,37 +108,40 @@ void Player::Update()
 	Object::Update();
 	StateMachine::Update();
 
-	if (is_ground_)
+	if (!is_attack_)
 	{
-		if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
+		if (is_ground_)
 		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
+			if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 			{
-				ChangeState(states_[(size_t)PlayerStateType::kWalk]);
+				if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
+				{
+					ChangeState(states_[(size_t)PlayerStateType::kWalk]);
+				}
+			}
+			else
+			{
+				if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
+				{
+					ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+				}
 			}
 		}
 		else
 		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
+			if (GetRigidbody2D()->GetVelocity().y_ < 0)
 			{
-				ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+				if (current_state_ != states_[(size_t)PlayerStateType::kJump])
+				{
+					ChangeState(states_[(size_t)PlayerStateType::kJump]);
+				}
 			}
-		}
-	}
-	else
-	{
-		if (GetRigidbody2D()->GetVelocity().y_ < 0)
-		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kJump])
+			else if (GetRigidbody2D()->GetVelocity().y_ > 0)
 			{
-				ChangeState(states_[(size_t)PlayerStateType::kJump]);
-			}
-		}
-		else if (GetRigidbody2D()->GetVelocity().y_ > 0)
-		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
-			{
-				ChangeState(states_[(size_t)PlayerStateType::kFalling]);
+				if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
+				{
+					ChangeState(states_[(size_t)PlayerStateType::kFalling]);
+				}
 			}
 		}
 	}
@@ -137,15 +154,11 @@ void Player::Update()
 	{
 		GetSpriteRenderer()->SetSprite(left_);
 	}
-
-	if (!is_ground_)
-	{
-		GetRigidbody2D()->AddForce(Vector2().Down() * 1000);
-	}
 }
 
 void Player::LateUpdate()
 {
+	GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 800);
 }
 
 void Player::PhysicsUpdate()
@@ -156,9 +169,14 @@ void Player::PhysicsUpdate()
 	{
 		if (GetPosition().y_ >= 480)
 		{
+
 			is_ground_ = true;
 			GetRigidbody2D()->SetVelocity({ 0, 0 });
 		}
+	}
+	else
+	{
+		SetPosition({ GetPosition().x_, 480 });
 	}
 }
 

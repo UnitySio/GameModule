@@ -67,3 +67,8 @@ void Animator::Update()
 		}
 	}
 }
+
+bool Animator::IsPlay()
+{
+	return is_play_;
+}

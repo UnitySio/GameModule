@@ -44,13 +44,13 @@ public:
 	HWND GetHWND();
 	HDC GetHDC();
 
-	HANDLE hThread;
+	HANDLE logic_thread_;
 	static DWORD WINAPI LogicThread(LPVOID lpParam);
 
-	bool is_logic_loop_ = true;
+	bool is_logic_loop_;
 
 	void Logic();
-	void InputUpdate();
+	void InputUpdate(); // GetAsyncKeyState는 메인 스레드에서만 동작하기 때문에 입력과 관련된 처리는 무조건 InputUpdate에서 처리해야 합니다.
 	void Update(); // Update는 매 프레임 마다 실행됩니다.
 	void LateUpdate(); // LateUpdate는 모든 Update 함수가 처리된 후 실행됩니다.
 	void PhysicsUpdate();

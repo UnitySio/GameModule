@@ -33,7 +33,7 @@ public:
 	void Release();
 	void Initiate();
 	void AddKey(int key);
-	void Update();
+	void InputUpdate();
 
 	bool GetKeyDown(int key);
 	bool GetKey(int key);

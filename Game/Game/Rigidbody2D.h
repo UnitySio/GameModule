@@ -11,6 +11,7 @@ private:
 
 	Vector2 force_; // 힘
 	Vector2 acceleration_; // 가속도
+	Vector2 gravity_acceleration_; // 중력 가속도
 	Vector2 friction_; // 마찰력
 	Vector2 velocity_; // 속도
 
@@ -25,6 +26,7 @@ public:
 
 	void SetVelocity(Vector2 velocity);
 	void AddForce(Vector2 force);
+	void SetGravityAcceleration(Vector2 acceleration);
 	void PhysicsUpdate();
 
 	Vector2 GetVelocity();

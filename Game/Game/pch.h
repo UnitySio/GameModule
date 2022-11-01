@@ -39,7 +39,9 @@ enum class PlayerStateType : size_t
 	kIdle = 0,
 	kWalk,
 	kJump,
-	kFalling
+	kFalling,
+	kAttack,
+	kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 
 enum class PlayerClipType : size_t
@@ -47,7 +49,8 @@ enum class PlayerClipType : size_t
 	kIdle = 0,
 	kWalk,
 	kJump,
-	kFalling
+	kFalling,
+	kAttack
 };
 
 class pch

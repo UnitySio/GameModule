@@ -105,6 +105,9 @@
     <ClInclude Include="PlayerFalling.h">
       <Filter>FSM\Player State</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerAttack.h">
+      <Filter>FSM\Player State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -171,6 +174,9 @@
       <Filter>FSM\Player State</Filter>
     </ClCompile>
     <ClCompile Include="PlayerFalling.cpp">
+      <Filter>FSM\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp">
       <Filter>FSM\Player State</Filter>
     </ClCompile>
   </ItemGroup>

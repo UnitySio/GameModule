@@ -101,7 +101,7 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_DESTROY:
 		is_logic_loop_ = false;
-		WaitForSingleObject(hThread, INFINITE); // Thread가 완료될 때까지 대기
+		WaitForSingleObject(logic_thread_, INFINITE); // Thread가 완료될 때까지 대기
 		TimeManager::GetInstance()->Release();
 		InputManager::GetInstance()->Release();
 		SceneManager::GetInstance()->Release();
@@ -122,7 +122,8 @@ Window::Window() :
 	bitmap_(),
 	szTitle(),
 	szWindowClass(),
-	mouse_position_{}
+	mouse_position_{},
+	is_logic_loop_(true)
 {
 	resolution_ = { 640, 480 };
 	view_area_ = { 0, 0, resolution_.x, resolution_.y };
@@ -164,6 +165,7 @@ DWORD WINAPI Window::LogicThread(LPVOID lpParam)
 	return 0;
 }
 
+// 서브 스레드에서 동작
 void Window::Logic()
 {
 	instance_->Update();
@@ -172,9 +174,10 @@ void Window::Logic()
 	instance_->Render();
 }
 
+// 메인 스레드에서 동작
 void Window::InputUpdate()
 {
-	InputManager::GetInstance()->Update();
+	InputManager::GetInstance()->InputUpdate();
 	SceneManager::GetInstance()->InputUpdate();
 }
 

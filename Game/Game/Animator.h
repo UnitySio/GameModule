@@ -42,4 +42,6 @@ public:
 	void AddClip(size_t clip, bool is_loop, UINT start_frame, UINT frame_count);
 	void SetClip(size_t clip);
 	void Update();
+
+	bool IsPlay();
 };

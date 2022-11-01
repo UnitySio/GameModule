@@ -30,11 +30,11 @@ void InputManager::Release()
 void InputManager::Initiate()
 {
 	// 사용할 키들을 추가
-	AddKey('W');
-	AddKey('A');
-	AddKey('S');
-	AddKey('D');
-	AddKey(MK_LBUTTON);
+	AddKey(VK_UP);
+	AddKey(VK_LEFT);
+	AddKey(VK_DOWN);
+	AddKey(VK_RIGHT);
+	AddKey(VK_LCONTROL);
 }
 
 void InputManager::AddKey(int key)
@@ -42,7 +42,7 @@ void InputManager::AddKey(int key)
 	keys_.insert({ key, {} });
 }
 
-void InputManager::Update()
+void InputManager::InputUpdate()
 {
 	HWND focus = GetFocus();
 
