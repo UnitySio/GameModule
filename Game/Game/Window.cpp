@@ -38,8 +38,11 @@ BOOL Window::InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
 	hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+	int screen_width = GetSystemMetrics(SM_CXSCREEN);
+	int screen_height = GetSystemMetrics(SM_CYSCREEN);
+
 	hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX,
-		0, 0, view_area_.right - view_area_.left, view_area_.bottom - view_area_.top, nullptr, nullptr, hInstance, nullptr);
+		(screen_width - (client_area_.right - client_area_.left)) / 2, (screen_height - (client_area_.bottom - client_area_.top)) / 2, client_area_.right - client_area_.left, client_area_.bottom - client_area_.top, nullptr, nullptr, hInstance, nullptr);
 
 	if (!hWnd)
 	{
@@ -75,10 +78,10 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_GETMINMAXINFO:
 	{
-		((MINMAXINFO*)lParam)->ptMinTrackSize.x = view_area_.right - view_area_.left;
-		((MINMAXINFO*)lParam)->ptMinTrackSize.y = view_area_.bottom - view_area_.top;
-		((MINMAXINFO*)lParam)->ptMaxTrackSize.x = view_area_.right - view_area_.left;
-		((MINMAXINFO*)lParam)->ptMaxTrackSize.y = view_area_.bottom - view_area_.top;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.x = client_area_.right - client_area_.left;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.y = client_area_.bottom - client_area_.top;
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.x = client_area_.right - client_area_.left;
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.y = client_area_.bottom - client_area_.top;
 	}
 	break;
 	case WM_COMMAND:
@@ -126,8 +129,8 @@ Window::Window() :
 	is_logic_loop_(true)
 {
 	resolution_ = { 640, 480 };
-	view_area_ = { 0, 0, resolution_.x, resolution_.y };
-	AdjustWindowRect(&view_area_, WS_OVERLAPPEDWINDOW, FALSE);
+	client_area_ = { 0, 0, resolution_.x, resolution_.y };
+	AdjustWindowRect(&client_area_, WS_OVERLAPPEDWINDOW, FALSE);
 }
 
 shared_ptr<Window> Window::GetInstance()

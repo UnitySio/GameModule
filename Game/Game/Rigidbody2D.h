@@ -17,6 +17,7 @@ private:
 
 	float mass_; // 질량
 	float friction_coefficient_; // 마찰 계수
+	float drag_; // 항력 계수
 public:
 	Rigidbody2D();
 	Rigidbody2D(const Rigidbody2D& kOrigin);

@@ -16,7 +16,7 @@ private:
 	HBITMAP bitmap_;
 
 	POINT resolution_;
-	RECT view_area_;
+	RECT client_area_;
 
 	static LRESULT CALLBACK StaticWndProc(HWND, UINT, WPARAM, LPARAM);
 	LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

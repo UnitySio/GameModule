@@ -58,12 +58,17 @@ void Player::InputUpdate()
 	if (INPUT_MANAGER->GetKey(VK_RIGHT))
 	{
 		direction_ = 1;
-		GetRigidbody2D()->SetVelocity({ move_speed_, GetRigidbody2D()->GetVelocity().y_ });
+		//GetRigidbody2D()->SetVelocity({ move_speed_, GetRigidbody2D()->GetVelocity().y_ });
+	}
+
+	if (INPUT_MANAGER->GetKey(VK_RIGHT))
+	{
+		GetRigidbody2D()->AddForce(Vector2().Right() * 100);
 	}
 
 	if (INPUT_MANAGER->GetKeyUp(VK_RIGHT))
 	{
-		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
+		//GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
 	if (INPUT_MANAGER->GetKey(VK_LEFT))
@@ -158,7 +163,14 @@ void Player::Update()
 
 void Player::LateUpdate()
 {
-	GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 800);
+	if (!is_ground_)
+	{
+		GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 980.f);
+	}
+	else
+	{
+		GetRigidbody2D()->SetGravityAcceleration(Vector2().Zero());
+	}
 }
 
 void Player::PhysicsUpdate()
@@ -173,10 +185,6 @@ void Player::PhysicsUpdate()
 			is_ground_ = true;
 			GetRigidbody2D()->SetVelocity({ 0, 0 });
 		}
-	}
-	else
-	{
-		SetPosition({ GetPosition().x_, 480 });
 	}
 }
 
