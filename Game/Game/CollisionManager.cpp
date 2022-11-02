@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Object.h"
+#include "BoxCollider2D.h"
 
 using namespace std;
 
@@ -11,7 +12,8 @@ shared_ptr<CollisionManager> CollisionManager::instance_ = nullptr;
 once_flag CollisionManager::flag_;
 
 CollisionManager::CollisionManager() :
-	collision_matrix_{}
+	collision_matrix_{},
+	collision_info_{}
 {
 }
 
@@ -40,8 +42,65 @@ void CollisionManager::PhysicsUpdate()
 			{
 				shared_ptr<Scene> current_scene = SCENE_MANAGER->GetCurrentScene();
 
-				const list<shared_ptr<Object>>& first_layer = current_scene->GetLayerObjects((LayerType)row);
-				const list<shared_ptr<Object>>& second_layer = current_scene->GetLayerObjects((LayerType)column);
+				const vector<shared_ptr<Object>>& kFirstLayer = current_scene->GetLayerObjects((LayerType)row);
+				const vector<shared_ptr<Object>>& kSecondLayer = current_scene->GetLayerObjects((LayerType)column);
+
+				map<ULONGLONG, bool>::iterator iter;
+
+				for (size_t i = 0; i < kFirstLayer.size(); i++)
+				{
+					if (kFirstLayer[i]->GetBoxCollider2D() == nullptr)
+					{
+						continue;
+					}
+
+					for (size_t j = 0; j < kSecondLayer.size(); j++)
+					{
+						if (kSecondLayer[j]->GetBoxCollider2D() == nullptr || kFirstLayer[i] == kSecondLayer[j])
+						{
+							continue;
+						}
+
+						shared_ptr<BoxCollider2D> first = kFirstLayer[i]->GetBoxCollider2D();
+						shared_ptr<BoxCollider2D> second = kSecondLayer[j]->GetBoxCollider2D();
+
+						ColliderUID uid;
+						uid.first_collider_uid = first->GetUID();
+						uid.second_collider_uid = second->GetUID();
+
+						iter = collision_info_.find(uid.uid);
+
+						if (iter == collision_info_.end())
+						{
+							collision_info_.insert({ uid.uid, false });
+							iter = collision_info_.find(uid.uid);
+						}
+
+						if (IsCollision(first, second))
+						{
+							if (iter->second)
+							{
+								first->OnTriggerStay(second);
+								second->OnTriggerStay(first);
+							}
+							else
+							{
+								first->OnTriggerEnter(second);
+								second->OnTriggerEnter(first);
+								iter->second = true;
+							}
+						}
+						else
+						{
+							if (iter->second)
+							{
+								first->OnTriggerExit(second);
+								second->OnTriggerExit(first);
+								iter->second = false;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -59,4 +118,21 @@ void CollisionManager::SetCollisionMatrix(LayerType first, LayerType second)
 	}
 
 	collision_matrix_[row][column] = true;
+}
+
+bool CollisionManager::IsCollision(shared_ptr<BoxCollider2D> first, shared_ptr<BoxCollider2D> second)
+{
+	Vector2 first_position = first->GetPosition();
+	Vector2 first_scale = first->GetScale();
+
+	Vector2 second_position = second->GetPosition();
+	Vector2 second_scale = second->GetScale();
+
+	if (abs(first_position.x_ - second_position.x_) < (first_scale.x_ + second_scale.x_) / 2 &&
+		abs(first_position.y_ - second_position.y_) < (first_scale.y_ + second_scale.y_) / 2)
+	{
+		return true;
+	}
+
+	return false;
 }

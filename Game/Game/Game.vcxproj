@@ -170,6 +170,7 @@
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GroundObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Coroutine.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GroundObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">

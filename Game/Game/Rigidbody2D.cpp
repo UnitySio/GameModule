@@ -47,7 +47,7 @@ void Rigidbody2D::PhysicsUpdate()
 	// F = m * a (힘 = 질량 * 가속도)
 	// A = f / m (가속도 = 힘 / 질량)
 	acceleration_ = force_ / mass_;
-	//acceleration_ += gravity_acceleration_; // 중력 가속도
+	acceleration_ += gravity_acceleration_; // 중력 가속도
 	velocity_ += acceleration_ * DELTA_TIME;
 
 	// F = μ * N (마찰력 = 마찰 계수 * 수직 항력)
@@ -92,9 +92,9 @@ void Rigidbody2D::PhysicsUpdate()
 	acceleration_ = Vector2().Zero();
 	gravity_acceleration_ = Vector2().Zero();
 
-	WCHAR word[128];
+	/*WCHAR word[128];
 	_stprintf_s(word, L"X: %f, Y: %f\n", velocity_.x_, velocity_.y_);
-	OutputDebugString(word);
+	OutputDebugString(word);*/
 }
 
 Vector2 Rigidbody2D::GetVelocity()

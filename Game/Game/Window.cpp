@@ -3,6 +3,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "CollisionManager.h"
 
 using namespace std;
 using namespace Gdiplus;
@@ -59,9 +60,9 @@ BOOL Window::InitInstance(HINSTANCE hInstance, int nCmdShow)
 	HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, bitmap_);
 	DeleteObject(old_bitmap);
 
-	TimeManager::GetInstance()->Initiate();
-	InputManager::GetInstance()->Initiate();
-	SceneManager::GetInstance()->Initiate();
+	TIME_MANAGER->Initiate();
+	INPUT_MANAGER->Initiate();
+	SCENE_MANAGER->Initiate();
 
 	return TRUE;
 }
@@ -105,9 +106,10 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		is_logic_loop_ = false;
 		WaitForSingleObject(logic_thread_, INFINITE); // Thread가 완료될 때까지 대기
-		TimeManager::GetInstance()->Release();
-		InputManager::GetInstance()->Release();
-		SceneManager::GetInstance()->Release();
+		TIME_MANAGER->Release();
+		INPUT_MANAGER->Release();
+		SCENE_MANAGER->Release();
+		COLLISION_MANAGER->Release();
 		instance_.reset();
 		PostQuitMessage(0);
 		break;
@@ -180,8 +182,8 @@ void Window::Logic()
 // 메인 스레드에서 동작
 void Window::InputUpdate()
 {
-	InputManager::GetInstance()->InputUpdate();
-	SceneManager::GetInstance()->InputUpdate();
+	INPUT_MANAGER->InputUpdate();
+	SCENE_MANAGER->InputUpdate();
 }
 
 void Window::Update()
@@ -189,18 +191,19 @@ void Window::Update()
 	GetCursorPos(&mouse_position_);
 	ScreenToClient(hWnd, &mouse_position_);
 
-	TimeManager::GetInstance()->Update();
-	SceneManager::GetInstance()->Update();
+	TIME_MANAGER->Update();
+	SCENE_MANAGER->Update();
 }
 
 void Window::LateUpdate()
 {
-	SceneManager::GetInstance()->LateUpdate();
+	SCENE_MANAGER->LateUpdate();
 }
 
 void Window::PhysicsUpdate()
 {
-	SceneManager::GetInstance()->PhysicsUpdate();
+	SCENE_MANAGER->PhysicsUpdate();
+	COLLISION_MANAGER->PhysicsUpdate();
 }
 
 void Window::Render()
@@ -220,7 +223,7 @@ void Window::Render()
 	SelectObject(hdc, old_brush);
 	DeleteObject(new_brush);
 
-	SceneManager::GetInstance()->Render();
+	SCENE_MANAGER->Render();
 
 	BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
 }

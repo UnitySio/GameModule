@@ -9,7 +9,7 @@ private:
 
 	WCHAR name_[128];
 
-	std::list<std::shared_ptr<Object>> objects_[(size_t)LayerType::kEnd];
+	std::vector<std::shared_ptr<Object>> objects_[(size_t)LayerType::kEnd];
 public:
 	Scene();
 	virtual ~Scene() = default; // 자식 클래스의 소멸자를 호출하기 위해 virtual로 선언
@@ -30,5 +30,5 @@ public:
 	virtual void PhysicsUpdate();
 	virtual void Render();
 
-	const std::list<std::shared_ptr<Object>>& GetLayerObjects(LayerType type);
+	const std::vector<std::shared_ptr<Object>>& GetLayerObjects(LayerType type);
 };

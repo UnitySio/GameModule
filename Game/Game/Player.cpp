@@ -114,18 +114,37 @@ void Player::Update()
 
 	if (!is_attack_)
 	{
-		if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
+		if (is_ground_)
 		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
+			if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 			{
-				ChangeState(states_[(size_t)PlayerStateType::kWalk]);
+				if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
+				{
+					ChangeState(states_[(size_t)PlayerStateType::kWalk]);
+				}
+			}
+			else
+			{
+				if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
+				{
+					ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+				}
 			}
 		}
-		else
+
+		if (GetRigidbody2D()->GetVelocity().y_ < 0.f)
 		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
+			if (current_state_ != states_[(size_t)PlayerStateType::kJump])
 			{
-				ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+				ChangeState(states_[(size_t)PlayerStateType::kJump]);
+			}
+		}
+
+		if (GetRigidbody2D()->GetVelocity().y_ > 0.f)
+		{
+			if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kFalling]);
 			}
 		}
 	}
@@ -142,6 +161,7 @@ void Player::Update()
 
 void Player::LateUpdate()
 {
+	Object::LateUpdate();
 }
 
 void Player::PhysicsUpdate()

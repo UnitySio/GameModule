@@ -34,9 +34,10 @@ void Scene::InputUpdate()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
-			object->InputUpdate();
-			});
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->InputUpdate();
+		}
 	}
 }
 
@@ -44,9 +45,10 @@ void Scene::Update()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
-			object->Update();
-			});
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->Update();
+		}
 	}
 }
 
@@ -54,9 +56,10 @@ void Scene::LateUpdate()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
-			object->LateUpdate();
-			});
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->LateUpdate();
+		}
 	}
 }
 
@@ -64,9 +67,10 @@ void Scene::PhysicsUpdate()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
-			object->PhysicsUpdate();
-			});
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->PhysicsUpdate();
+		}
 	}
 }
 
@@ -74,13 +78,14 @@ void Scene::Render()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
-		for_each(objects_[i].begin(), objects_[i].end(), [](shared_ptr<Object> object) {
-			object->Render();
-			});
+		for (size_t j = 0; j < objects_[i].size(); j++)
+		{
+			objects_[i][j]->Render();
+		}
 	}
 }
 
-const list<shared_ptr<Object>>& Scene::GetLayerObjects(LayerType type)
+const vector<shared_ptr<Object>>& Scene::GetLayerObjects(LayerType type)
 {
 	return objects_[(size_t)type];
 }

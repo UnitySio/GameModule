@@ -43,6 +43,8 @@ public:
 	virtual void PhysicsUpdate();
 	virtual void Render();
 
+	LPCWSTR GetName();
+
 	Vector2 GetPosition(); // 절대 위치
 	Vector2 GetRotation();
 	Vector2 GetScale();
