@@ -47,7 +47,7 @@ void Rigidbody2D::PhysicsUpdate()
 	// F = m * a (힘 = 질량 * 가속도)
 	// A = f / m (가속도 = 힘 / 질량)
 	acceleration_ = force_ / mass_;
-	acceleration_ += gravity_acceleration_; // 중력 가속도
+	//acceleration_ += gravity_acceleration_; // 중력 가속도
 	velocity_ += acceleration_ * DELTA_TIME;
 
 	// F = μ * N (마찰력 = 마찰 계수 * 수직 항력)
@@ -59,10 +59,19 @@ void Rigidbody2D::PhysicsUpdate()
 		friction_ = friction_direction.Normalized() * friction_coefficient_ * DELTA_TIME;
 		velocity_ += friction_;
 
+		/*if (velocity_.x_ < 0.01f)
+		{
+			velocity_.x_ = 0.f;
+		}
+
+		if (velocity_.y_ < 0.01f)
+		{
+			velocity_.y_ = 0.f;
+		}*/
 	}
 
 	// V = V * (1 - D * dt) (저항력)
-	velocity_ = velocity_ * (1 - drag_ * DELTA_TIME);
+	//velocity_ = velocity_ * (1 - drag_ * DELTA_TIME);
 
 	owner_->Translate(velocity_ * DELTA_TIME);
 

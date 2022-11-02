@@ -20,7 +20,7 @@ Texture::~Texture()
 	DeleteObject(bitmap_);
 }
 
-void Texture::Load(LPCWSTR path, UINT row, UINT col)
+void Texture::Load(LPCWSTR path, UINT row, UINT column)
 {
 	bitmap_ = (HBITMAP)LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 	assert(bitmap_);
@@ -33,9 +33,9 @@ void Texture::Load(LPCWSTR path, UINT row, UINT col)
 	GetObject(bitmap_, sizeof(BITMAP), &bitmap_info_);
 
 	frame_scale_.x_ = bitmap_info_.bmWidth / row;
-	frame_scale_.y_ = bitmap_info_.bmHeight / col;
+	frame_scale_.y_ = bitmap_info_.bmHeight / column;
 
-	for (size_t i = 0; i < col; i++)
+	for (size_t i = 0; i < column; i++)
 	{
 		for (size_t j = 0; j < row; j++)
 		{

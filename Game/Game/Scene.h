@@ -15,7 +15,7 @@ public:
 	virtual ~Scene() = default; // 자식 클래스의 소멸자를 호출하기 위해 virtual로 선언
 
 	void SetName(LPCWSTR name);
-	void CreateObject(std::shared_ptr<Object> object, LayerType layer_type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale);
+	void CreateObject(std::shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale);
 
 	LPCWSTR GetName();
 
@@ -29,4 +29,6 @@ public:
 	virtual void LateUpdate();
 	virtual void PhysicsUpdate();
 	virtual void Render();
+
+	const std::list<std::shared_ptr<Object>>& GetLayerObjects(LayerType type);
 };

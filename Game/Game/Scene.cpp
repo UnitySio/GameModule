@@ -15,14 +15,14 @@ void Scene::SetName(LPCWSTR name)
 	wsprintf(name_, L"%s", name);
 }
 
-void Scene::CreateObject(shared_ptr<Object> object, LayerType layer_type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale)
+void Scene::CreateObject(shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale)
 {
 	object->SetName(name);
 	object->SetPosition(position);
 	object->SetRotation(rotation);
 	object->SetScale(scale);
 
-	objects_[(size_t)layer_type].push_back(object);
+	objects_[(size_t)type].push_back(object);
 }
 
 LPCWSTR Scene::GetName()
@@ -78,4 +78,9 @@ void Scene::Render()
 			object->Render();
 			});
 	}
+}
+
+const list<shared_ptr<Object>>& Scene::GetLayerObjects(LayerType type)
+{
+	return objects_[(size_t)type];
 }

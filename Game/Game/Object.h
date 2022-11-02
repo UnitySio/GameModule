@@ -3,12 +3,14 @@
 class SpriteRenderer;
 class Animator;
 class Rigidbody2D;
+class BoxCollider2D;
 
 class Object
 {
 private:
 	friend class SpriteRenderer;
 	friend class Animator;
+	friend class BoxCollider2D;
 
 	WCHAR name_[128];
 
@@ -19,6 +21,7 @@ private:
 	std::shared_ptr<SpriteRenderer> sprite_renderer_;
 	std::shared_ptr<Animator> animator_;
 	std::shared_ptr<Rigidbody2D> rigidbody2d_;
+	std::shared_ptr<BoxCollider2D> box_collider2d_;
 public:
 	Object();
 	Object(const Object& kOrigin); // 오브젝트가 복사되었을 때
@@ -32,6 +35,7 @@ public:
 	void AddSpriteRenderer();
 	void AddAnimator();
 	void AddRigidbody2D();
+	void AddBoxCollider2D();
 
 	virtual void InputUpdate();
 	virtual void Update();
@@ -46,4 +50,5 @@ public:
 	std::shared_ptr<SpriteRenderer> GetSpriteRenderer();
 	std::shared_ptr<Animator> GetAnimator();
 	std::shared_ptr<Rigidbody2D> GetRigidbody2D();
+	std::shared_ptr<BoxCollider2D> GetBoxCollider2D();
 };

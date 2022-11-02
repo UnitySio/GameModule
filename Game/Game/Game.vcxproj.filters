@@ -108,6 +108,12 @@
     <ClInclude Include="PlayerAttack.h">
       <Filter>FSM\Player State</Filter>
     </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -178,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="PlayerAttack.cpp">
       <Filter>FSM\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

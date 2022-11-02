@@ -3,6 +3,7 @@ class Texture
 {
 private:
 	friend class SpriteRenderer;
+	friend class BoxCollider2D;
 
 	HBITMAP bitmap_;
 
@@ -18,6 +19,6 @@ public:
 	Texture();
 	~Texture();
 
-	void Load(LPCWSTR path, UINT row = 1, UINT col = 1);
+	void Load(LPCWSTR path, UINT row = 1, UINT column = 1);
 	void SetPivot(Vector2 pivot);
 };

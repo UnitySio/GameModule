@@ -18,9 +18,12 @@
 
 #define _CRTDBG_MAP_ALLOC
 #define WINDOW Window::GetInstance()
+#define TIME_MANAGER TimeManager::GetInstance()
+#define SCENE_MANAGER SceneManager::GetInstance()
+#define INPUT_MANAGER InputManager::GetInstance()
+#define COLLISION_MANAGER CollisionManager::GetInstance()
 #define DELTA_TIME TimeManager::GetInstance()->GetDeltaTime()
 #define MOUSE_POSITION Window::GetInstance()->GetMousePosition()
-#define INPUT_MANAGER InputManager::GetInstance()
 
 enum class SceneType : size_t
 {

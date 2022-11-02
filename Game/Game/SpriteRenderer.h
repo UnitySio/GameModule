@@ -8,6 +8,7 @@ class SpriteRenderer
 private:
 	friend class Object;
 	friend class Animator;
+	friend class BoxCollider2D;
 
 	Object* owner_;
 

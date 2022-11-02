@@ -3,6 +3,7 @@
 #include "SpriteRenderer.h"
 #include "Animator.h"
 #include "Rigidbody2D.h"
+#include "BoxCollider2D.h"
 
 using namespace std;
 
@@ -13,7 +14,8 @@ Object::Object() :
 	scale_{},
 	sprite_renderer_(),
 	animator_(),
-	rigidbody2d_()
+	rigidbody2d_(),
+	box_collider2d_()
 {
 }
 
@@ -40,6 +42,12 @@ Object::Object(const Object& kOrigin) :
 	{
 		rigidbody2d_ = make_shared<Rigidbody2D>(*(Rigidbody2D*)kOrigin.rigidbody2d_.get());
 		rigidbody2d_->owner_ = this;
+	}
+
+	if (kOrigin.box_collider2d_ != nullptr)
+	{
+		box_collider2d_ = make_shared<BoxCollider2D>(*(BoxCollider2D*)kOrigin.box_collider2d_.get());
+		box_collider2d_->owner_ = this;
 	}
 }
 
@@ -86,6 +94,12 @@ void Object::AddRigidbody2D()
 	rigidbody2d_->owner_ = this;
 }
 
+void Object::AddBoxCollider2D()
+{
+	box_collider2d_ = make_shared<BoxCollider2D>();
+	box_collider2d_->owner_ = this;
+}
+
 void Object::InputUpdate()
 {
 }
@@ -108,6 +122,11 @@ void Object::PhysicsUpdate()
 	{
 		rigidbody2d_->PhysicsUpdate();
 	}
+
+	if (box_collider2d_ != nullptr)
+	{
+		box_collider2d_->PhysicsUpdate();
+	}
 }
 
 void Object::Render()
@@ -115,6 +134,11 @@ void Object::Render()
 	if (sprite_renderer_ != nullptr)
 	{
 		sprite_renderer_->Render(position_, scale_);
+	}
+
+	if (box_collider2d_ != nullptr)
+	{
+		box_collider2d_->Render();
 	}
 }
 
@@ -143,7 +167,12 @@ shared_ptr<Animator> Object::GetAnimator()
 	return animator_;
 }
 
-std::shared_ptr<Rigidbody2D> Object::GetRigidbody2D()
+shared_ptr<Rigidbody2D> Object::GetRigidbody2D()
 {
 	return rigidbody2d_;
+}
+
+shared_ptr<BoxCollider2D> Object::GetBoxCollider2D()
+{
+	return box_collider2d_;
 }

@@ -206,10 +206,10 @@ void Window::PhysicsUpdate()
 void Window::Render()
 {
 	// 임시 배경
-	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(0, 128, 0));
+	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(71, 71, 71));
 	HPEN old_pen = (HPEN)SelectObject(hdc, new_pen);
 
-	HBRUSH new_brush = CreateSolidBrush(RGB(0, 128, 0));
+	HBRUSH new_brush = CreateSolidBrush(RGB(71, 71, 71));
 	HBRUSH old_brush = (HBRUSH)SelectObject(hdc, new_brush);
 
 	Rectangle(hdc, 0, 0, resolution_.x, resolution_.y);
