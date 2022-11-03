@@ -4,6 +4,7 @@
 #include "SpriteRenderer.h"
 #include "Texture.h"
 #include "Window.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -37,6 +38,8 @@ void BoxCollider2D::PhysicsUpdate()
 
 void BoxCollider2D::Render()
 {
+	Vector2 render_position = CAMERA->GetRenderPosition(position_);
+
 	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(178, 223, 174));
 	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetHDC(), new_pen);
 
@@ -44,10 +47,10 @@ void BoxCollider2D::Render()
 	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
 
 	Rectangle(WINDOW->GetHDC(),
-		position_.x_ - scale_.x_ / 2.f,
-		position_.y_ - scale_.y_ / 2.f,
-		position_.x_ + scale_.x_ / 2.f,
-		position_.y_ + scale_.y_ / 2.f);
+		render_position.x_ - scale_.x_ / 2.f,
+		render_position.y_ - scale_.y_ / 2.f,
+		render_position.x_ + scale_.x_ / 2.f,
+		render_position.y_ + scale_.y_ / 2.f);
 
 	SelectObject(WINDOW->GetHDC(), old_pen);
 	DeleteObject(new_pen);
@@ -66,19 +69,19 @@ void BoxCollider2D::SetScale(Vector2 scale)
 	scale_ = scale;
 }
 
-void BoxCollider2D::OnTriggerEnter(shared_ptr<BoxCollider2D> other)
+void BoxCollider2D::OnTriggerEnter(Object* other)
 {
-	OutputDebugString(L"Enter\n");
+	owner_->OnTriggerEnter(other);
 }
 
-void BoxCollider2D::OnTriggerStay(shared_ptr<BoxCollider2D> other)
+void BoxCollider2D::OnTriggerStay(Object* other)
 {
-	OutputDebugString(L"Stay\n");
+	owner_->OnTriggerStay(other);
 }
 
-void BoxCollider2D::OnTriggerExit(shared_ptr<BoxCollider2D> other)
+void BoxCollider2D::OnTriggerExit(Object* other)
 {
-	OutputDebugString(L"Exit\n");
+	owner_->OnTriggerExit(other);
 }
 
 Vector2 BoxCollider2D::GetPosition()
@@ -93,7 +96,7 @@ Vector2 BoxCollider2D::GetScale()
 
 UINT BoxCollider2D::GetUID()
 {
-	return 0;
+	return uid_;
 }
 
 Object* BoxCollider2D::GetOwner()

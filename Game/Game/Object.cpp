@@ -142,6 +142,18 @@ void Object::Render()
 	}
 }
 
+void Object::OnTriggerEnter(Object* other)
+{
+}
+
+void Object::OnTriggerStay(Object* other)
+{
+}
+
+void Object::OnTriggerExit(Object* other)
+{
+}
+
 LPCWSTR Object::GetName()
 {
 	return name_;

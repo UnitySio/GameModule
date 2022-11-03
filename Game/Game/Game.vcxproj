@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BoxCollider2D.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Coroutine.h" />
     <ClInclude Include="DefaultScene.h" />
@@ -196,6 +197,7 @@
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BoxCollider2D.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Coroutine.cpp" />
     <ClCompile Include="DefaultScene.cpp" />

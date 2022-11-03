@@ -27,9 +27,9 @@ public:
 	void Render();
 	void SetOffset(Vector2 offset);
 	void SetScale(Vector2 scale);
-	void OnTriggerEnter(std::shared_ptr<BoxCollider2D> other);
-	void OnTriggerStay(std::shared_ptr<BoxCollider2D> other);
-	void OnTriggerExit(std::shared_ptr<BoxCollider2D> other);
+	void OnTriggerEnter(Object* other);
+	void OnTriggerStay(Object* other);
+	void OnTriggerExit(Object* other);
 
 	Vector2 GetPosition();
 	Vector2 GetScale();

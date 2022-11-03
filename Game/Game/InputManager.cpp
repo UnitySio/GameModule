@@ -35,6 +35,7 @@ void InputManager::Initiate()
 	AddKey(VK_DOWN);
 	AddKey(VK_RIGHT);
 	AddKey(VK_LCONTROL);
+	AddKey(VK_LSHIFT);
 }
 
 void InputManager::AddKey(int key)

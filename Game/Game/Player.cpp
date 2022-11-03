@@ -23,7 +23,8 @@ Player::Player() :
 	move_speed_(200.f),
 	direction_(1),
 	is_ground_(),
-	is_attack_()
+	is_attack_(),
+	horizontal()
 {
 	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
 	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
@@ -59,32 +60,34 @@ Player::Player() :
 
 void Player::InputUpdate()
 {
+	horizontal = (INPUT_MANAGER->GetKey(VK_RIGHT) - INPUT_MANAGER->GetKey(VK_LEFT)) * move_speed_;
+
+	GetRigidbody2D()->SetVelocity({ horizontal, GetRigidbody2D()->GetVelocity().y_ });
+
 	if (INPUT_MANAGER->GetKey(VK_RIGHT))
 	{
 		direction_ = 1;
-		GetRigidbody2D()->SetVelocity({ move_speed_, GetRigidbody2D()->GetVelocity().y_ });
-	}
-
-	if (INPUT_MANAGER->GetKeyUp(VK_RIGHT))
-	{
-		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
 	if (INPUT_MANAGER->GetKey(VK_LEFT))
 	{
 		direction_ = -1;
-		GetRigidbody2D()->SetVelocity({ -move_speed_, GetRigidbody2D()->GetVelocity().y_ });
-	}
-
-	if (INPUT_MANAGER->GetKeyUp(VK_LEFT))
-	{
-		GetRigidbody2D()->SetVelocity({ 0, GetRigidbody2D()->GetVelocity().y_ });
 	}
 
 	if (INPUT_MANAGER->GetKeyDown(VK_UP))
 	{
 		is_ground_ = false;
 		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
+	}
+
+	if (INPUT_MANAGER->GetKeyDown(VK_LSHIFT))
+	{
+		move_speed_ = 400.f;
+	}
+
+	if (INPUT_MANAGER->GetKeyUp(VK_LSHIFT))
+	{
+		move_speed_ = 200.f;
 	}
 
 	if (is_ground_)
@@ -162,6 +165,11 @@ void Player::Update()
 void Player::LateUpdate()
 {
 	Object::LateUpdate();
+
+	if (!is_ground_)
+	{
+		GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 800);
+	}
 }
 
 void Player::PhysicsUpdate()
@@ -172,18 +180,19 @@ void Player::PhysicsUpdate()
 void Player::Render()
 {
 	Object::Render();
+}
 
-	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(255, 0, 0));
-	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetHDC(), new_pen);
+void Player::OnTriggerEnter(Object* other)
+{
+	is_ground_ = true;
+	GetRigidbody2D()->SetVelocity({ 0.f, 0.f });
+}
 
-	HBRUSH new_brush = CreateSolidBrush(RGB(255, 0, 0));
-	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
+void Player::OnTriggerStay(Object* other)
+{
+}
 
-	Ellipse(WINDOW->GetHDC(), GetPosition().x_ - 2, GetPosition().y_ - 2, GetPosition().x_ + 2, GetPosition().y_ + 2);
-
-	SelectObject(WINDOW->GetHDC(), old_pen);
-	DeleteObject(new_pen);
-
-	SelectObject(WINDOW->GetHDC(), old_brush);
-	DeleteObject(new_brush);
+void Player::OnTriggerExit(Object* other)
+{
+	is_ground_ = false;
 }

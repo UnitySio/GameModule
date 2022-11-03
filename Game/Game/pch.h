@@ -22,6 +22,7 @@
 #define SCENE_MANAGER SceneManager::GetInstance()
 #define INPUT_MANAGER InputManager::GetInstance()
 #define COLLISION_MANAGER CollisionManager::GetInstance()
+#define CAMERA Camera::GetInstance()
 #define DELTA_TIME TimeManager::GetInstance()->GetDeltaTime()
 #define MOUSE_POSITION Window::GetInstance()->GetMousePosition()
 

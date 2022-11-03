@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "Object.h"
 #include "Animator.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -31,8 +32,10 @@ void SpriteRenderer::Render(Vector2 position, Vector2 scale)
 {
 	if (sprite_ != nullptr)
 	{
+		Vector2 render_position = CAMERA->GetRenderPosition(position);
+
 		Vector2 multiple = { sprite_->frame_scale_.x_ * scale.x_, sprite_->frame_scale_.y_ * scale.y_ };
-		Vector2 pivot_position = position - multiple * sprite_->pivot_;
+		Vector2 pivot_position = render_position - multiple * sprite_->pivot_;
 
 		int start_frame = (owner_->animator_ != nullptr) ? owner_->animator_->clips_[owner_->animator_->current_clip_].start_frame : 0;
 

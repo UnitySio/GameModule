@@ -17,6 +17,8 @@ private:
 	int direction_;
 
 	bool is_ground_;
+
+	float horizontal;
 protected:
 	std::shared_ptr<State> GetInitiateState();
 public:
@@ -30,4 +32,7 @@ public:
 	void LateUpdate() final;
 	void PhysicsUpdate() final;
 	void Render() final;
+	void OnTriggerEnter(Object* other) final;
+	void OnTriggerStay(Object* other) final;
+	void OnTriggerExit(Object* other) final;
 };

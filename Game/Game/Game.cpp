@@ -37,6 +37,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
+	// 로직 스레드 시작
 	WINDOW->logic_thread_ = CreateThread(NULL, 0, WINDOW->LogicThread, NULL, 0, NULL);
 
 	// 기본 메시지 루프입니다:

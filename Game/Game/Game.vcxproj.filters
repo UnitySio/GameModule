@@ -117,6 +117,9 @@
     <ClInclude Include="GroundObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="GroundObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -10,5 +10,8 @@ public:
 	~GroundObject() final = default;
 
 	void Render();
+	void OnTriggerEnter(Object* other) final;
+	void OnTriggerStay(Object* other) final;
+	void OnTriggerExit(Object* other) final;
 };
 

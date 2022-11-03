@@ -57,10 +57,6 @@ void TimeManager::Update()
 	{
 		fps_ = frame_counter_;
 
-		WCHAR fps_word[1024];
-		wsprintf(fps_word, L"FPS: %d", fps_);
-		SetWindowText(Window::GetInstance()->GetHWND(), fps_word);
-
 		frame_counter_ = 0;
 		timer_ = 0;
 	}

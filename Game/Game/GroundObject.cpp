@@ -8,24 +8,22 @@ using namespace std;
 GroundObject::GroundObject()
 {
 	AddBoxCollider2D();
-	GetBoxCollider2D()->SetScale({ 32.f, 32.f });
+	GetBoxCollider2D()->SetScale({ 300.f, 32.f });
 }
 
 void GroundObject::Render()
 {
 	Object::Render();
+}
 
-	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(255, 0, 0));
-	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetHDC(), new_pen);
+void GroundObject::OnTriggerEnter(Object* other)
+{
+}
 
-	HBRUSH new_brush = CreateSolidBrush(RGB(255, 0, 0));
-	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
+void GroundObject::OnTriggerStay(Object* other)
+{
+}
 
-	Ellipse(WINDOW->GetHDC(), GetPosition().x_ - 2, GetPosition().y_ - 2, GetPosition().x_ + 2, GetPosition().y_ + 2);
-
-	SelectObject(WINDOW->GetHDC(), old_pen);
-	DeleteObject(new_pen);
-
-	SelectObject(WINDOW->GetHDC(), old_brush);
-	DeleteObject(new_brush);
+void GroundObject::OnTriggerExit(Object* other)
+{
 }

@@ -17,7 +17,7 @@ CollisionManager::CollisionManager() :
 {
 }
 
-std::shared_ptr<CollisionManager> CollisionManager::GetInstance()
+shared_ptr<CollisionManager> CollisionManager::GetInstance()
 {
 	call_once(flag_, [] // ¶÷´Ù½Ä
 		{
@@ -54,9 +54,11 @@ void CollisionManager::PhysicsUpdate()
 						continue;
 					}
 
-					for (size_t j = 0; j < kSecondLayer.size(); j++)
+					size_t idx = kFirstLayer == kSecondLayer ? i + 1 : 0;
+
+					for (size_t j = idx; j < kSecondLayer.size(); j++)
 					{
-						if (kSecondLayer[j]->GetBoxCollider2D() == nullptr || kFirstLayer[i] == kSecondLayer[j])
+						if (kSecondLayer[j]->GetBoxCollider2D() == nullptr)
 						{
 							continue;
 						}
@@ -80,13 +82,13 @@ void CollisionManager::PhysicsUpdate()
 						{
 							if (iter->second)
 							{
-								first->OnTriggerStay(second);
-								second->OnTriggerStay(first);
+								first->OnTriggerStay(second->GetOwner());
+								second->OnTriggerStay(first->GetOwner());
 							}
 							else
 							{
-								first->OnTriggerEnter(second);
-								second->OnTriggerEnter(first);
+								first->OnTriggerEnter(second->GetOwner());
+								second->OnTriggerEnter(first->GetOwner());
 								iter->second = true;
 							}
 						}
@@ -94,8 +96,8 @@ void CollisionManager::PhysicsUpdate()
 						{
 							if (iter->second)
 							{
-								first->OnTriggerExit(second);
-								second->OnTriggerExit(first);
+								first->OnTriggerExit(second->GetOwner());
+								second->OnTriggerExit(first->GetOwner());
 								iter->second = false;
 							}
 						}

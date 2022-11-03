@@ -42,6 +42,9 @@ public:
 	virtual void LateUpdate();
 	virtual void PhysicsUpdate();
 	virtual void Render();
+	virtual void OnTriggerEnter(Object* other);
+	virtual void OnTriggerStay(Object* other);
+	virtual void OnTriggerExit(Object* other);
 
 	LPCWSTR GetName();
 
