@@ -12,7 +12,7 @@ void PlayerIdle::Enter()
 {
 	if (owner_->GetAnimator() != nullptr)
 	{
-		owner_->GetAnimator()->SetClip((size_t)PlayerClipType::kIdle);
+		owner_->GetAnimator()->SetClip(L"IDLE");
 	}
 }
 

@@ -25,8 +25,8 @@ public:
 
 	static std::shared_ptr<TimeManager> GetInstance();
 
-	void Initiate();
 	void Release();
+	void Initiate();
 	void Update();
 	void SetTimeScale(float value);
 

@@ -23,7 +23,7 @@ public:
 	Rigidbody2D(const Rigidbody2D& kOrigin);
 	~Rigidbody2D() = default;
 
-	Rigidbody2D& operator=(const Rigidbody2D& kRigidbody2D) = delete;
+	Rigidbody2D& operator=(const Rigidbody2D&) = delete;
 
 	void SetVelocity(Vector2 velocity);
 	void AddForce(Vector2 force);

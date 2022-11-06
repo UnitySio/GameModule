@@ -31,7 +31,7 @@ BoxCollider2D::BoxCollider2D(const BoxCollider2D& kOrigin) :
 void BoxCollider2D::PhysicsUpdate()
 {
 	// 추후 리팩토링 고려 대상
-	Vector2 owner_position = owner_->position_;
+	Vector2 owner_position = owner_->GetPosition();
 
 	position_ = owner_position + offset_;
 }
@@ -41,21 +41,21 @@ void BoxCollider2D::Render()
 	Vector2 render_position = CAMERA->GetRenderPosition(position_);
 
 	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(178, 223, 174));
-	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetHDC(), new_pen);
+	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetMemDC(), new_pen);
 
 	HBRUSH new_brush = (HBRUSH)GetStockObject(NULL_BRUSH);
-	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
+	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetMemDC(), new_brush);
 
-	Rectangle(WINDOW->GetHDC(),
+	Rectangle(WINDOW->GetMemDC(),
 		render_position.x_ - scale_.x_ / 2.f,
 		render_position.y_ - scale_.y_ / 2.f,
 		render_position.x_ + scale_.x_ / 2.f,
 		render_position.y_ + scale_.y_ / 2.f);
 
-	SelectObject(WINDOW->GetHDC(), old_pen);
+	SelectObject(WINDOW->GetMemDC(), old_pen);
 	DeleteObject(new_pen);
 
-	SelectObject(WINDOW->GetHDC(), old_brush);
+	SelectObject(WINDOW->GetMemDC(), old_brush);
 	DeleteObject(new_brush);
 }
 

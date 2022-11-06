@@ -21,7 +21,7 @@ public:
 	BoxCollider2D(const BoxCollider2D& kOrigin);
 	~BoxCollider2D() = default;
 
-	BoxCollider2D& operator=(const BoxCollider2D& kBoxCollider2D) = delete;
+	BoxCollider2D& operator=(const BoxCollider2D&) = delete;
 
 	void PhysicsUpdate();
 	void Render();
@@ -38,4 +38,3 @@ public:
 
 	Object* GetOwner();
 };
-

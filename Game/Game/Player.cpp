@@ -8,9 +8,7 @@
 #include "InputManager.h"
 #include "PlayerIdle.h"
 #include "PlayerWalk.h"
-#include "PlayerJump.h"
-#include "PlayerFalling.h"
-#include "PlayerAttack.h"
+#include "SceneManager.h"
 
 using namespace std;
 
@@ -28,9 +26,6 @@ Player::Player() :
 {
 	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
 	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
-	states_[(size_t)PlayerStateType::kJump] = make_shared<PlayerJump>(this);
-	states_[(size_t)PlayerStateType::kFalling] = make_shared<PlayerFalling>(this);
-	states_[(size_t)PlayerStateType::kAttack] = make_shared<PlayerAttack>(this);
 
 	right_ = make_shared<Texture>();
 	right_->Load(L"Resources/WarriorRightSheet.bmp", 6, 17);
@@ -41,14 +36,11 @@ Player::Player() :
 	left_->SetPivot({ 0.625f, 0.97f });
 
 	AddSpriteRenderer();
-	GetSpriteRenderer()->SetSprite(right_);
+	GetSpriteRenderer()->SetTexture(right_);
 
 	AddAnimator();
-	GetAnimator()->AddClip((size_t)PlayerClipType::kIdle, true, 0, 6);
-	GetAnimator()->AddClip((size_t)PlayerClipType::kWalk, true, 6, 8);
-	GetAnimator()->AddClip((size_t)PlayerClipType::kJump, false, 41, 3);
-	GetAnimator()->AddClip((size_t)PlayerClipType::kFalling, false, 44, 5);
-	GetAnimator()->AddClip((size_t)PlayerClipType::kAttack, false, 14, 12);
+	GetAnimator()->AddClip(L"IDLE", true, 0, 6);
+	GetAnimator()->AddClip(L"WALK", true, 6, 8);
 
 	AddRigidbody2D();
 	AddBoxCollider2D();
@@ -60,53 +52,34 @@ Player::Player() :
 
 void Player::InputUpdate()
 {
-	horizontal = (INPUT_MANAGER->GetKey(VK_RIGHT) - INPUT_MANAGER->GetKey(VK_LEFT)) * move_speed_;
+	horizontal = (INPUT->GetKey(VK_RIGHT) - INPUT->GetKey(VK_LEFT)) * move_speed_;
 
 	GetRigidbody2D()->SetVelocity({ horizontal, GetRigidbody2D()->GetVelocity().y_ });
 
-	if (INPUT_MANAGER->GetKey(VK_RIGHT))
+	if (INPUT->GetKey(VK_RIGHT))
 	{
 		direction_ = 1;
 	}
 
-	if (INPUT_MANAGER->GetKey(VK_LEFT))
+	if (INPUT->GetKey(VK_LEFT))
 	{
 		direction_ = -1;
 	}
 
-	if (INPUT_MANAGER->GetKeyDown(VK_UP))
+	if (INPUT->GetKeyDown(VK_UP))
 	{
 		is_ground_ = false;
 		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
 	}
 
-	if (INPUT_MANAGER->GetKeyDown(VK_LSHIFT))
+	if (INPUT->GetKeyDown(VK_LSHIFT))
 	{
 		move_speed_ = 400.f;
 	}
 
-	if (INPUT_MANAGER->GetKeyUp(VK_LSHIFT))
+	if (INPUT->GetKeyUp(VK_LSHIFT))
 	{
 		move_speed_ = 200.f;
-	}
-
-	if (is_ground_)
-	{
-		if (INPUT_MANAGER->GetKeyDown(VK_DOWN))
-		{
-			is_ground_ = false;
-			GetRigidbody2D()->SetVelocity({ 500.f * direction_, -500.f });
-		}
-	}
-
-	if (INPUT_MANAGER->GetKey(VK_LCONTROL))
-	{
-		is_attack_ = true;
-
-		if (current_state_ != states_[(size_t)PlayerStateType::kAttack])
-		{
-			ChangeState(states_[(size_t)PlayerStateType::kAttack]);
-		}
 	}
 }
 
@@ -115,50 +88,28 @@ void Player::Update()
 	Object::Update();
 	StateMachine::Update();
 
-	if (!is_attack_)
+	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 	{
-		if (is_ground_)
+		if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
 		{
-			if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
-			{
-				if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
-				{
-					ChangeState(states_[(size_t)PlayerStateType::kWalk]);
-				}
-			}
-			else
-			{
-				if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
-				{
-					ChangeState(states_[(size_t)PlayerStateType::kIdle]);
-				}
-			}
+			ChangeState(states_[(size_t)PlayerStateType::kWalk]);
 		}
-
-		if (GetRigidbody2D()->GetVelocity().y_ < 0.f)
+	}
+	else
+	{
+		if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
 		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kJump])
-			{
-				ChangeState(states_[(size_t)PlayerStateType::kJump]);
-			}
-		}
-
-		if (GetRigidbody2D()->GetVelocity().y_ > 0.f)
-		{
-			if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
-			{
-				ChangeState(states_[(size_t)PlayerStateType::kFalling]);
-			}
+			ChangeState(states_[(size_t)PlayerStateType::kIdle]);
 		}
 	}
 
 	if (direction_ == 1)
 	{
-		GetSpriteRenderer()->SetSprite(right_);
+		GetSpriteRenderer()->SetTexture(right_);
 	}
 	else if (direction_ == -1)
 	{
-		GetSpriteRenderer()->SetSprite(left_);
+		GetSpriteRenderer()->SetTexture(left_);
 	}
 }
 
@@ -184,8 +135,11 @@ void Player::Render()
 
 void Player::OnTriggerEnter(Object* other)
 {
-	is_ground_ = true;
-	GetRigidbody2D()->SetVelocity({ 0.f, 0.f });
+	if (GetPosition().y_ < other->GetPosition().y_ - 15.f)
+	{
+		is_ground_ = true;
+		GetRigidbody2D()->SetVelocity({ 0.f, 0.f });
+	}
 }
 
 void Player::OnTriggerStay(Object* other)

@@ -40,7 +40,7 @@ void CollisionManager::PhysicsUpdate()
 		{
 			if (collision_matrix_[row][column])
 			{
-				shared_ptr<Scene> current_scene = SCENE_MANAGER->GetCurrentScene();
+				shared_ptr<Scene> current_scene = SCENE->GetCurrentScene();
 
 				const vector<shared_ptr<Object>>& kFirstLayer = current_scene->GetLayerObjects((LayerType)row);
 				const vector<shared_ptr<Object>>& kSecondLayer = current_scene->GetLayerObjects((LayerType)column);
@@ -82,14 +82,26 @@ void CollisionManager::PhysicsUpdate()
 						{
 							if (iter->second)
 							{
-								first->OnTriggerStay(second->GetOwner());
-								second->OnTriggerStay(first->GetOwner());
+								if (kFirstLayer[i]->IsDestroy() || kSecondLayer[j]->IsDestroy())
+								{
+									first->OnTriggerExit(second->GetOwner());
+									second->OnTriggerExit(first->GetOwner());
+									iter->second = false;
+								}
+								else
+								{
+									first->OnTriggerStay(second->GetOwner());
+									second->OnTriggerStay(first->GetOwner());
+								}
 							}
 							else
 							{
-								first->OnTriggerEnter(second->GetOwner());
-								second->OnTriggerEnter(first->GetOwner());
-								iter->second = true;
+								if (!kFirstLayer[i]->IsDestroy() && !kSecondLayer[j]->IsDestroy())
+								{
+									first->OnTriggerEnter(second->GetOwner());
+									second->OnTriggerEnter(first->GetOwner());
+									iter->second = true;
+								}
 							}
 						}
 						else

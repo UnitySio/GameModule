@@ -31,6 +31,7 @@ public:
 	Vector2 Down();
 	Vector2 Left();
 	Vector2 Right();
+	Vector2 Lerp(Vector2 a, Vector2 b, float t);
 
 	bool operator==(const Vector2& kVector2);
 	bool operator!=(const Vector2& kVector2);

@@ -2,9 +2,6 @@
 class Texture
 {
 private:
-	friend class SpriteRenderer;
-	friend class BoxCollider2D;
-
 	HBITMAP bitmap_;
 
 	BITMAP bitmap_info_;
@@ -21,4 +18,11 @@ public:
 
 	void Load(LPCWSTR path, UINT row = 1, UINT column = 1);
 	void SetPivot(Vector2 pivot);
+
+	HDC GetMemDC();
+
+	Vector2 GetPivot();
+	Vector2 GetSpriteScale();
+
+	const std::vector<Vector2>& GetFrames();
 };

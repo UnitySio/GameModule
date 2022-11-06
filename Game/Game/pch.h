@@ -18,13 +18,21 @@
 
 #define _CRTDBG_MAP_ALLOC
 #define WINDOW Window::GetInstance()
-#define TIME_MANAGER TimeManager::GetInstance()
-#define SCENE_MANAGER SceneManager::GetInstance()
-#define INPUT_MANAGER InputManager::GetInstance()
-#define COLLISION_MANAGER CollisionManager::GetInstance()
+#define TIME TimeManager::GetInstance()
+#define SCENE SceneManager::GetInstance()
+#define INPUT InputManager::GetInstance()
+#define COLLISION CollisionManager::GetInstance()
 #define CAMERA Camera::GetInstance()
 #define DELTA_TIME TimeManager::GetInstance()->GetDeltaTime()
 #define MOUSE_POSITION Window::GetInstance()->GetMousePosition()
+
+struct FloatRect
+{
+	float left;
+	float top;
+	float right;
+	float bottom;
+};
 
 enum class SceneType : size_t
 {
@@ -47,15 +55,6 @@ enum class PlayerStateType : size_t
 	kFalling,
 	kAttack,
 	kEnd // kEnd는 항상 마지막에 있어야 합니다.
-};
-
-enum class PlayerClipType : size_t
-{
-	kIdle = 0,
-	kWalk,
-	kJump,
-	kFalling,
-	kAttack
 };
 
 class pch

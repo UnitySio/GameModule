@@ -9,7 +9,7 @@ class Player : public Object, public StateMachine
 private:
 	float move_speed_;
 
-	std::shared_ptr<State> states_[(size_t)PlayerStateType::kEnd];
+	std::shared_ptr<State> states_[2];
 
 	std::shared_ptr<Texture> left_;
 	std::shared_ptr<Texture> right_;

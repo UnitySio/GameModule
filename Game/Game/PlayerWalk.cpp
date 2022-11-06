@@ -12,7 +12,7 @@ void PlayerWalk::Enter()
 {
 	if (owner_->GetAnimator() != nullptr)
 	{
-		owner_->GetAnimator()->SetClip((size_t)PlayerClipType::kWalk);
+		owner_->GetAnimator()->SetClip(L"WALK");
 	}
 }
 

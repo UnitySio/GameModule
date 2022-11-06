@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Vector2.h"
 
+using namespace std;
+
 Vector2::Vector2() :
 	x_(),
 	y_()
@@ -126,6 +128,12 @@ Vector2 Vector2::Left()
 Vector2 Vector2::Right()
 {
 	return Vector2({ 1, 0 });
+}
+
+Vector2 Vector2::Lerp(Vector2 a, Vector2 b, float t)
+{
+	t = clamp(t, 0.f, 1.f);
+	return a + (b - a) * t;
 }
 
 bool Vector2::operator==(const Vector2& kVector2)

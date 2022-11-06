@@ -4,6 +4,8 @@
 
 #include <cassert>
 
+using namespace std;
+
 Texture::Texture() :
 	bitmap_(),
 	bitmap_info_(),
@@ -25,7 +27,7 @@ void Texture::Load(LPCWSTR path, UINT row, UINT column)
 	bitmap_ = (HBITMAP)LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 	assert(bitmap_);
 
-	memDC = CreateCompatibleDC(WINDOW->GetHDC());
+	memDC = CreateCompatibleDC(WINDOW->GetMemDC());
 
 	HBITMAP old_bitmap = (HBITMAP)SelectObject(memDC, bitmap_);
 	DeleteObject(old_bitmap);
@@ -48,4 +50,24 @@ void Texture::Load(LPCWSTR path, UINT row, UINT column)
 void Texture::SetPivot(Vector2 pivot)
 {
 	pivot_ = pivot;
+}
+
+HDC Texture::GetMemDC()
+{
+	return memDC;
+}
+
+Vector2 Texture::GetPivot()
+{
+	return pivot_;
+}
+
+Vector2 Texture::GetSpriteScale()
+{
+	return frame_scale_;
+}
+
+const vector<Vector2>& Texture::GetFrames()
+{
+	return frames_;
 }

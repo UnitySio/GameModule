@@ -12,6 +12,7 @@ Object::Object() :
 	position_{},
 	rotation_{},
 	scale_{},
+	is_destroy_(),
 	sprite_renderer_(),
 	animator_(),
 	rigidbody2d_(),
@@ -22,7 +23,8 @@ Object::Object() :
 Object::Object(const Object& kOrigin) :
 	position_{ kOrigin.position_ },
 	rotation_{ kOrigin.rotation_ },
-	scale_{ kOrigin.scale_ }
+	scale_{ kOrigin.scale_ },
+	is_destroy_()
 {
 	wsprintf(name_, L"%s", kOrigin.name_);
 
@@ -69,6 +71,11 @@ void Object::SetRotation(Vector2 rotation)
 void Object::SetScale(Vector2 scale)
 {
 	scale_ = scale;
+}
+
+void Object::SetDestroy()
+{
+	is_destroy_ = true;
 }
 
 void Object::Translate(Vector2 translation)
@@ -154,6 +161,10 @@ void Object::OnTriggerExit(Object* other)
 {
 }
 
+void Object::OnDestroy()
+{
+}
+
 LPCWSTR Object::GetName()
 {
 	return name_;
@@ -172,6 +183,11 @@ Vector2 Object::GetRotation()
 Vector2 Object::GetScale()
 {
 	return scale_;
+}
+
+bool Object::IsDestroy()
+{
+	return is_destroy_;
 }
 
 shared_ptr<SpriteRenderer> Object::GetSpriteRenderer()

@@ -38,4 +38,3 @@ public:
 
 	bool IsCollision(std::shared_ptr<BoxCollider2D> first, std::shared_ptr<BoxCollider2D> second);
 };
-

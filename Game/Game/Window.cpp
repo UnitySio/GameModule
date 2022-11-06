@@ -61,9 +61,10 @@ BOOL Window::InitInstance(HINSTANCE hInstance, int nCmdShow)
 	HBITMAP old_bitmap = (HBITMAP)SelectObject(hdc, bitmap_);
 	DeleteObject(old_bitmap);
 
-	TIME_MANAGER->Initiate();
-	INPUT_MANAGER->Initiate();
-	SCENE_MANAGER->Initiate();
+	TIME->Initiate();
+	INPUT->Initiate();
+	CAMERA->Initiate();
+	SCENE->Initiate();
 
 	return TRUE;
 }
@@ -107,10 +108,10 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		is_logic_loop_ = false;
 		WaitForSingleObject(logic_thread_, INFINITE); // Thread가 완료될 때까지 대기
-		TIME_MANAGER->Release();
-		INPUT_MANAGER->Release();
-		SCENE_MANAGER->Release();
-		COLLISION_MANAGER->Release();
+		TIME->Release();
+		INPUT->Release();
+		SCENE->Release();
+		COLLISION->Release();
 		CAMERA->Release();
 		instance_.reset();
 		PostQuitMessage(0);
@@ -152,7 +153,7 @@ HWND Window::GetHWND()
 	return hWnd;
 }
 
-HDC Window::GetHDC()
+HDC Window::GetMemDC()
 {
 	return hdc;
 }
@@ -179,13 +180,14 @@ void Window::Logic()
 	instance_->LateUpdate();
 	instance_->PhysicsUpdate();
 	instance_->Render();
+	SCENE->ObjectUpdate();
 }
 
 // 메인 스레드에서 동작
 void Window::InputUpdate()
 {
-	INPUT_MANAGER->InputUpdate();
-	SCENE_MANAGER->InputUpdate();
+	INPUT->InputUpdate();
+	SCENE->InputUpdate();
 }
 
 void Window::Update()
@@ -193,20 +195,21 @@ void Window::Update()
 	GetCursorPos(&mouse_position_);
 	ScreenToClient(hWnd, &mouse_position_);
 
-	TIME_MANAGER->Update();
-	SCENE_MANAGER->Update();
+	TIME->Update();
+	SCENE->Update();
+	CAMERA->Update();
 }
 
 void Window::LateUpdate()
 {
-	SCENE_MANAGER->LateUpdate();
+	SCENE->LateUpdate();
 	CAMERA->LateUpdate();
 }
 
 void Window::PhysicsUpdate()
 {
-	SCENE_MANAGER->PhysicsUpdate();
-	COLLISION_MANAGER->PhysicsUpdate();
+	SCENE->PhysicsUpdate();
+	COLLISION->PhysicsUpdate();
 }
 
 void Window::Render()
@@ -226,10 +229,10 @@ void Window::Render()
 	SelectObject(hdc, old_brush);
 	DeleteObject(new_brush);
 
-	SCENE_MANAGER->Render();
+	SCENE->Render();
 
 	WCHAR fps_word[128];
-	wsprintf(fps_word, L"FPS: %d", TIME_MANAGER->GetFPS());
+	wsprintf(fps_word, L"FPS: %d", TIME->GetFPS());
 	TextOut(hdc, 0, 0, fps_word, wcslen(fps_word));
 
 	BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
@@ -238,4 +241,9 @@ void Window::Render()
 Vector2 Window::GetMousePosition()
 {
 	return { (float)mouse_position_.x, (float)mouse_position_.y };
+}
+
+Vector2 Window::GetResolution()
+{
+	return { (float)resolution_.x, (float)resolution_.y };
 }

@@ -2,6 +2,7 @@
 
 // 클래스 전방 선언
 class Scene;
+class Object;
 
 class SceneManager
 {
@@ -30,6 +31,8 @@ public:
 	void LateUpdate();
 	void PhysicsUpdate();
 	void Render();
+	void ObjectUpdate();
+	void Destroy(Object* object);
 
 	std::shared_ptr<Scene> GetCurrentScene();
 };

@@ -25,6 +25,22 @@ void Scene::CreateObject(shared_ptr<Object> object, LayerType type, LPCWSTR name
 	objects_[(size_t)type].push_back(object);
 }
 
+void Scene::ObjectUpdate()
+{
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
+	{
+		vector<shared_ptr<Object>>::iterator iter = objects_[i].begin();
+		for (; iter != objects_[i].end(); ++iter)
+		{
+			if ((*iter)->IsDestroy())
+			{
+				(*iter).reset();
+				iter = objects_[i].erase(iter);
+			}
+		}
+	}
+}
+
 LPCWSTR Scene::GetName()
 {
 	return name_;
@@ -36,7 +52,10 @@ void Scene::InputUpdate()
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{
-			objects_[i][j]->InputUpdate();
+			if (!objects_[i][j]->IsDestroy())
+			{
+				objects_[i][j]->InputUpdate();
+			}
 		}
 	}
 }
@@ -47,7 +66,10 @@ void Scene::Update()
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{
-			objects_[i][j]->Update();
+			if (!objects_[i][j]->IsDestroy())
+			{
+				objects_[i][j]->Update();
+			}
 		}
 	}
 }
@@ -58,7 +80,10 @@ void Scene::LateUpdate()
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{
-			objects_[i][j]->LateUpdate();
+			if (!objects_[i][j]->IsDestroy())
+			{
+				objects_[i][j]->LateUpdate();
+			}
 		}
 	}
 }
@@ -69,7 +94,10 @@ void Scene::PhysicsUpdate()
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{
-			objects_[i][j]->PhysicsUpdate();
+			if (!objects_[i][j]->IsDestroy())
+			{
+				objects_[i][j]->PhysicsUpdate();
+			}
 		}
 	}
 }
@@ -80,7 +108,10 @@ void Scene::Render()
 	{
 		for (size_t j = 0; j < objects_[i].size(); j++)
 		{
-			objects_[i][j]->Render();
+			if (!objects_[i][j]->IsDestroy())
+			{
+				objects_[i][j]->Render();
+			}
 		}
 	}
 }

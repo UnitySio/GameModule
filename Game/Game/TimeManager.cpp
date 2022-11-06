@@ -30,15 +30,15 @@ std::shared_ptr<TimeManager> TimeManager::GetInstance()
 	return instance_;
 }
 
+void TimeManager::Release()
+{
+	instance_.reset();
+}
+
 void TimeManager::Initiate()
 {
 	QueryPerformanceFrequency(&frequency_);
 	QueryPerformanceCounter(&previous_count_);
-}
-
-void TimeManager::Release()
-{
-	instance_.reset();
 }
 
 void TimeManager::Update()

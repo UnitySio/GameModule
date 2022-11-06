@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "DefaultScene.h"
+#include "Object.h"
 
 using namespace std;
 using namespace Gdiplus;
@@ -95,6 +96,19 @@ void SceneManager::Render()
 	{
 		current_scene_->Render();
 	}
+}
+
+void SceneManager::ObjectUpdate()
+{
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->ObjectUpdate();
+	}
+}
+
+void SceneManager::Destroy(Object* object)
+{
+	object->SetDestroy();
 }
 
 shared_ptr<Scene> SceneManager::GetCurrentScene()

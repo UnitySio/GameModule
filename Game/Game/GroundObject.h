@@ -14,4 +14,3 @@ public:
 	void OnTriggerStay(Object* other) final;
 	void OnTriggerExit(Object* other) final;
 };
-

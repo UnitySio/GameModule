@@ -42,7 +42,7 @@ public:
 	static std::shared_ptr<Window> GetInstance();
 
 	HWND GetHWND();
-	HDC GetHDC();
+	HDC GetMemDC();
 
 	HANDLE logic_thread_;
 	static DWORD WINAPI LogicThread(LPVOID lpParam);
@@ -57,4 +57,5 @@ public:
 	void Render();
 
 	Vector2 GetMousePosition();
+	Vector2 GetResolution();
 };
