@@ -42,7 +42,7 @@ void SpriteRenderer::Render(Vector2 position, Vector2 scale)
 		Vector2 multiple = { texture_->GetSpriteScale().x_ * scale.x_, texture_->GetSpriteScale().y_ * scale.y_ };
 		Vector2 pivot_position = render_position - multiple * texture_->GetPivot();
 
-		TransparentBlt(WINDOW->GetMemDC(),
+		TransparentBlt(WINDOW->GetHDC(),
 			pivot_position.x_,
 			pivot_position.y_,
 			multiple.x_,

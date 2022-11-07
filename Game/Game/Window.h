@@ -42,7 +42,7 @@ public:
 	static std::shared_ptr<Window> GetInstance();
 
 	HWND GetHWND();
-	HDC GetMemDC();
+	HDC GetHDC();
 
 	HANDLE logic_thread_;
 	static DWORD WINAPI LogicThread(LPVOID lpParam);

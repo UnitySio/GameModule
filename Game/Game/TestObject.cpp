@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "SceneManager.h"
 #include "InputManager.h"
+#include "Player.h"
 
 TestObject::TestObject(Object* target) :
 	target_(target)
@@ -14,12 +15,12 @@ void TestObject::Update()
 {
 	if (target_)
 	{
-		SetPosition(Vector2().Lerp(GetPosition(), target_->GetPosition(), DELTA_TIME * 5.f));
+		SetPosition(Vector2().Lerp(GetPosition(), target_->GetPosition() + Vector2({ 64.f * -(*(Player*)target_).direction_ , -100.f }), DELTA_TIME * 10.f));
 	}
 
 	if (INPUT->GetKeyDown(VK_LSHIFT))
 	{
-		SCENE->Destroy(this);
+		SCENE->Destroy(shared_from_this());
 	}
 }
 
@@ -27,5 +28,10 @@ void TestObject::Render()
 {
 	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
 
-	Rectangle(WINDOW->GetMemDC(), render_position.x_ - 16, render_position.y_ - 16, render_position.x_ + 16, render_position.y_ + 16);
+	Rectangle(WINDOW->GetHDC(), render_position.x_ - 16, render_position.y_ - 16, render_position.x_ + 16, render_position.y_ + 16);
+}
+
+void TestObject::OnDestroy()
+{
+	OutputDebugString(L"Test Object Destroyed.\n");
 }

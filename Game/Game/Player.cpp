@@ -45,7 +45,7 @@ Player::Player() :
 	AddRigidbody2D();
 	AddBoxCollider2D();
 	GetBoxCollider2D()->SetOffset({ 0.f, -50.f });
-	GetBoxCollider2D()->SetScale({ 100.f, 100.f });
+	GetBoxCollider2D()->SetScale({ 64.f, 100.f });
 
 	StateMachine::Initiate();
 }
@@ -68,13 +68,17 @@ void Player::InputUpdate()
 
 	if (INPUT->GetKeyDown(VK_UP))
 	{
-		is_ground_ = false;
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
+		if (is_ground_)
+		{
+			is_ground_ = false;
+			GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
+		}
 	}
 
 	if (INPUT->GetKeyDown(VK_LSHIFT))
 	{
 		move_speed_ = 400.f;
+		//SCENE->Destroy(shared_from_this());
 	}
 
 	if (INPUT->GetKeyUp(VK_LSHIFT))
@@ -138,7 +142,7 @@ void Player::OnTriggerEnter(Object* other)
 	if (GetPosition().y_ < other->GetPosition().y_ - 15.f)
 	{
 		is_ground_ = true;
-		GetRigidbody2D()->SetVelocity({ 0.f, 0.f });
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f});
 	}
 }
 

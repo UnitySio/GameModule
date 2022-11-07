@@ -16,8 +16,7 @@ public:
 
 	void SetName(LPCWSTR name);
 	void CreateObject(std::shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale);
-	void ObjectUpdate();
-
+	
 	LPCWSTR GetName();
 
 	// 추상 함수

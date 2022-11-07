@@ -5,7 +5,7 @@ class Animator;
 class Rigidbody2D;
 class BoxCollider2D;
 
-class Object
+class Object : public std::enable_shared_from_this<Object>
 {
 private:
 	WCHAR name_[128];

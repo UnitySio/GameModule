@@ -12,4 +12,5 @@ public:
 
 	void Update() final;
 	void Render() final;
+	void OnDestroy() final;
 };

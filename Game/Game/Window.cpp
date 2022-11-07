@@ -153,7 +153,7 @@ HWND Window::GetHWND()
 	return hWnd;
 }
 
-HDC Window::GetMemDC()
+HDC Window::GetHDC()
 {
 	return hdc;
 }

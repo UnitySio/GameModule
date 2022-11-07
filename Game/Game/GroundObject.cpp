@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GroundObject.h"
 #include "Window.h"
+#include "Camera.h"
 #include "BoxCollider2D.h"
 
 using namespace std;
@@ -14,6 +15,10 @@ GroundObject::GroundObject()
 void GroundObject::Render()
 {
 	Object::Render();
+
+	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
+
+	Rectangle(WINDOW->GetHDC(), render_position.x_ - 150, render_position.y_ - 16, render_position.x_ + 150, render_position.y_ + 16);
 }
 
 void GroundObject::OnTriggerEnter(Object* other)

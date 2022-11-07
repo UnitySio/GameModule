@@ -10,7 +10,7 @@ Rigidbody2D::Rigidbody2D() :
 	friction_{},
 	velocity_{},
 	mass_(1),
-	friction_coefficient_(100),
+	friction_coefficient_(200),
 	drag_()
 {
 }

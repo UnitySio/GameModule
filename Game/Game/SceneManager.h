@@ -13,6 +13,8 @@ private:
 
 	std::shared_ptr<Scene> scenes_[(size_t)SceneType::kEnd];
 	std::shared_ptr<Scene> current_scene_;
+
+	std::vector<std::shared_ptr<Object>> obj;
 public:
 	SceneManager();
 	~SceneManager() = default;
@@ -32,7 +34,7 @@ public:
 	void PhysicsUpdate();
 	void Render();
 	void ObjectUpdate();
-	void Destroy(Object* object);
+	void Destroy(std::shared_ptr<Object> object);
 
 	std::shared_ptr<Scene> GetCurrentScene();
 };

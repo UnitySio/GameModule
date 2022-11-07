@@ -100,15 +100,23 @@ void SceneManager::Render()
 
 void SceneManager::ObjectUpdate()
 {
-	if (current_scene_ != nullptr)
+	vector<shared_ptr<Object>>::iterator iter = obj.begin();
+	for (; iter != obj.end(); ++iter)
 	{
-		current_scene_->ObjectUpdate();
+		if ((*iter)->IsDestroy())
+		{
+			(*iter)->OnDestroy();
+			(*iter).reset();
+		}
 	}
+
+	obj.clear();
 }
 
-void SceneManager::Destroy(Object* object)
+void SceneManager::Destroy(shared_ptr<Object> object)
 {
 	object->SetDestroy();
+	obj.push_back(object);
 }
 
 shared_ptr<Scene> SceneManager::GetCurrentScene()

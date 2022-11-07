@@ -14,8 +14,6 @@ private:
 	std::shared_ptr<Texture> left_;
 	std::shared_ptr<Texture> right_;
 
-	int direction_;
-
 	bool is_ground_;
 
 	float horizontal;
@@ -23,6 +21,7 @@ protected:
 	std::shared_ptr<State> GetInitiateState();
 public:
 	bool is_attack_;
+	int direction_;
 
 	Player();
 	~Player() final = default;
