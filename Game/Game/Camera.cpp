@@ -15,7 +15,6 @@ Camera::Camera() :
 	position_{},
 	screen_position_{},
 	resolution_{},
-	screen_center_{},
 	limit_area_{},
 	screen_x_(.5f),
 	screen_y_(.5f),
@@ -42,7 +41,6 @@ void Camera::Release()
 void Camera::Initiate()
 {
 	resolution_ = WINDOW->GetResolution();
-	screen_center_ = resolution_ / 2.f;
 	limit_area_ = { 0, 0, resolution_.x_, resolution_.y_ };
 }
 
@@ -59,8 +57,8 @@ void Camera::LateUpdate()
 
 		position_ = Vector2().Lerp(position_, target_->GetPosition(), DELTA_TIME * move_speed_);
 
-		float clamp_x = clamp(position_.x_, limit_area_.left + screen_center_.x_, limit_area_.right - screen_center_.x_);
-		float clamp_y = clamp(position_.y_, limit_area_.top + screen_center_.y_, limit_area_.bottom - screen_center_.y_);
+		float clamp_x = clamp(position_.x_, limit_area_.left + (resolution_.x_ * screen_x_), limit_area_.right - (resolution_.x_ - (resolution_.x_ * screen_x_)));
+		float clamp_y = clamp(position_.y_, limit_area_.top + (resolution_.y_ * screen_y_), limit_area_.bottom - (resolution_.y_ - (resolution_.y_ * screen_y_)));
 
 		position_ = { clamp_x, clamp_y };
 

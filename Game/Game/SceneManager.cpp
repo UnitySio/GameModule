@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "DefaultScene.h"
 #include "Object.h"
+#include "InputManager.h"
 
 using namespace std;
 using namespace Gdiplus;
@@ -12,8 +13,9 @@ shared_ptr<SceneManager> SceneManager::instance_ = nullptr;
 once_flag SceneManager::flag_;
 
 SceneManager::SceneManager() :
-	scenes_(),
-	current_scene_()
+	scenes_{},
+	current_scene_(),
+	objects_{}
 {
 }
 
@@ -100,23 +102,21 @@ void SceneManager::Render()
 
 void SceneManager::ObjectUpdate()
 {
-	vector<shared_ptr<Object>>::iterator iter = obj.begin();
-	for (; iter != obj.end(); ++iter)
+	for (size_t i = 0; i < objects_.size(); i++)
 	{
-		if ((*iter)->IsDestroy())
-		{
-			(*iter)->OnDestroy();
-			(*iter).reset();
-		}
+		current_scene_->CreateObject(objects_[i], LayerType::kDefault, L"Bullet", { 320.f, 240.f }, {}, {});
 	}
 
-	obj.clear();
+	objects_.clear();
+}
+
+void SceneManager::Instantiate(shared_ptr<Object> object)
+{
+	objects_.push_back(object);
 }
 
 void SceneManager::Destroy(shared_ptr<Object> object)
 {
-	object->SetDestroy();
-	obj.push_back(object);
 }
 
 shared_ptr<Scene> SceneManager::GetCurrentScene()

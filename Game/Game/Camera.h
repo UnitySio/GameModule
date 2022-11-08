@@ -12,7 +12,6 @@ private:
 	Vector2 position_;
 	Vector2 screen_position_;
 	Vector2 resolution_;
-	Vector2 screen_center_;
 
 	FloatRect limit_area_;
 

@@ -9,6 +9,7 @@
 #include "PlayerIdle.h"
 #include "PlayerWalk.h"
 #include "SceneManager.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -68,10 +69,10 @@ void Player::InputUpdate()
 
 	if (INPUT->GetKeyDown(VK_UP))
 	{
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
 		if (is_ground_)
 		{
 			is_ground_ = false;
-			GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
 		}
 	}
 
@@ -84,6 +85,14 @@ void Player::InputUpdate()
 	if (INPUT->GetKeyUp(VK_LSHIFT))
 	{
 		move_speed_ = 200.f;
+	}
+
+	if (INPUT->GetKeyDown(MK_LBUTTON))
+	{
+		shared_ptr<Object> bullet = make_shared<Bullet>();
+		Vector2 direction = MOUSE_POSITION - GetPosition();
+		(*(Bullet*)bullet.get()).SetDirection(direction.Normalized());
+		SCENE->Instantiate(bullet);
 	}
 }
 

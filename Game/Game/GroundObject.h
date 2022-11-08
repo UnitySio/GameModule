@@ -9,7 +9,7 @@ public:
 	GroundObject();
 	~GroundObject() final = default;
 
-	void Render();
+	void Render() final;
 	void OnTriggerEnter(Object* other) final;
 	void OnTriggerStay(Object* other) final;
 	void OnTriggerExit(Object* other) final;
