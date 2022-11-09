@@ -33,7 +33,7 @@ public:
 	void LateUpdate();
 	void PhysicsUpdate();
 	void Render();
-	void ObjectUpdate();
+	void SceneUpdate();
 	void Instantiate(std::shared_ptr<Object> object);
 	void Destroy(std::shared_ptr<Object> object);
 

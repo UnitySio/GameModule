@@ -25,6 +25,8 @@ private:
 	static std::shared_ptr<Window> instance_;
 	static std::once_flag flag_;
 
+	bool is_logic_loop_;
+
 	POINT mouse_position_;
 public:
 	Window();
@@ -46,8 +48,6 @@ public:
 
 	HANDLE logic_thread_;
 	static DWORD WINAPI LogicThread(LPVOID lpParam);
-
-	bool is_logic_loop_;
 
 	void Logic();
 	void InputUpdate(); // GetAsyncKeyState는 메인 스레드에서만 동작하기 때문에 입력과 관련된 처리는 무조건 InputUpdate에서 처리해야 합니다.

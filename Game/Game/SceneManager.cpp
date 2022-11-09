@@ -4,6 +4,7 @@
 #include "DefaultScene.h"
 #include "Object.h"
 #include "InputManager.h"
+#include "Window.h"
 
 using namespace std;
 using namespace Gdiplus;
@@ -60,6 +61,7 @@ void SceneManager::LoadScene(SceneType scene_type)
 	current_scene_->Enter();
 }
 
+// PROBLEM
 void SceneManager::InputUpdate()
 {
 	if (current_scene_ != nullptr)
@@ -100,7 +102,7 @@ void SceneManager::Render()
 	}
 }
 
-void SceneManager::ObjectUpdate()
+void SceneManager::SceneUpdate()
 {
 	for (size_t i = 0; i < objects_.size(); i++)
 	{

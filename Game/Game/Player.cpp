@@ -70,10 +70,42 @@ void Player::InputUpdate()
 	if (INPUT->GetKeyDown(VK_UP))
 	{
 		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
-		if (is_ground_)
-		{
-			is_ground_ = false;
-		}
+	}
+
+	if (INPUT->GetKeyDown(VK_LSHIFT))
+	{
+		move_speed_ = 400.f;
+		//SCENE->Destroy(shared_from_this());
+	}
+
+	if (INPUT->GetKeyUp(VK_LSHIFT))
+	{
+		move_speed_ = 200.f;
+	}
+}
+
+void Player::Update()
+{
+	Object::Update();
+	StateMachine::Update();
+
+	horizontal = (INPUT->GetKey(VK_RIGHT) - INPUT->GetKey(VK_LEFT)) * move_speed_;
+
+	GetRigidbody2D()->SetVelocity({ horizontal, GetRigidbody2D()->GetVelocity().y_ });
+
+	if (INPUT->GetKey(VK_RIGHT))
+	{
+		direction_ = 1;
+	}
+
+	if (INPUT->GetKey(VK_LEFT))
+	{
+		direction_ = -1;
+	}
+
+	if (INPUT->GetKeyDown(VK_UP))
+	{
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
 	}
 
 	if (INPUT->GetKeyDown(VK_LSHIFT))
@@ -87,19 +119,10 @@ void Player::InputUpdate()
 		move_speed_ = 200.f;
 	}
 
-	if (INPUT->GetKeyDown(MK_LBUTTON))
-	{
-		shared_ptr<Object> bullet = make_shared<Bullet>();
-		Vector2 direction = MOUSE_POSITION - GetPosition();
-		(*(Bullet*)bullet.get()).SetDirection(direction.Normalized());
-		SCENE->Instantiate(bullet);
-	}
-}
-
-void Player::Update()
-{
-	Object::Update();
-	StateMachine::Update();
+	/*shared_ptr<Object> bullet = make_shared<Bullet>();
+	Vector2 direction = MOUSE_POSITION - GetPosition();
+	(*(Bullet*)bullet.get()).SetDirection(direction.Normalized());
+	SCENE->Instantiate(bullet);*/
 
 	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 	{
@@ -152,6 +175,8 @@ void Player::OnTriggerEnter(Object* other)
 	{
 		is_ground_ = true;
 		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f});
+
+		SetPosition({ GetPosition().x_, other->GetPosition().y_ - 15.f});
 	}
 }
 

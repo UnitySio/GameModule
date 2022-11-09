@@ -180,7 +180,7 @@ void Window::Logic()
 	instance_->LateUpdate();
 	instance_->PhysicsUpdate();
 	instance_->Render();
-	SCENE->ObjectUpdate();
+	SCENE->SceneUpdate();
 }
 
 // 메인 스레드에서 동작
@@ -194,10 +194,6 @@ void Window::Update()
 {
 	GetCursorPos(&mouse_position_);
 	ScreenToClient(hWnd, &mouse_position_);
-
-	WCHAR word[1024];
-	_stprintf_s(word, L"X: %f, Y: %f\n", MOUSE_POSITION.x_, MOUSE_POSITION.y_);
-	OutputDebugString(word);
 
 	TIME->Update();
 	SCENE->Update();
