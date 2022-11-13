@@ -53,35 +53,6 @@ Player::Player() :
 
 void Player::InputUpdate()
 {
-	horizontal = (INPUT->GetKey(VK_RIGHT) - INPUT->GetKey(VK_LEFT)) * move_speed_;
-
-	GetRigidbody2D()->SetVelocity({ horizontal, GetRigidbody2D()->GetVelocity().y_ });
-
-	if (INPUT->GetKey(VK_RIGHT))
-	{
-		direction_ = 1;
-	}
-
-	if (INPUT->GetKey(VK_LEFT))
-	{
-		direction_ = -1;
-	}
-
-	if (INPUT->GetKeyDown(VK_UP))
-	{
-		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
-	}
-
-	if (INPUT->GetKeyDown(VK_LSHIFT))
-	{
-		move_speed_ = 400.f;
-		//SCENE->Destroy(shared_from_this());
-	}
-
-	if (INPUT->GetKeyUp(VK_LSHIFT))
-	{
-		move_speed_ = 200.f;
-	}
 }
 
 void Player::Update()
@@ -119,10 +90,10 @@ void Player::Update()
 		move_speed_ = 200.f;
 	}
 
-	/*shared_ptr<Object> bullet = make_shared<Bullet>();
+	shared_ptr<Object> bullet = make_shared<Bullet>();
 	Vector2 direction = MOUSE_POSITION - GetPosition();
 	(*(Bullet*)bullet.get()).SetDirection(direction.Normalized());
-	SCENE->Instantiate(bullet);*/
+	SCENE->Instantiate(bullet);
 
 	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 	{

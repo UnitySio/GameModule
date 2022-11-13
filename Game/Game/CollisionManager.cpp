@@ -142,8 +142,8 @@ bool CollisionManager::IsCollision(shared_ptr<BoxCollider2D> first, shared_ptr<B
 	Vector2 second_position = second->GetPosition();
 	Vector2 second_scale = second->GetScale();
 
-	if (abs(first_position.x_ - second_position.x_) < (first_scale.x_ + second_scale.x_) / 2 &&
-		abs(first_position.y_ - second_position.y_) < (first_scale.y_ + second_scale.y_) / 2)
+	if (abs(first_position.x_ - second_position.x_) <= (first_scale.x_ + second_scale.x_) / 2.f &&
+		abs(first_position.y_ - second_position.y_) <= (first_scale.y_ + second_scale.y_) / 2.f)
 	{
 		return true;
 	}

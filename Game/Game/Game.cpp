@@ -37,6 +37,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
+	HANDLE mutex;
+
+	mutex = OpenMutex(MUTANT_ALL_ACCESS, false, L"Game");
+
+	if (mutex == nullptr)
+	{
+		CreateMutex(NULL, true, L"Game");
+	}
+	else
+	{
+		return 0;
+	}
+
 	// 로직 스레드 시작
 	WINDOW->logic_thread_ = CreateThread(NULL, 0, WINDOW->LogicThread, NULL, 0, NULL);
 

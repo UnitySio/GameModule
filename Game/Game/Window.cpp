@@ -136,6 +136,7 @@ Window::Window() :
 	resolution_ = { 640, 480 };
 	client_area_ = { 0, 0, resolution_.x, resolution_.y };
 	AdjustWindowRect(&client_area_, WS_OVERLAPPEDWINDOW, FALSE);
+	semaphore_ = CreateSemaphore(NULL, 0, 1, NULL); // 세마포 생성
 }
 
 shared_ptr<Window> Window::GetInstance()
@@ -176,6 +177,7 @@ DWORD WINAPI Window::LogicThread(LPVOID lpParam)
 // 서브 스레드에서 동작
 void Window::Logic()
 {
+	ReleaseSemaphore(semaphore_, 1, NULL);
 	instance_->Update();
 	instance_->LateUpdate();
 	instance_->PhysicsUpdate();
@@ -186,8 +188,8 @@ void Window::Logic()
 // 메인 스레드에서 동작
 void Window::InputUpdate()
 {
+	WaitForSingleObject(semaphore_, INFINITE);
 	INPUT->InputUpdate();
-	SCENE->InputUpdate();
 }
 
 void Window::Update()

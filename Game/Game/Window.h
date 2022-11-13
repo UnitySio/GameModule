@@ -28,6 +28,8 @@ private:
 	bool is_logic_loop_;
 
 	POINT mouse_position_;
+
+	HANDLE semaphore_;
 public:
 	Window();
 	~Window() = default;

@@ -23,6 +23,15 @@ void GroundObject::Render()
 
 void GroundObject::OnTriggerEnter(Object* other)
 {
+	Vector2 other_position = other->GetPosition();
+	Vector2 position = other->GetPosition();
+
+	float len = abs(other_position.y_ - position.y_);
+	float a = 80 - len;
+
+	other_position = other->GetPosition();
+	other_position.y_ -= a;
+	other->SetPosition(other_position);
 }
 
 void GroundObject::OnTriggerStay(Object* other)
