@@ -7,6 +7,16 @@ class Object;
 class SceneManager
 {
 private:
+	struct ObjectInfo
+	{
+		std::shared_ptr<Object> object;
+		LayerType type;
+		LPCWSTR name;
+		Vector2 position;
+		Vector2 rotation;
+		Vector2 scale;
+	};
+
 	// ΩÃ±€≈Ê
 	static std::shared_ptr<SceneManager> instance_;
 	static std::once_flag flag_;
@@ -14,7 +24,7 @@ private:
 	std::shared_ptr<Scene> scenes_[(size_t)SceneType::kEnd];
 	std::shared_ptr<Scene> current_scene_;
 
-	std::vector<std::shared_ptr<Object>> objects_;
+	std::vector<ObjectInfo> objects_;
 public:
 	SceneManager();
 	~SceneManager() = default;
@@ -33,7 +43,7 @@ public:
 	void PhysicsUpdate();
 	void Render();
 	void SceneUpdate();
-	void Instantiate(std::shared_ptr<Object> object);
+	void Instantiate(std::shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale);
 	void Destroy(std::shared_ptr<Object> object);
 
 	std::shared_ptr<Scene> GetCurrentScene();

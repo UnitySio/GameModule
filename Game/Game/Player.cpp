@@ -86,10 +86,9 @@ void Player::Update()
 		move_speed_ = 200.f;
 	}
 
-	/*shared_ptr<Object> bullet = make_shared<Bullet>();
-	Vector2 direction = MOUSE_POSITION - GetPosition();
-	(*(Bullet*)bullet.get()).SetDirection(direction.Normalized());
-	SCENE->Instantiate(bullet);*/
+	shared_ptr<Object> bullet = make_shared<Bullet>();
+	(*(Bullet*)bullet.get()).SetDirection({ -(float)direction_, 0 });
+	SCENE->Instantiate(bullet, LayerType::kDefault, L"Bullet", GetPosition() + Vector2({0, -66.f}), {}, {});
 
 	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 	{

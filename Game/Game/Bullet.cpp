@@ -2,9 +2,11 @@
 #include "Bullet.h"
 #include "Window.h"
 #include "Camera.h"
+#include "SceneManager.h"
 
 Bullet::Bullet() :
-	direction_{}
+	direction_{},
+	timer_()
 {
 }
 
@@ -15,14 +17,21 @@ void Bullet::SetDirection(Vector2 difference)
 
 void Bullet::Update()
 {
-	Translate(direction_ * 300.f * DELTA_TIME);
+	timer_ += DELTA_TIME;
+
+	if (timer_ > .1f)
+	{
+		SCENE->Destroy(shared_from_this());
+	}
+
+	//Translate(direction_ * 100.f * DELTA_TIME);
 }
 
 void Bullet::Render()
 {
 	Vector2 render_postiion = CAMERA->GetRenderPosition(GetPosition());
 
-	Ellipse(WINDOW->GetHDC(),
+	Rectangle(WINDOW->GetHDC(),
 		render_postiion.x_ - 5.f,
 		render_postiion.y_ - 5.f,
 		render_postiion.x_ + 5.f,

@@ -25,6 +25,22 @@ void Scene::CreateObject(shared_ptr<Object> object, LayerType type, LPCWSTR name
 	objects_[(size_t)type].push_back(object);
 }
 
+void Scene::SceneUpdate()
+{
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
+	{
+		vector<shared_ptr<Object>>::iterator iter = objects_[i].begin();
+		for (; iter != objects_[i].end(); ++iter)
+		{
+			if ((*iter)->IsDestroy())
+			{
+				(*iter).reset();
+				iter = objects_[i].erase(iter);
+			}
+		}
+	}
+}
+
 LPCWSTR Scene::GetName()
 {
 	return name_;

@@ -6,6 +6,8 @@ class Bullet : public Object
 {
 private:
 	Vector2 direction_;
+
+	float timer_;
 public:
 	Bullet();
 	~Bullet() = default;

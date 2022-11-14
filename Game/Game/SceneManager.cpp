@@ -97,19 +97,25 @@ void SceneManager::SceneUpdate()
 {
 	for (size_t i = 0; i < objects_.size(); i++)
 	{
-		current_scene_->CreateObject(objects_[i], LayerType::kDefault, L"Bullet", { 320.f, 240.f }, {}, {});
+		current_scene_->CreateObject(objects_[i].object, objects_[i].type, objects_[i].name, objects_[i].position, objects_[i].rotation, objects_[i].scale);
 	}
 
 	objects_.clear();
+
+	if (current_scene_ != nullptr)
+	{
+		current_scene_->SceneUpdate();
+	}
 }
 
-void SceneManager::Instantiate(shared_ptr<Object> object)
+void SceneManager::Instantiate(shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale)
 {
-	objects_.push_back(object);
+	objects_.push_back({ object, type, name, position, rotation, scale});
 }
 
 void SceneManager::Destroy(shared_ptr<Object> object)
 {
+	object->SetDestroy();
 }
 
 shared_ptr<Scene> SceneManager::GetCurrentScene()
