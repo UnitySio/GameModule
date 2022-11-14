@@ -9,7 +9,7 @@ using namespace std;
 GroundObject::GroundObject()
 {
 	AddBoxCollider2D();
-	GetBoxCollider2D()->SetScale({ 300.f, 32.f });
+	GetBoxCollider2D()->SetSize({ 300.f, 32.f });
 }
 
 void GroundObject::Render()
@@ -23,19 +23,40 @@ void GroundObject::Render()
 
 void GroundObject::OnTriggerEnter(Object* other)
 {
-	Vector2 other_position = other->GetPosition();
-	Vector2 position = other->GetPosition();
+	Vector2 other_position = other->GetBoxCollider2D()->GetPosition();
+	Vector2 position = GetBoxCollider2D()->GetPosition();
 
-	float len = abs(other_position.y_ - position.y_);
-	float a = 80 - len;
+	Vector2 other_scale = other->GetBoxCollider2D()->GetScale();
+	Vector2 scale = GetBoxCollider2D()->GetScale();
 
-	other_position = other->GetPosition();
-	other_position.y_ -= a;
-	other->SetPosition(other_position);
+	if (GetPosition().y_ > other->GetPosition().y_)
+	{
+		float a = abs(other_position.y_ - position.y_);
+		float b = (other_scale.y_ / 2.f + scale.y_ / 2.f) - a;
+
+		other_position = other->GetPosition();
+		other_position.y_ -= b;
+		other->SetPosition(other_position);
+	}
 }
 
 void GroundObject::OnTriggerStay(Object* other)
 {
+	Vector2 other_position = other->GetBoxCollider2D()->GetPosition();
+	Vector2 position = GetBoxCollider2D()->GetPosition();
+
+	Vector2 other_scale = other->GetBoxCollider2D()->GetScale();
+	Vector2 scale = GetBoxCollider2D()->GetScale();
+
+	if (GetPosition().y_ > other->GetPosition().y_)
+	{
+		float a = abs(other_position.y_ - position.y_);
+		float b = (other_scale.y_ / 2.f + scale.y_ / 2.f) - a;
+
+		other_position = other->GetPosition();
+		other_position.y_ -= b;
+		other->SetPosition(other_position);
+	}
 }
 
 void GroundObject::OnTriggerExit(Object* other)

@@ -9,7 +9,7 @@ private:
 	HDC memDC;
 
 	Vector2 pivot_;
-	Vector2 frame_scale_;
+	Vector2 frame_size_;
 
 	std::vector<Vector2> frames_;
 public:
@@ -22,7 +22,7 @@ public:
 	HDC GetMemDC();
 
 	Vector2 GetPivot();
-	Vector2 GetSpriteScale();
+	Vector2 GetSpriteSize();
 
 	const std::vector<Vector2>& GetFrames();
 };

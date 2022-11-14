@@ -13,6 +13,8 @@ private:
 	std::shared_ptr<Texture> texture_;
 
 	size_t current_frame_;
+
+	Vector2 pivot_position_;
 public:
 	SpriteRenderer();
 	SpriteRenderer(const SpriteRenderer& kOrigin);

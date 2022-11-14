@@ -11,7 +11,7 @@ Texture::Texture() :
 	bitmap_info_(),
 	memDC(),
 	pivot_{},
-	frame_scale_{},
+	frame_size_{},
 	frames_{}
 {
 }
@@ -34,14 +34,14 @@ void Texture::Load(LPCWSTR path, UINT row, UINT column)
 
 	GetObject(bitmap_, sizeof(BITMAP), &bitmap_info_);
 
-	frame_scale_.x_ = bitmap_info_.bmWidth / row;
-	frame_scale_.y_ = bitmap_info_.bmHeight / column;
+	frame_size_.x_ = bitmap_info_.bmWidth / row;
+	frame_size_.y_ = bitmap_info_.bmHeight / column;
 
 	for (size_t i = 0; i < column; i++)
 	{
 		for (size_t j = 0; j < row; j++)
 		{
-			Vector2 frame = { frame_scale_.x_ * j, frame_scale_.y_ * i };
+			Vector2 frame = { frame_size_.x_ * j, frame_size_.y_ * i };
 			frames_.push_back({ frame });
 		}
 	}
@@ -62,9 +62,9 @@ Vector2 Texture::GetPivot()
 	return pivot_;
 }
 
-Vector2 Texture::GetSpriteScale()
+Vector2 Texture::GetSpriteSize()
 {
-	return frame_scale_;
+	return frame_size_;
 }
 
 const vector<Vector2>& Texture::GetFrames()

@@ -15,7 +15,7 @@ void Bullet::SetDirection(Vector2 difference)
 
 void Bullet::Update()
 {
-	Translate(direction_ * 10.f * DELTA_TIME);
+	Translate(direction_ * 300.f * DELTA_TIME);
 }
 
 void Bullet::Render()

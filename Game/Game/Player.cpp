@@ -46,13 +46,9 @@ Player::Player() :
 	AddRigidbody2D();
 	AddBoxCollider2D();
 	GetBoxCollider2D()->SetOffset({ 0.f, -50.f });
-	GetBoxCollider2D()->SetScale({ 64.f, 100.f });
+	GetBoxCollider2D()->SetSize({ 64.f, 100.f });
 
 	StateMachine::Initiate();
-}
-
-void Player::InputUpdate()
-{
 }
 
 void Player::Update()
@@ -90,10 +86,10 @@ void Player::Update()
 		move_speed_ = 200.f;
 	}
 
-	shared_ptr<Object> bullet = make_shared<Bullet>();
+	/*shared_ptr<Object> bullet = make_shared<Bullet>();
 	Vector2 direction = MOUSE_POSITION - GetPosition();
 	(*(Bullet*)bullet.get()).SetDirection(direction.Normalized());
-	SCENE->Instantiate(bullet);
+	SCENE->Instantiate(bullet);*/
 
 	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 	{
@@ -146,8 +142,6 @@ void Player::OnTriggerEnter(Object* other)
 	{
 		is_ground_ = true;
 		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f});
-
-		SetPosition({ GetPosition().x_, other->GetPosition().y_ - 15.f});
 	}
 }
 

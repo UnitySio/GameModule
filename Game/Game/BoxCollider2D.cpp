@@ -14,7 +14,7 @@ BoxCollider2D::BoxCollider2D() :
 	owner_(),
 	offset_{},
 	position_{},
-	scale_{},
+	size_{},
 	uid_(next_uid_++)
 {
 }
@@ -23,7 +23,7 @@ BoxCollider2D::BoxCollider2D(const BoxCollider2D& kOrigin) :
 	owner_(),
 	offset_{ kOrigin.offset_ },
 	position_{ kOrigin.position_ },
-	scale_{ kOrigin.scale_ },
+	size_{ kOrigin.size_ },
 	uid_(next_uid_++)
 {
 }
@@ -64,9 +64,9 @@ void BoxCollider2D::SetOffset(Vector2 offset)
 	offset_ = offset;
 }
 
-void BoxCollider2D::SetScale(Vector2 scale)
+void BoxCollider2D::SetSize(Vector2 scale)
 {
-	scale_ = scale;
+	size_ = scale;
 }
 
 void BoxCollider2D::OnTriggerEnter(Object* other)
@@ -91,7 +91,7 @@ Vector2 BoxCollider2D::GetPosition()
 
 Vector2 BoxCollider2D::GetScale()
 {
-	return scale_;
+	return size_;
 }
 
 UINT BoxCollider2D::GetUID()

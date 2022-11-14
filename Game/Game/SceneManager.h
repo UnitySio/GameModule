@@ -28,7 +28,6 @@ public:
 	void Initiate();
 	void CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR name);
 	void LoadScene(SceneType scene_type);
-	void InputUpdate();
 	void Update();
 	void LateUpdate();
 	void PhysicsUpdate();

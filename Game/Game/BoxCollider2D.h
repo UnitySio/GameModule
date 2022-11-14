@@ -13,7 +13,7 @@ private:
 
 	Vector2 offset_;
 	Vector2 position_;
-	Vector2 scale_;
+	Vector2 size_;
 
 	UINT uid_;
 public:
@@ -26,7 +26,7 @@ public:
 	void PhysicsUpdate();
 	void Render();
 	void SetOffset(Vector2 offset);
-	void SetScale(Vector2 scale);
+	void SetSize(Vector2 scale);
 	void OnTriggerEnter(Object* other);
 	void OnTriggerStay(Object* other);
 	void OnTriggerExit(Object* other);

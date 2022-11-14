@@ -107,10 +107,6 @@ void Object::AddBoxCollider2D()
 	box_collider2d_->owner_ = this;
 }
 
-void Object::InputUpdate()
-{
-}
-
 void Object::Update()
 {
 	if (animator_ != nullptr)

@@ -30,20 +30,6 @@ LPCWSTR Scene::GetName()
 	return name_;
 }
 
-void Scene::InputUpdate()
-{
-	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
-	{
-		for (size_t j = 0; j < objects_[i].size(); j++)
-		{
-			if (!objects_[i][j]->IsDestroy())
-			{
-				objects_[i][j]->InputUpdate();
-			}
-		}
-	}
-}
-
 void Scene::Update()
 {
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
