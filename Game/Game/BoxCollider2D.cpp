@@ -41,21 +41,21 @@ void BoxCollider2D::Render()
 	/*Vector2 render_position = CAMERA->GetRenderPosition(position_);
 
 	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(178, 223, 174));
-	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetMemDC(), new_pen);
+	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetHDC(), new_pen);
 
 	HBRUSH new_brush = (HBRUSH)GetStockObject(NULL_BRUSH);
-	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetMemDC(), new_brush);
+	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
 
-	Rectangle(WINDOW->GetMemDC(),
-		render_position.x_ - scale_.x_ / 2.f,
-		render_position.y_ - scale_.y_ / 2.f,
-		render_position.x_ + scale_.x_ / 2.f,
-		render_position.y_ + scale_.y_ / 2.f);
+	Rectangle(WINDOW->GetHDC(),
+		render_position.x_ - size_.x_ / 2.f,
+		render_position.y_ - size_.y_ / 2.f,
+		render_position.x_ + size_.x_ / 2.f,
+		render_position.y_ + size_.y_ / 2.f);
 
-	SelectObject(WINDOW->GetMemDC(), old_pen);
+	SelectObject(WINDOW->GetHDC(), old_pen);
 	DeleteObject(new_pen);
 
-	SelectObject(WINDOW->GetMemDC(), old_brush);
+	SelectObject(WINDOW->GetHDC(), old_brush);
 	DeleteObject(new_brush);*/
 }
 
@@ -64,9 +64,9 @@ void BoxCollider2D::SetOffset(Vector2 offset)
 	offset_ = offset;
 }
 
-void BoxCollider2D::SetSize(Vector2 scale)
+void BoxCollider2D::SetSize(Vector2 size)
 {
-	size_ = scale;
+	size_ = size;
 }
 
 void BoxCollider2D::OnTriggerEnter(Object* other)

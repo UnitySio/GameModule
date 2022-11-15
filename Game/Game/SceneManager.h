@@ -36,14 +36,14 @@ public:
 
 	void Release();
 	void Initiate();
-	void CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR name);
+	void CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR kName);
 	void LoadScene(SceneType scene_type);
 	void Update();
 	void LateUpdate();
 	void PhysicsUpdate();
 	void Render();
 	void SceneUpdate();
-	void Instantiate(std::shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale);
+	void Instantiate(std::shared_ptr<Object> object, LayerType type, LPCWSTR kName, Vector2 position, Vector2 rotation, Vector2 scale);
 	void Destroy(std::shared_ptr<Object> object);
 
 	std::shared_ptr<Scene> GetCurrentScene();

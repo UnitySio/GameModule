@@ -13,189 +13,192 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{5d18dcea-212c-4dbd-a684-4fd1149c8d7f}</UniqueIdentifier>
+    <Filter Include="Moudle">
+      <UniqueIdentifier>{7ec06600-9468-41e2-ba54-f463448d9c13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Component">
-      <UniqueIdentifier>{7782a9d5-2bdb-4254-9482-23d4f7c2b5b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FSM">
+    <Filter Include="Moudle\FSM">
       <UniqueIdentifier>{e77f619d-f8c1-4ac7-96ba-542a1c735317}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FSM\Player State">
-      <UniqueIdentifier>{e472ca1c-bab4-4101-8129-78d513690727}</UniqueIdentifier>
+    <Filter Include="Moudle\Object">
+      <UniqueIdentifier>{5d18dcea-212c-4dbd-a684-4fd1149c8d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Moudle\Object\Component">
+      <UniqueIdentifier>{7782a9d5-2bdb-4254-9482-23d4f7c2b5b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Moudle\Scene">
+      <UniqueIdentifier>{3317ba62-bf79-47e8-b298-98c860aea01e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene">
-      <UniqueIdentifier>{3317ba62-bf79-47e8-b298-98c860aea01e}</UniqueIdentifier>
+      <UniqueIdentifier>{aaf3acce-34db-4bd7-84c5-b0824006facc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{fa034b67-a893-4119-9d00-06c7fd98b04d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player State">
+      <UniqueIdentifier>{e472ca1c-bab4-4101-8129-78d513690727}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object.h">
+      <Filter>Moudle\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Moudle\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Moudle\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdle.h">
+      <Filter>Object\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalk.h">
+      <Filter>Object\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Moudle\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Moudle\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="Coroutine.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Moudle</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Moudle</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Moudle</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="pch.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Moudle</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundObject.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Animator.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerIdle.h">
-      <Filter>FSM\Player State</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerWalk.h">
-      <Filter>FSM\Player State</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Coroutine.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Rigidbody2D.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxCollider2D.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="GroundObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Object</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object.cpp">
+      <Filter>Moudle\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>Moudle\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdle.cpp">
+      <Filter>Object\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWalk.cpp">
+      <Filter>Object\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Moudle\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Moudle\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Moudle\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Moudle</Filter>
+    </ClCompile>
+    <ClCompile Include="Coroutine.cpp">
+      <Filter>Moudle</Filter>
+    </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Moudle</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Moudle</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
+    <ClCompile Include="pch.cpp">
+      <Filter>Moudle</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Moudle</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Moudle</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Moudle</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Moudle</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="StateMachine.cpp">
-      <Filter>FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerIdle.cpp">
-      <Filter>FSM\Player State</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerWalk.cpp">
-      <Filter>FSM\Player State</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Coroutine.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Rigidbody2D.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxCollider2D.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="GroundObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Object</Filter>
+      <Filter>Moudle\FSM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

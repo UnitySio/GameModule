@@ -37,6 +37,21 @@ void Rigidbody2D::AddForce(Vector2 force)
 	force_ += force;
 }
 
+void Rigidbody2D::SetMass(float mass)
+{
+	mass_ = mass;
+}
+
+void Rigidbody2D::SetFrictionCoefficient(float friction_coefficient)
+{
+	friction_coefficient_ = friction_coefficient;
+}
+
+void Rigidbody2D::SetDrag(float drag)
+{
+	drag_ = drag;
+}
+
 void Rigidbody2D::SetGravityAcceleration(Vector2 acceleration)
 {
 	gravity_acceleration_ = acceleration;
@@ -59,22 +74,11 @@ void Rigidbody2D::PhysicsUpdate()
 		friction_ = friction_direction.Normalized() * friction_coefficient_ * DELTA_TIME;
 		velocity_ += friction_;
 
-		/*if (velocity_.x_ < 0.01f)
-		{
-			velocity_.x_ = 0.f;
-		}
-
-		if (velocity_.y_ < 0.01f)
-		{
-			velocity_.y_ = 0.f;
-		}*/
+		// V = V * (1 - D * dt) (저항력)
+		velocity_ = velocity_ * (1 - drag_ * DELTA_TIME);
 	}
 
-	// V = V * (1 - D * dt) (저항력)
-	//velocity_ = velocity_ * (1 - drag_ * DELTA_TIME);
-
 	owner_->Translate(velocity_ * DELTA_TIME);
-
 
 	// Linear Sleep Tolerance
 	/*if (velocity_.x_ < 0.01f)

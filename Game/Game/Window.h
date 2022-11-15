@@ -29,6 +29,7 @@ private:
 
 	POINT mouse_position_;
 
+	HANDLE logic_thread_;
 	HANDLE semaphore_;
 public:
 	Window();
@@ -44,18 +45,17 @@ public:
 	BOOL InitInstance(HINSTANCE, int);
 
 	static std::shared_ptr<Window> GetInstance();
+	static DWORD WINAPI LogicThread(LPVOID lpParam);
 
 	HWND GetHWND();
 	HDC GetHDC();
 
-	HANDLE logic_thread_;
-	static DWORD WINAPI LogicThread(LPVOID lpParam);
-
+	void SetThread(HANDLE handle);
 	void Logic();
 	void InputUpdate(); // GetAsyncKeyState는 메인 스레드에서만 동작하기 때문에 입력과 관련된 처리는 무조건 InputUpdate에서 처리해야 합니다.
 	void Update(); // Update는 매 프레임 마다 실행됩니다.
 	void LateUpdate(); // LateUpdate는 모든 Update 함수가 처리된 후 실행됩니다.
-	void PhysicsUpdate();
+	void PhysicsUpdate(); // PhysicsUpdate는 모든 LateUpdate 함수가 처리된 후 실행됩니다, 해당 함수에서는 물리만을 처리합니다.
 	void Render();
 
 	Vector2 GetMousePosition();

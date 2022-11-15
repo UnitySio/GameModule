@@ -26,7 +26,7 @@ public:
 	void PhysicsUpdate();
 	void Render();
 	void SetOffset(Vector2 offset);
-	void SetSize(Vector2 scale);
+	void SetSize(Vector2 size);
 	void OnTriggerEnter(Object* other);
 	void OnTriggerStay(Object* other);
 	void OnTriggerExit(Object* other);

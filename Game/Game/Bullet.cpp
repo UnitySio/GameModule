@@ -19,12 +19,12 @@ void Bullet::Update()
 {
 	timer_ += DELTA_TIME;
 
-	if (timer_ > .1f)
+	if (timer_ > 1.f)
 	{
 		SCENE->Destroy(shared_from_this());
 	}
 
-	//Translate(direction_ * 100.f * DELTA_TIME);
+	Translate(direction_ * 300.f * DELTA_TIME);
 }
 
 void Bullet::Render()
@@ -36,4 +36,9 @@ void Bullet::Render()
 		render_postiion.y_ - 5.f,
 		render_postiion.x_ + 5.f,
 		render_postiion.y_ + 5.f);
+}
+
+void Bullet::OnDestroy()
+{
+	OutputDebugString(L"Destroyed.\n");
 }

@@ -4,7 +4,7 @@ class InputManager
 private:
 	enum class KeyType : UINT
 	{
-		kNone,
+		kNone = 0,
 		kDown,
 		kHold,
 		kUp
@@ -39,4 +39,3 @@ public:
 	bool GetKey(int key);
 	bool GetKeyUp(int key);
 };
-

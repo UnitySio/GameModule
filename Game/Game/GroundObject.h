@@ -2,7 +2,8 @@
 
 #include "Object.h"
 
-class GroundObject : public Object
+class GroundObject :
+	public Object
 {
 private:
 public:

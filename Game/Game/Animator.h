@@ -1,5 +1,6 @@
 #pragma once
 
+// 예외 처리가 필요함
 #include "Coroutine.h"
 
 struct Clip

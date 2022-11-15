@@ -43,9 +43,9 @@ void SceneManager::Initiate()
 	LoadScene(SceneType::kDefault);
 }
 
-void SceneManager::CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR name)
+void SceneManager::CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR kName)
 {
-	scene->SetName(name);
+	scene->SetName(kName);
 
 	scenes_[(size_t)scene_type] = scene;
 }
@@ -108,9 +108,9 @@ void SceneManager::SceneUpdate()
 	}
 }
 
-void SceneManager::Instantiate(shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale)
+void SceneManager::Instantiate(shared_ptr<Object> object, LayerType type, LPCWSTR kName, Vector2 position, Vector2 rotation, Vector2 scale)
 {
-	objects_.push_back({ object, type, name, position, rotation, scale});
+	objects_.push_back({ object, type, kName, position, rotation, scale});
 }
 
 void SceneManager::Destroy(shared_ptr<Object> object)

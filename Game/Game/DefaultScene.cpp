@@ -3,15 +3,10 @@
 #include "Object.h"
 #include "Player.h"
 #include "GroundObject.h"
-#include "TestObject.h"
 #include "CollisionManager.h"
 #include "Camera.h"
 
 using namespace std;
-
-DefaultScene::DefaultScene()
-{
-}
 
 void DefaultScene::Enter()
 {
@@ -29,9 +24,6 @@ void DefaultScene::Enter()
 
 	shared_ptr<Object> player = make_shared<Player>();
 	CreateObject(player, LayerType::kDefault, L"Player", { 320.f, 240.f }, { 0.f, 0.f }, { 3.f, 3.f });
-
-	shared_ptr<Object> test = make_shared<TestObject>(player.get());
-	CreateObject(test, LayerType::kDefault, L"Test", { 320.f, 240.f }, { 0.f, 0.f }, { 1.f, 1.f });
 
 	COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kDefault);
 

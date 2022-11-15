@@ -10,6 +10,7 @@
 #include "PlayerWalk.h"
 #include "SceneManager.h"
 #include "Bullet.h"
+#include "Scene.h"
 
 using namespace std;
 
@@ -87,7 +88,21 @@ void Player::Update()
 	}
 
 	shared_ptr<Object> bullet = make_shared<Bullet>();
-	(*(Bullet*)bullet.get()).SetDirection({ -(float)direction_, 0 });
+	Vector2 temp = SCENE->GetCurrentScene()->FindObject(L"Ground")->GetPosition() - GetPosition();
+	Vector2 temp1 = MOUSE_POSITION - GetPosition();
+	float m = sqrt(pow(temp.x_, 2) + pow(temp.y_, 2));
+	Vector2 nn = temp1.Normalized();
+	Vector2 n;
+	if (m > 0)
+	{
+		n = { temp.x_ / m, temp.y_ / m };
+	}
+
+	WCHAR word[1024];
+	_stprintf_s(word, L"X: %f, Y: %f\n", n.y_, nn.y_);
+	OutputDebugString(word);
+
+	(*(Bullet*)bullet.get()).SetDirection(n);
 	SCENE->Instantiate(bullet, LayerType::kDefault, L"Bullet", GetPosition() + Vector2({0, -66.f}), {}, {});
 
 	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)

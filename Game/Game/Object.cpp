@@ -53,9 +53,9 @@ Object::Object(const Object& kOrigin) :
 	}
 }
 
-void Object::SetName(LPCWSTR name)
+void Object::SetName(LPCWSTR kName)
 {
-	wsprintf(name_, L"%s", name);
+	wsprintf(name_, L"%s", kName);
 }
 
 void Object::SetPosition(Vector2 position)

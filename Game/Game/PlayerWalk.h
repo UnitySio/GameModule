@@ -3,7 +3,8 @@
 #include "State.h"
 #include "Player.h"
 
-class PlayerWalk : public State
+class PlayerWalk :
+	public State
 {
 private:
 	Player* owner_;

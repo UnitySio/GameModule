@@ -2,7 +2,8 @@
 
 #include "Object.h"
 
-class Bullet : public Object
+class Bullet :
+	public Object
 {
 private:
 	Vector2 direction_;
@@ -15,5 +16,5 @@ public:
 	void SetDirection(Vector2 difference);
 	void Update() final;
 	void Render() final;
+	void OnDestroy() final;
 };
-

@@ -5,7 +5,8 @@ class Animator;
 class Rigidbody2D;
 class BoxCollider2D;
 
-class Object : public std::enable_shared_from_this<Object>
+class Object :
+	public std::enable_shared_from_this<Object>
 {
 private:
 	WCHAR name_[128];
@@ -25,7 +26,7 @@ public:
 	Object(const Object& kOrigin); // 오브젝트가 복사되었을 때
 	virtual ~Object() = default;
 
-	void SetName(LPCWSTR name);
+	void SetName(LPCWSTR kName);
 	void SetPosition(Vector2 position);
 	void SetRotation(Vector2 rotation);
 	void SetScale(Vector2 scale);

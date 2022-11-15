@@ -10,14 +10,14 @@ Scene::Scene() :
 {
 }
 
-void Scene::SetName(LPCWSTR name)
+void Scene::SetName(LPCWSTR kName)
 {
-	wsprintf(name_, L"%s", name);
+	wsprintf(name_, L"%s", kName);
 }
 
-void Scene::CreateObject(shared_ptr<Object> object, LayerType type, LPCWSTR name, Vector2 position, Vector2 rotation, Vector2 scale)
+void Scene::CreateObject(shared_ptr<Object> object, LayerType type, LPCWSTR kName, Vector2 position, Vector2 rotation, Vector2 scale)
 {
-	object->SetName(name);
+	object->SetName(kName);
 	object->SetPosition(position);
 	object->SetRotation(rotation);
 	object->SetScale(scale);
@@ -34,8 +34,24 @@ void Scene::SceneUpdate()
 		{
 			if ((*iter)->IsDestroy())
 			{
+				(*iter)->OnDestroy();
 				(*iter).reset();
 				iter = objects_[i].erase(iter);
+			}
+		}
+	}
+}
+
+shared_ptr<Object> Scene::FindObject(LPCWSTR kName)
+{
+	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
+	{
+		vector<shared_ptr<Object>>::iterator iter = objects_[i].begin();
+		for (; iter != objects_[i].end(); ++iter)
+		{
+			if (wcscmp(kName, (*iter)->GetName()))
+			{
+				return (*iter);
 			}
 		}
 	}

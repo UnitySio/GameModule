@@ -27,6 +27,9 @@ public:
 
 	void SetVelocity(Vector2 velocity);
 	void AddForce(Vector2 force);
+	void SetMass(float mass);
+	void SetFrictionCoefficient(float friction_coefficient);
+	void SetDrag(float drag);
 	void SetGravityAcceleration(Vector2 acceleration);
 	void PhysicsUpdate();
 

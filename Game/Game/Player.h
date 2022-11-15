@@ -4,7 +4,9 @@
 #include "StateMachine.h"
 #include "Texture.h"
 
-class Player : public Object, public StateMachine
+class Player :
+	public Object,
+	public StateMachine
 {
 private:
 	float move_speed_;

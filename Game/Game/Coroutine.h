@@ -4,7 +4,6 @@
 
 class Coroutine
 {
-private:
 public:
 	struct promise_type
 	{

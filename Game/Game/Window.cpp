@@ -174,6 +174,11 @@ DWORD WINAPI Window::LogicThread(LPVOID lpParam)
 	return 0;
 }
 
+void Window::SetThread(HANDLE handle)
+{
+	logic_thread_ = handle;
+}
+
 // 서브 스레드에서 동작
 void Window::Logic()
 {

@@ -2,11 +2,11 @@
 
 #include "Scene.h"
 
-class DefaultScene : public Scene
+class DefaultScene :
+	public Scene
 {
-private:
 public:
-	DefaultScene();
+	DefaultScene() = default;
 	~DefaultScene() final = default;
 
 	void Enter() final;

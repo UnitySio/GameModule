@@ -51,7 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	// 로직 스레드 시작
-	WINDOW->logic_thread_ = CreateThread(NULL, 0, WINDOW->LogicThread, NULL, 0, NULL);
+	WINDOW->SetThread(CreateThread(NULL, 0, WINDOW->LogicThread, NULL, 0, NULL));
 
 	// 기본 메시지 루프입니다:
 	while (TRUE)
