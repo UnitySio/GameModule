@@ -24,14 +24,14 @@ void Bullet::Update()
 		SCENE->Destroy(shared_from_this());
 	}
 
-	Translate(direction_ * 300.f * DELTA_TIME);
+	Translate(direction_ * 1000.f * DELTA_TIME);
 }
 
 void Bullet::Render()
 {
 	Vector2 render_postiion = CAMERA->GetRenderPosition(GetPosition());
 
-	Rectangle(WINDOW->GetHDC(),
+	Ellipse(WINDOW->GetHDC(),
 		render_postiion.x_ - 5.f,
 		render_postiion.y_ - 5.f,
 		render_postiion.x_ + 5.f,

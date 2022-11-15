@@ -11,6 +11,7 @@
 #include "SceneManager.h"
 #include "Bullet.h"
 #include "Scene.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -24,7 +25,8 @@ Player::Player() :
 	direction_(1),
 	is_ground_(),
 	is_attack_(),
-	horizontal()
+	horizontal(),
+	timer_()
 {
 	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
 	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
@@ -57,6 +59,8 @@ void Player::Update()
 	Object::Update();
 	StateMachine::Update();
 
+	timer_ += DELTA_TIME;
+
 	horizontal = (INPUT->GetKey(VK_RIGHT) - INPUT->GetKey(VK_LEFT)) * move_speed_;
 
 	GetRigidbody2D()->SetVelocity({ horizontal, GetRigidbody2D()->GetVelocity().y_ });
@@ -87,23 +91,26 @@ void Player::Update()
 		move_speed_ = 200.f;
 	}
 
-	shared_ptr<Object> bullet = make_shared<Bullet>();
-	Vector2 temp = SCENE->GetCurrentScene()->FindObject(L"Ground")->GetPosition() - GetPosition();
-	Vector2 temp1 = MOUSE_POSITION - GetPosition();
-	float m = sqrt(pow(temp.x_, 2) + pow(temp.y_, 2));
-	Vector2 nn = temp1.Normalized();
-	Vector2 n;
-	if (m > 0)
+	if (timer_ > .5f)
 	{
-		n = { temp.x_ / m, temp.y_ / m };
+		Vector2 v = CAMERA->GetRenderPosition(GetPosition() + Vector2({ 0, -66.f }));
+
+		shared_ptr<Object> bullet = make_shared<Bullet>();
+		Vector2 temp = MOUSE_POSITION - v;
+		Vector2 temp1 = MOUSE_POSITION - GetPosition();
+		float m = sqrt(pow(temp.x_, 2) + pow(temp.y_, 2));
+		Vector2 nn = temp1.Normalized();
+		Vector2 n;
+		if (m > 0)
+		{
+			n = { temp.x_ / m, temp.y_ / m };
+		}
+
+		(*(Bullet*)bullet.get()).SetDirection(n);
+		SCENE->Instantiate(bullet, LayerType::kDefault, L"Bullet", GetPosition() + Vector2({ 0, -66.f }), {}, {});
+
+		timer_ = 0;
 	}
-
-	WCHAR word[1024];
-	_stprintf_s(word, L"X: %f, Y: %f\n", n.y_, nn.y_);
-	OutputDebugString(word);
-
-	(*(Bullet*)bullet.get()).SetDirection(n);
-	SCENE->Instantiate(bullet, LayerType::kDefault, L"Bullet", GetPosition() + Vector2({0, -66.f}), {}, {});
 
 	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
 	{

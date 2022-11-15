@@ -19,6 +19,8 @@ private:
 	bool is_ground_;
 
 	float horizontal;
+
+	float timer_;
 protected:
 	std::shared_ptr<State> GetInitiateState();
 public:
