@@ -32,7 +32,7 @@ public:
 	void OnTriggerExit(Object* other);
 
 	Vector2 GetPosition();
-	Vector2 GetScale();
+	Vector2 GetSize();
 
 	UINT GetUID();
 

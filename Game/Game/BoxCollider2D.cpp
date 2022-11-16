@@ -38,7 +38,7 @@ void BoxCollider2D::PhysicsUpdate()
 
 void BoxCollider2D::Render()
 {
-	/*Vector2 render_position = CAMERA->GetRenderPosition(position_);
+	Vector2 render_position = CAMERA->GetRenderPosition(position_);
 
 	HPEN new_pen = CreatePen(PS_SOLID, 0, RGB(178, 223, 174));
 	HPEN old_pen = (HPEN)SelectObject(WINDOW->GetHDC(), new_pen);
@@ -56,7 +56,7 @@ void BoxCollider2D::Render()
 	DeleteObject(new_pen);
 
 	SelectObject(WINDOW->GetHDC(), old_brush);
-	DeleteObject(new_brush);*/
+	DeleteObject(new_brush);
 }
 
 void BoxCollider2D::SetOffset(Vector2 offset)
@@ -89,7 +89,7 @@ Vector2 BoxCollider2D::GetPosition()
 	return position_;
 }
 
-Vector2 BoxCollider2D::GetScale()
+Vector2 BoxCollider2D::GetSize()
 {
 	return size_;
 }

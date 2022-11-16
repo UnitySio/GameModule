@@ -17,4 +17,7 @@ public:
 	void Update() final;
 	void Render() final;
 	void OnDestroy() final;
+	void OnTriggerEnter(Object* other) final;
+	void OnTriggerStay(Object* other) final;
+	void OnTriggerExit(Object* other) final;
 };

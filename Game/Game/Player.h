@@ -21,6 +21,10 @@ private:
 	float horizontal;
 
 	float timer_;
+
+	// 테스트 코드
+	float jump_time_;
+	float jump_power_;
 protected:
 	std::shared_ptr<State> GetInitiateState();
 public:

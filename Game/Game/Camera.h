@@ -39,5 +39,7 @@ public:
 	void SetMoveSpeed(float move_speed);
 	void SetLimitArea(FloatRect limit_area);
 
+	float Random(float min, float max);
+
 	Vector2 GetRenderPosition(Vector2 position);
 };

@@ -137,10 +137,10 @@ void CollisionManager::SetCollisionMatrix(LayerType first, LayerType second)
 bool CollisionManager::IsCollision(shared_ptr<BoxCollider2D> first, shared_ptr<BoxCollider2D> second)
 {
 	Vector2 first_position = first->GetPosition();
-	Vector2 first_scale = first->GetScale();
+	Vector2 first_scale = first->GetSize();
 
 	Vector2 second_position = second->GetPosition();
-	Vector2 second_scale = second->GetScale();
+	Vector2 second_scale = second->GetSize();
 
 	if (abs(first_position.x_ - second_position.x_) <= (first_scale.x_ + second_scale.x_) / 2.f &&
 		abs(first_position.y_ - second_position.y_) <= (first_scale.y_ + second_scale.y_) / 2.f)

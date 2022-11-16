@@ -30,10 +30,10 @@ void InputManager::Release()
 void InputManager::Initiate()
 {
 	// 사용할 키들을 추가
-	AddKey(VK_UP);
-	AddKey(VK_LEFT);
+	AddKey(VK_SPACE);
+	AddKey('A');
 	AddKey(VK_DOWN);
-	AddKey(VK_RIGHT);
+	AddKey('D');
 	AddKey(VK_LCONTROL);
 	AddKey(VK_LSHIFT);
 	AddKey(MK_LBUTTON);

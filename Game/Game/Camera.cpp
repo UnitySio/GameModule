@@ -46,6 +46,10 @@ void Camera::Initiate()
 
 void Camera::Update()
 {
+	WCHAR word[1024];
+	float r = Random(-1.f, 1.f);
+	_stprintf_s(word, L"%.2f\n", r);
+	//OutputDebugString(word);
 }
 
 void Camera::LateUpdate()
@@ -89,6 +93,11 @@ void Camera::SetMoveSpeed(float move_speed)
 void Camera::SetLimitArea(FloatRect limit_area)
 {
 	limit_area_ = limit_area;
+}
+
+float Camera::Random(float min, float max)
+{
+	return ((float)rand() / RAND_MAX) * (max - min) + min;
 }
 
 Vector2 Camera::GetRenderPosition(Vector2 position)

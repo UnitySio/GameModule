@@ -2,7 +2,9 @@
 #pragma comment(lib, "Msimg32.lib")
 //#pragma comment(lib, "fmod_vc.lib")
 #pragma comment(lib, "Gdiplus.lib")
+#pragma comment(lib, "ws2_32.lib")
 
+#include <WinSock2.h>
 #include <stdlib.h>
 #include <crtdbg.h>
 #include <Ole2.h>

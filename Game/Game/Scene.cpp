@@ -30,13 +30,17 @@ void Scene::SceneUpdate()
 	for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
 	{
 		vector<shared_ptr<Object>>::iterator iter = objects_[i].begin();
-		for (; iter != objects_[i].end(); ++iter)
+		for (; iter != objects_[i].end();)
 		{
 			if ((*iter)->IsDestroy())
 			{
 				(*iter)->OnDestroy();
 				(*iter).reset();
 				iter = objects_[i].erase(iter);
+			}
+			else
+			{
+				iter++;
 			}
 		}
 	}

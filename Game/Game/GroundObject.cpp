@@ -26,8 +26,8 @@ void GroundObject::OnTriggerEnter(Object* other)
 	Vector2 other_position = other->GetBoxCollider2D()->GetPosition();
 	Vector2 position = GetBoxCollider2D()->GetPosition();
 
-	Vector2 other_scale = other->GetBoxCollider2D()->GetScale();
-	Vector2 scale = GetBoxCollider2D()->GetScale();
+	Vector2 other_scale = other->GetBoxCollider2D()->GetSize();
+	Vector2 scale = GetBoxCollider2D()->GetSize();
 
 	if (GetPosition().y_ > other->GetPosition().y_)
 	{
@@ -45,8 +45,8 @@ void GroundObject::OnTriggerStay(Object* other)
 	Vector2 other_position = other->GetBoxCollider2D()->GetPosition();
 	Vector2 position = GetBoxCollider2D()->GetPosition();
 
-	Vector2 other_scale = other->GetBoxCollider2D()->GetScale();
-	Vector2 scale = GetBoxCollider2D()->GetScale();
+	Vector2 other_scale = other->GetBoxCollider2D()->GetSize();
+	Vector2 scale = GetBoxCollider2D()->GetSize();
 
 	if (GetPosition().y_ > other->GetPosition().y_)
 	{
