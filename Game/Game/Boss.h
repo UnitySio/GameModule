@@ -4,32 +4,28 @@
 #include "StateMachine.h"
 #include "Texture.h"
 
-class Player :
+class Boss :
     public Object,
     public StateMachine
 {
 private:
-    float move_speed_;
-
-    std::shared_ptr<State> states_[2];
-
-    std::shared_ptr<Texture> left_;
-    std::shared_ptr<Texture> right_;
+    Object* target_;
+    
+    std::shared_ptr<Texture> left_idle_;
+    std::shared_ptr<Texture> left_run_;
+    std::shared_ptr<Texture> right_idle_;
+    std::shared_ptr<Texture> right_run_;
 
     bool is_ground_;
-
-    float horizontal;
-
-    float timer_;
+    
+    int direction_;
 protected:
     std::shared_ptr<State> GetInitiateState() final;
 public:
-    bool is_attack_;
-    int direction_;
+    Boss();
+    ~Boss() final = default;
 
-    Player();
-    ~Player() final = default;
-
+    void SetTarget(Object* target);
     void Update() final;
     void LateUpdate() final;
     void PhysicsUpdate() final;

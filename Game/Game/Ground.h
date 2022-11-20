@@ -2,21 +2,15 @@
 
 #include "Object.h"
 
-class Bullet :
+class Ground :
     public Object
 {
-private:
-    Vector2 direction_;
-
-    float timer_;
 public:
-    Bullet();
-    ~Bullet() = default;
+    Ground();
+    ~Ground() final = default;
 
-    void SetDirection(Vector2 difference);
     void Update() final;
     void Render() final;
-    void OnDestroy() final;
     void OnTriggerEnter(Object* other) final;
     void OnTriggerStay(Object* other) final;
     void OnTriggerExit(Object* other) final;

@@ -4,15 +4,15 @@
 #include "Player.h"
 
 class PlayerWalk :
-	public State
+    public State
 {
 private:
-	Player* owner_;
+    Player* owner_;
 public:
-	PlayerWalk(Player* owner);
-	~PlayerWalk() final = default;
+    PlayerWalk(Player* owner);
+    ~PlayerWalk() final = default;
 
-	void Enter() final;
-	void Update() final;
-	void Exit() final;
+    void Enter() final;
+    void Update() final;
+    void Exit() final;
 };

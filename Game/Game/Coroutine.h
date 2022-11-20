@@ -5,34 +5,34 @@
 class Coroutine
 {
 public:
-	struct promise_type
-	{
-		Coroutine get_return_object()
-		{
-			return { std::coroutine_handle<promise_type>::from_promise(*this) };
-		}
+    struct promise_type
+    {
+        Coroutine get_return_object()
+        {
+            return {std::coroutine_handle<promise_type>::from_promise(*this)};
+        }
 
-		std::suspend_always initial_suspend()
-		{
-			return {};
-		}
+        std::suspend_always initial_suspend()
+        {
+            return {};
+        }
 
-		std::suspend_always final_suspend() noexcept
-		{
-			return {};
-		}
+        std::suspend_always final_suspend() noexcept
+        {
+            return {};
+        }
 
-		void return_void()
-		{
-		}
+        void return_void()
+        {
+        }
 
-		void unhandled_exception()
-		{
-		}
-	};
+        void unhandled_exception()
+        {
+        }
+    };
 
-	std::coroutine_handle<promise_type> co_handler_;
+    std::coroutine_handle<promise_type> co_handler_;
 
-	Coroutine(std::coroutine_handle<promise_type> handle);
-	~Coroutine();
+    Coroutine(std::coroutine_handle<promise_type> handle);
+    ~Coroutine();
 };

@@ -14,111 +14,113 @@ shared_ptr<SceneManager> SceneManager::instance_ = nullptr;
 once_flag SceneManager::flag_;
 
 SceneManager::SceneManager() :
-	scenes_{},
-	current_scene_(),
-	objects_{}
+    scenes_{},
+    current_scene_(),
+    objects_{}
 {
 }
 
 shared_ptr<SceneManager> SceneManager::GetInstance()
 {
-	call_once(flag_, [] // 람다식
-		{
-			instance_.reset(new SceneManager);
-		});
+    call_once(flag_, [] // 람다식
+    {
+        instance_.reset(new SceneManager);
+    });
 
-	return instance_;
+    return instance_;
 }
 
 void SceneManager::Release()
 {
-	instance_.reset();
+    instance_.reset();
 }
 
 void SceneManager::Initiate()
 {
-	shared_ptr<Scene> default_scene = make_shared<DefaultScene>();
-	CreateScene(default_scene, SceneType::kDefault, L"Default");
+    shared_ptr<Scene> default_scene = make_shared<DefaultScene>();
+    CreateScene(default_scene, SceneType::kDefault, L"Default");
 
-	LoadScene(SceneType::kDefault);
+    LoadScene(SceneType::kDefault);
 }
 
 void SceneManager::CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR kName)
 {
-	scene->SetName(kName);
+    scene->SetName(kName);
 
-	scenes_[(size_t)scene_type] = scene;
+    scenes_[(size_t)scene_type] = scene;
 }
 
 void SceneManager::LoadScene(SceneType scene_type)
 {
-	if (current_scene_ != nullptr)
-	{
-		current_scene_->Exit();
-	}
+    if (current_scene_ != nullptr)
+    {
+        current_scene_->Exit();
+    }
 
-	current_scene_ = scenes_[(size_t)scene_type];
-	current_scene_->Enter();
+    current_scene_ = scenes_[(size_t)scene_type];
+    current_scene_->Enter();
 }
 
 void SceneManager::Update()
 {
-	if (current_scene_ != nullptr)
-	{
-		current_scene_->Update();
-	}
+    if (current_scene_ != nullptr)
+    {
+        current_scene_->Update();
+    }
 }
 
 void SceneManager::LateUpdate()
 {
-	if (current_scene_ != nullptr)
-	{
-		current_scene_->LateUpdate();
-	}
+    if (current_scene_ != nullptr)
+    {
+        current_scene_->LateUpdate();
+    }
 }
 
 void SceneManager::PhysicsUpdate()
 {
-	if (current_scene_ != nullptr)
-	{
-		current_scene_->PhysicsUpdate();
-	}
+    if (current_scene_ != nullptr)
+    {
+        current_scene_->PhysicsUpdate();
+    }
 }
 
 void SceneManager::Render()
 {
-	if (current_scene_ != nullptr)
-	{
-		current_scene_->Render();
-	}
+    if (current_scene_ != nullptr)
+    {
+        current_scene_->Render();
+    }
 }
 
 void SceneManager::SceneUpdate()
 {
-	for (size_t i = 0; i < objects_.size(); i++)
-	{
-		current_scene_->CreateObject(objects_[i].object, objects_[i].type, objects_[i].name, objects_[i].position, objects_[i].rotation, objects_[i].scale);
-	}
+    for (size_t i = 0; i < objects_.size(); i++)
+    {
+        current_scene_->CreateObject(objects_[i].object, objects_[i].type, objects_[i].name, objects_[i].position,
+                                     objects_[i].scale);
+    }
 
-	objects_.clear();
+    objects_.clear();
 
-	if (current_scene_ != nullptr)
-	{
-		current_scene_->SceneUpdate();
-	}
+    if (current_scene_ != nullptr)
+    {
+        current_scene_->SceneUpdate();
+    }
 }
 
-void SceneManager::Instantiate(shared_ptr<Object> object, LayerType type, LPCWSTR kName, Vector2 position, Vector2 rotation, Vector2 scale)
+void SceneManager::Instantiate(shared_ptr<Object> object, LayerType type, LPCWSTR kName, Vector2 position,
+                               Vector2 scale)
 {
-	objects_.push_back({ object, type, kName, position, rotation, scale});
+    objects_.push_back({object, type, kName, position, scale});
 }
 
 void SceneManager::Destroy(shared_ptr<Object> object)
 {
-	object->SetDestroy();
+    object->SetDestroy();
 }
 
 shared_ptr<Scene> SceneManager::GetCurrentScene()
 {
-	return current_scene_;
+    return current_scene_;
 }

@@ -6,34 +6,34 @@ using namespace std;
 
 void StateMachine::Initiate()
 {
-	current_state_ = GetInitiateState();
+    current_state_ = GetInitiateState();
 
-	if (current_state_ != nullptr)
-	{
-		current_state_->Enter();
-	}
+    if (current_state_ != nullptr)
+    {
+        current_state_->Enter();
+    }
 }
 
 void StateMachine::Update()
 {
-	if (current_state_ != nullptr)
-	{
-		current_state_->Update();
-	}
+    if (current_state_ != nullptr)
+    {
+        current_state_->Update();
+    }
 }
 
 shared_ptr<State> StateMachine::GetInitiateState()
 {
-	return nullptr;
+    return nullptr;
 }
 
 void StateMachine::ChangeState(shared_ptr<State> state)
 {
-	if (current_state_ != nullptr)
-	{
-		current_state_->Exit();
-	}
+    if (current_state_ != nullptr)
+    {
+        current_state_->Exit();
+    }
 
-	current_state_ = state;
-	current_state_->Enter();
+    current_state_ = state;
+    current_state_->Enter();
 }

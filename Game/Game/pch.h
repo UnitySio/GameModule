@@ -30,33 +30,34 @@
 
 struct FloatRect
 {
-	float left;
-	float top;
-	float right;
-	float bottom;
+    float left;
+    float top;
+    float right;
+    float bottom;
 };
 
 enum class SceneType : size_t
 {
-	kDefault = 0,
-	kEnd // kEnd는 항상 마지막에 있어야 합니다.
+    kDefault = 0,
+    kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 
 enum class LayerType : size_t
 {
-	kDefault = 0,
-	kGround,
-	kEnd // kEnd는 항상 마지막에 있어야 합니다.
+    kDefault = 0,
+    kGround,
+    kBullet,
+    kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 
 enum class PlayerStateType : size_t
 {
-	kIdle = 0,
-	kWalk,
-	kJump,
-	kFalling,
-	kAttack,
-	kEnd // kEnd는 항상 마지막에 있어야 합니다.
+    kIdle = 0,
+    kWalk,
+    kJump,
+    kFalling,
+    kAttack,
+    kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 
 class pch

@@ -4,15 +4,15 @@
 #include "Player.h"
 
 class PlayerIdle :
-	public State
+    public State
 {
 private:
-	Player* owner_;
+    Player* owner_;
 public:
-	PlayerIdle(Player* owner);
-	~PlayerIdle() final = default;
+    PlayerIdle(Player* owner);
+    ~PlayerIdle() final = default;
 
-	void Enter() final;
-	void Update() final;
-	void Exit() final;
+    void Enter() final;
+    void Update() final;
+    void Exit() final;
 };

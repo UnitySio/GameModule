@@ -4,16 +4,16 @@
 #include "Animator.h"
 
 PlayerIdle::PlayerIdle(Player* owner) :
-	owner_(owner)
+    owner_(owner)
 {
 }
 
 void PlayerIdle::Enter()
 {
-	if (owner_->GetAnimator() != nullptr)
-	{
-		owner_->GetAnimator()->SetClip(L"IDLE");
-	}
+    if (owner_->GetAnimator() != nullptr)
+    {
+        owner_->GetAnimator()->SetClip(L"IDLE");
+    }
 }
 
 void PlayerIdle::Update()

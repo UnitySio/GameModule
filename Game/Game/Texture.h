@@ -2,27 +2,29 @@
 class Texture
 {
 private:
-	HBITMAP bitmap_;
+    HBITMAP bitmap_;
 
-	BITMAP bitmap_info_;
+    BITMAP bitmap_info_;
 
-	HDC memDC;
+    HDC memDC;
 
-	Vector2 pivot_;
-	Vector2 frame_size_;
+    Vector2 pivot_;
+    Vector2 frame_size_;
 
-	std::vector<Vector2> frames_;
+    std::vector<Vector2> frames_;
 public:
-	Texture();
-	~Texture();
+    Texture();
+    ~Texture();
 
-	void Load(LPCWSTR path, UINT row = 1, UINT column = 1);
-	void SetPivot(Vector2 pivot);
+    void Load(LPCWSTR path, UINT column = 1, UINT row = 1);
+    void SetPivot(Vector2 pivot);
 
-	HDC GetMemDC();
+    BITMAP GetBitmapInfo();
 
-	Vector2 GetPivot();
-	Vector2 GetSpriteSize();
+    HDC GetMemDC();
 
-	const std::vector<Vector2>& GetFrames();
+    Vector2 GetPivot();
+    Vector2 GetSpriteSize();
+
+    const std::vector<Vector2>& GetFrames();
 };

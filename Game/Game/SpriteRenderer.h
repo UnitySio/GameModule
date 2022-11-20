@@ -6,25 +6,25 @@ class Texture;
 class SpriteRenderer
 {
 private:
-	friend class Object;
+    friend class Object;
 
-	Object* owner_;
+    Object* owner_;
 
-	std::shared_ptr<Texture> texture_;
+    std::shared_ptr<Texture> texture_;
 
-	size_t current_frame_;
+    size_t current_frame_;
 
-	Vector2 pivot_position_;
+    Vector2 pivot_position_;
 public:
-	SpriteRenderer();
-	SpriteRenderer(const SpriteRenderer& kOrigin);
-	~SpriteRenderer() = default;
+    SpriteRenderer();
+    SpriteRenderer(const SpriteRenderer& kOrigin);
+    ~SpriteRenderer() = default;
 
-	SpriteRenderer& operator=(const SpriteRenderer&) = delete;
+    SpriteRenderer& operator=(const SpriteRenderer&) = delete;
 
-	void SetTexture(std::shared_ptr<Texture> sprite);
-	void SetFrame(size_t frame);
-	void Render(Vector2 position, Vector2 scale);
+    void SetTexture(std::shared_ptr<Texture> sprite);
+    void SetFrame(size_t frame);
+    void Render();
 
-	size_t GetCurrentFrame();
+    size_t GetCurrentFrame();
 };

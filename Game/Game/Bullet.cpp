@@ -7,56 +7,53 @@
 #include "Rigidbody2D.h"
 
 Bullet::Bullet() :
-	direction_{},
-	timer_()
+    direction_{},
+    timer_()
 {
-	AddBoxCollider2D();
-	GetBoxCollider2D()->SetSize({ 10.f, 10.f });
-	AddRigidbody2D();
+    AddBoxCollider2D();
 }
 
 void Bullet::SetDirection(Vector2 difference)
 {
-	direction_ = difference;
+    direction_ = difference;
 }
 
 void Bullet::Update()
 {
-	timer_ += DELTA_TIME;
+    timer_ += DELTA_TIME;
 
-	if (timer_ > 5.f)
-	{
-		SCENE->Destroy(shared_from_this());
-	}
+    if (timer_ > 5.f)
+    {
+        SCENE->Destroy(shared_from_this());
+    }
 
-	Translate(direction_ * 500.f * DELTA_TIME);
-
-	GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 800);
+    Translate(direction_ * 500.f * DELTA_TIME);
 }
 
 void Bullet::Render()
 {
-	Object::Render();
+    Object::Render();
 
-	Vector2 render_postiion = CAMERA->GetRenderPosition(GetPosition());
+    Vector2 render_postiion = CAMERA->GetRenderPosition(GetPosition());
 
-	Ellipse(WINDOW->GetHDC(),
-		render_postiion.x_ - 5.f,
-		render_postiion.y_ - 5.f,
-		render_postiion.x_ + 5.f,
-		render_postiion.y_ + 5.f);
+    Ellipse(WINDOW->GetHDC(),
+            render_postiion.x_ - 5.f,
+            render_postiion.y_ - 5.f,
+            render_postiion.x_ + 5.f,
+            render_postiion.y_ + 5.f);
 }
 
 void Bullet::OnDestroy()
 {
-	//OutputDebugString(L"Destroyed.\n");
+    //OutputDebugString(L"Destroyed.\n");
 }
 
 void Bullet::OnTriggerEnter(Object* other)
 {
-	if (wcscmp(other->GetName(), L"Ground"))
-	{
-	}
+    if (wcscmp(other->GetName(), L"Ground") == 0)
+    {
+        SCENE->Destroy(shared_from_this());
+    }
 }
 
 void Bullet::OnTriggerStay(Object* other)
