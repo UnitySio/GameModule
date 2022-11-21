@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Scene.h"
 #include "Object.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -115,7 +116,16 @@ void Scene::Render()
         {
             if (!objects_[i][j]->IsDestroy())
             {
-                objects_[i][j]->Render();
+                // 최적화를 위해 카메라 밖에 있을 경우 그리지 않음
+                // 현재 테스트 코드
+                Vector2 render_position = CAMERA->GetRenderPosition(objects_[i][j]->GetPosition());
+                if (render_position.x_ > 0 && render_position.x_ < 640)
+                {
+                    if (render_position.y_ > 0 && render_position.y_ < 480)
+                    {
+                        objects_[i][j]->Render();
+                    }
+                }
             }
         }
     }

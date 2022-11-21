@@ -11,6 +11,7 @@ Bullet::Bullet() :
     timer_()
 {
     AddBoxCollider2D();
+    GetBoxCollider2D()->SetSize({ 10.f, 10.f });
 }
 
 void Bullet::SetDirection(Vector2 difference)

@@ -9,7 +9,7 @@ class Boss :
     public StateMachine
 {
 private:
-    Object* target_;
+    std::shared_ptr<Object> target_;
     
     std::shared_ptr<Texture> left_idle_;
     std::shared_ptr<Texture> left_run_;
@@ -28,7 +28,7 @@ public:
     Boss();
     ~Boss() final = default;
 
-    void SetTarget(Object* target);
+    void SetTarget(std::shared_ptr<Object> target);
     void Update() final;
     void LateUpdate() final;
     void PhysicsUpdate() final;

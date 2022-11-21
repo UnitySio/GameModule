@@ -19,7 +19,7 @@ private:
     float screen_y_;
     float move_speed_;
 
-    Object* target_;
+    std::shared_ptr<Object> target_;
 public:
     Camera();
     ~Camera() = default;
@@ -33,7 +33,8 @@ public:
     void Initiate();
     void Update();
     void LateUpdate();
-    void SetTarget(Object* target);
+    void Render();
+    void SetTarget(std::shared_ptr<Object> target);
     void SetScreenX(float x);
     void SetScreenY(float y);
     void SetMoveSpeed(float move_speed);

@@ -75,9 +75,9 @@ void Player::Update()
 
     if (INPUT->GetKeyDown(VK_SPACE))
     {
+        GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
         if (is_ground_)
         {
-            GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
         }
     }
 
@@ -96,7 +96,7 @@ void Player::Update()
     {
         timer_ += DELTA_TIME;
 
-        if (timer_ > .1f)
+        if (timer_ > .01f)
         {
             Vector2 render_position = CAMERA->GetRenderPosition(GetPosition() + Vector2({0, -66.f}));
 
@@ -160,6 +160,12 @@ void Player::PhysicsUpdate()
 void Player::Render()
 {
     Object::Render();
+
+    Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
+
+    WCHAR word[1024];
+    _stprintf_s(word, L"X: %f, Y: %f\n", render_position.x_, render_position.y_);
+    OutputDebugString(word);
 }
 
 void Player::OnTriggerEnter(Object* other)

@@ -53,7 +53,7 @@ Boss::Boss() :
 	GetAnimator()->SetClip(L"IDLE");
 }
 
-void Boss::SetTarget(Object* target)
+void Boss::SetTarget(shared_ptr<Object> target)
 {
 	target_ = target;
 }
@@ -80,6 +80,14 @@ void Boss::Update()
 		else
 		{
 			GetRigidbody2D()->SetVelocity({ 0.f, GetRigidbody2D()->GetVelocity().y_ });
+		}
+
+		if (target_->GetPosition().y_ < GetPosition().y_ - 150.f)
+		{
+			if (is_ground_)
+			{
+				GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
+			}
 		}
 	}
 	else
@@ -153,11 +161,19 @@ void Boss::Render()
 	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
 
 	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24);
+	
 	HBRUSH new_brush = CreateSolidBrush(RGB(255, 0, 0));
 	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
+	
 	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + (hp_ / max_hp_) * 100, render_position.y_ + 24);
+	
 	SelectObject(WINDOW->GetHDC(), old_brush);
 	DeleteObject(new_brush);
+	
+	WCHAR word[1024];
+	_stprintf_s(word, L"%.f%%", (hp_ / max_hp_) * 100);
+	RECT rect = { render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24 };
+	DrawText(WINDOW->GetHDC(), word, -1, &rect, DT_CENTER);
 }
 
 void Boss::OnTriggerEnter(Object* other)
@@ -165,11 +181,12 @@ void Boss::OnTriggerEnter(Object* other)
 	if (wcscmp(other->GetName(), L"Ground") == 0)
 	{
 		is_ground_ = true;
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f });
 	}
 
 	if (wcscmp(other->GetName(), L"Bullet") == 0)
 	{
-		hp_ -= 10000.f;
+		hp_ -= 100.f;
 	}
 }
 

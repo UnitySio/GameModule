@@ -224,6 +224,8 @@ void Window::PhysicsUpdate()
 
 void Window::Render()
 {
+    SetBkMode(hdc, TRANSPARENT);
+
     // Background
     HBRUSH new_brush = CreateSolidBrush(RGB(49, 77, 121));
     HBRUSH old_brush = (HBRUSH)SelectObject(hdc, new_brush);
@@ -236,10 +238,11 @@ void Window::Render()
     // 여기서 부터 코드 작성
 
     SCENE->Render();
+    CAMERA->Render();
 
-    /*WCHAR fps_word[128];
+    WCHAR fps_word[128];
     wsprintf(fps_word, L"FPS: %d", TIME->GetFPS());
-    TextOut(hdc, 0, 0, fps_word, wcslen(fps_word));*/
+    TextOut(hdc, 0, 0, fps_word, wcslen(fps_word));
 
     BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
 }
