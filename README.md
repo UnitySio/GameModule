@@ -15,7 +15,7 @@ WinAPI에서 간단하게 게임을 만들 수 있도록 하기 위해 개발하
 * GDI, GDI+
 
 ### Using Sound Library
-* FMOD
+* ~~FMOD~~
 
 ### Life Cycle
 * 업데이트 예정
