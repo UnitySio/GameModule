@@ -47,6 +47,7 @@ enum class LayerType : size_t
     kDefault = 0,
     kGround,
     kBullet,
+    kMonster,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 

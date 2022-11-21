@@ -117,10 +117,13 @@
     <ClInclude Include="Bullet.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GroundObject.h">
+    <ClInclude Include="Player.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Boss.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -191,14 +194,17 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="GroundObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Moudle\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

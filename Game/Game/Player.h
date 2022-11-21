@@ -9,6 +9,9 @@ class Player :
     public StateMachine
 {
 private:
+    friend class PlayerIdle;
+    friend class PlayerWalk;
+
     float move_speed_;
 
     std::shared_ptr<State> states_[2];

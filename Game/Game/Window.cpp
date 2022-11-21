@@ -237,9 +237,9 @@ void Window::Render()
 
     SCENE->Render();
 
-    WCHAR fps_word[128];
+    /*WCHAR fps_word[128];
     wsprintf(fps_word, L"FPS: %d", TIME->GetFPS());
-    TextOut(hdc, 0, 0, fps_word, wcslen(fps_word));
+    TextOut(hdc, 0, 0, fps_word, wcslen(fps_word));*/
 
     BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
 }

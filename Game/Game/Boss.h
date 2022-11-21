@@ -19,6 +19,9 @@ private:
     bool is_ground_;
     
     int direction_;
+
+    float hp_;
+    float max_hp_;
 protected:
     std::shared_ptr<State> GetInitiateState() final;
 public:

@@ -54,6 +54,14 @@ void Bullet::OnTriggerEnter(Object* other)
     {
         SCENE->Destroy(shared_from_this());
     }
+
+    if (wcscmp(GetName(), L"Bullet") == 0)
+    {
+        if (wcscmp(other->GetName(), L"Boss") == 0)
+        {
+            SCENE->Destroy(shared_from_this());
+        }
+    }
 }
 
 void Bullet::OnTriggerStay(Object* other)

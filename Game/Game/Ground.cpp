@@ -9,7 +9,7 @@ using namespace std;
 Ground::Ground()
 {
     AddBoxCollider2D();
-    GetBoxCollider2D()->SetSize({800.f, 64.f});
+    GetBoxCollider2D()->SetSize({1600.f, 64.f});
 }
 
 void Ground::Update()
@@ -23,7 +23,7 @@ void Ground::Render()
 
     Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
 
-    Rectangle(WINDOW->GetHDC(), render_position.x_ - 400, render_position.y_ - 32, render_position.x_ + 400,
+    Rectangle(WINDOW->GetHDC(), render_position.x_ - 800, render_position.y_ - 32, render_position.x_ + 800,
               render_position.y_ + 32);
 }
 

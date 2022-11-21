@@ -61,21 +61,24 @@ void Player::Update()
 
     horizontal = (INPUT->GetKey('D') - INPUT->GetKey('A')) * move_speed_;
 
-    GetRigidbody2D()->SetVelocity({horizontal, GetRigidbody2D()->GetVelocity().y_});
-
-    if (INPUT->GetKey('D'))
+    Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
+    
+    if (MOUSE_POSITION.x_ > render_position.x_)
     {
         direction_ = 1;
     }
 
-    if (INPUT->GetKey('A'))
+    if (MOUSE_POSITION.x_ < render_position.x_)
     {
         direction_ = -1;
     }
 
     if (INPUT->GetKeyDown(VK_SPACE))
     {
-        GetRigidbody2D()->SetVelocity({GetRigidbody2D()->GetVelocity().x_, -500.f});
+        if (is_ground_)
+        {
+            GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
+        }
     }
 
     if (INPUT->GetKey(VK_LSHIFT))
@@ -161,8 +164,11 @@ void Player::Render()
 
 void Player::OnTriggerEnter(Object* other)
 {
-    is_ground_ = true;
-    GetRigidbody2D()->SetVelocity({GetRigidbody2D()->GetVelocity().x_, 0.f});
+    if (wcscmp(other->GetName(), L"Ground") == 0)
+    {
+        is_ground_ = true;
+        GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f });
+    }
 }
 
 void Player::OnTriggerStay(Object* other)
@@ -171,5 +177,8 @@ void Player::OnTriggerStay(Object* other)
 
 void Player::OnTriggerExit(Object* other)
 {
-    is_ground_ = false;
+    if (wcscmp(other->GetName(), L"Ground") == 0)
+    {
+        is_ground_ = false;
+    }
 }
