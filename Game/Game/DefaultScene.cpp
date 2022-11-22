@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "DefaultScene.h"
-
 #include "Boss.h"
 #include "Object.h"
 #include "Player.h"
@@ -25,8 +24,6 @@ void DefaultScene::Enter()
     COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kGround);
     COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kMonster);
     COLLISION->SetCollisionMatrix(LayerType::kGround, LayerType::kMonster);
-    COLLISION->SetCollisionMatrix(LayerType::kGround, LayerType::kBullet);
-    COLLISION->SetCollisionMatrix(LayerType::kBullet, LayerType::kMonster);
 
     CAMERA->SetTarget(player);
     CAMERA->SetLimitArea({0.f, 0.f, 1600.f, 800.f});

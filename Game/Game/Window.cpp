@@ -238,7 +238,6 @@ void Window::Render()
     // 여기서 부터 코드 작성
 
     SCENE->Render();
-    CAMERA->Render();
 
     WCHAR fps_word[128];
     wsprintf(fps_word, L"FPS: %d", TIME->GetFPS());

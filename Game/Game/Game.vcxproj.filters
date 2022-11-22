@@ -114,9 +114,6 @@
     <ClInclude Include="DefaultScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -125,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJump.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +191,6 @@
     <ClCompile Include="DefaultScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -205,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJump.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

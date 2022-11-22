@@ -33,7 +33,6 @@ public:
     void Initiate();
     void Update();
     void LateUpdate();
-    void Render();
     void SetTarget(std::shared_ptr<Object> target);
     void SetScreenX(float x);
     void SetScreenY(float y);

@@ -6,7 +6,7 @@ public:
     State() = default;
     virtual ~State() = default;
 
-    virtual void Enter() = 0;
-    virtual void Update() = 0;
-    virtual void Exit() = 0;
+    virtual void OnStateEnter() = 0;
+    virtual void OnStateUpdate() = 0;
+    virtual void OnStateExit() = 0;
 };

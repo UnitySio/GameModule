@@ -5,23 +5,26 @@
 #include "Rigidbody2D.h"
 
 PlayerIdle::PlayerIdle(Player* owner) :
-    owner_(owner)
+	owner_(owner)
 {
 }
 
-void PlayerIdle::Enter()
+void PlayerIdle::OnStateEnter()
 {
-    if (owner_->GetAnimator() != nullptr)
-    {
-        owner_->GetAnimator()->SetClip(L"IDLE");
-    }
+	owner_->GetAnimator()->SetClip(L"IDLE");
 }
 
-void PlayerIdle::Update()
+void PlayerIdle::OnStateUpdate()
 {
-    owner_->GetRigidbody2D()->SetVelocity({ owner_->horizontal, owner_->GetRigidbody2D()->GetVelocity().y_ });
+	owner_->Movement();
+
+	// 입력된 값이 0이 아닌경우 상태를 바꿈
+	if (owner_->horizontal_ != 0.f)
+	{
+		owner_->ChangeState(owner_->states_[(size_t)PlayerStateType::kWalk]);
+	}
 }
 
-void PlayerIdle::Exit()
+void PlayerIdle::OnStateExit()
 {
 }

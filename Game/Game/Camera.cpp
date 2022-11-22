@@ -68,14 +68,6 @@ void Camera::LateUpdate()
     }
 }
 
-void Camera::Render()
-{
-    Vector2 p = position_ - screen_position_;
-
-    Ellipse(WINDOW->GetHDC(), p.x_ - 5, p.y_ - 5, p.x_ + 5, p.y_ + 5);
-    TextOut(WINDOW->GetHDC(), p.x_ + 10, p.y_, L"Camera Position", 15);
-}
-
 void Camera::SetTarget(shared_ptr<Object> target)
 {
     target_ = target;

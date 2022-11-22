@@ -28,6 +28,12 @@
 #define DELTA_TIME TimeManager::GetInstance()->GetDeltaTime()
 #define MOUSE_POSITION Window::GetInstance()->GetMousePosition()
 
+// 키 입력
+#define LEFT 'A'
+#define RIGHT 'D'
+#define JUMP VK_SPACE
+#define RUN VK_SHIFT
+
 struct FloatRect
 {
     float left;
@@ -46,7 +52,6 @@ enum class LayerType : size_t
 {
     kDefault = 0,
     kGround,
-    kBullet,
     kMonster,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };

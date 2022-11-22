@@ -10,7 +10,7 @@ void StateMachine::Initiate()
 
     if (current_state_ != nullptr)
     {
-        current_state_->Enter();
+        current_state_->OnStateEnter();
     }
 }
 
@@ -18,7 +18,7 @@ void StateMachine::Update()
 {
     if (current_state_ != nullptr)
     {
-        current_state_->Update();
+        current_state_->OnStateUpdate();
     }
 }
 
@@ -31,9 +31,9 @@ void StateMachine::ChangeState(shared_ptr<State> state)
 {
     if (current_state_ != nullptr)
     {
-        current_state_->Exit();
+        current_state_->OnStateExit();
     }
 
     current_state_ = state;
-    current_state_->Enter();
+    current_state_->OnStateEnter();
 }

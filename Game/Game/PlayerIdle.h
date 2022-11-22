@@ -12,7 +12,7 @@ public:
     PlayerIdle(Player* owner);
     ~PlayerIdle() final = default;
 
-    void Enter() final;
-    void Update() final;
-    void Exit() final;
+    void OnStateEnter() final;
+    void OnStateUpdate() final;
+    void OnStateExit() final;
 };

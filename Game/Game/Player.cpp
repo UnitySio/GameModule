@@ -8,8 +8,9 @@
 #include "InputManager.h"
 #include "PlayerIdle.h"
 #include "PlayerWalk.h"
+#include "PlayerJump.h"
+//#include "PlayerFalling.h"
 #include "SceneManager.h"
-#include "Bullet.h"
 #include "Scene.h"
 #include "Camera.h"
 
@@ -17,164 +18,91 @@ using namespace std;
 
 shared_ptr<State> Player::GetInitiateState()
 {
-    return states_[(size_t)PlayerStateType::kIdle];
+	return states_[(size_t)PlayerStateType::kIdle];
 }
 
 Player::Player() :
-    move_speed_(200.f),
-    direction_(1),
-    is_ground_(),
-    is_attack_(),
-    horizontal(),
-    timer_()
+	move_speed_(200.f),
+	jump_force_(500.f),
+	direction_(1),
+	is_ground_(),
+	is_attack_(),
+	horizontal_()
 {
-    states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
-    states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
+	// 상태 추가
+	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
+	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
+	states_[(size_t)PlayerStateType::kJump] = make_shared<PlayerJump>(this);
+	//states_[(size_t)PlayerStateType::kFalling] = make_shared<PlayerFalling>(this);
 
-    right_ = make_shared<Texture>();
-    right_->Load(L"Resources/WarriorRightSheet.bmp", 6, 17);
-    right_->SetPivot({0.385f, 0.97f});
+	// 추후 리소스 매니저에서 리소스들을 관리할 수 있도록 변경 예정
+	right_ = make_shared<Texture>();
+	right_->Load(L"Resources/WarriorRightSheet.bmp", 6, 17);
+	right_->SetPivot({ 0.385f, 0.97f });
 
-    left_ = make_shared<Texture>();
-    left_->Load(L"Resources/WarriorLeftSheet.bmp", 6, 17);
-    left_->SetPivot({0.625f, 0.97f});
+	left_ = make_shared<Texture>();
+	left_->Load(L"Resources/WarriorLeftSheet.bmp", 6, 17);
+	left_->SetPivot({ 0.625f, 0.97f });
 
-    AddSpriteRenderer();
-    GetSpriteRenderer()->SetTexture(right_);
+	AddSpriteRenderer(); // 스프라이트 랜더러 컴포넌트
+	GetSpriteRenderer()->SetTexture(right_);
 
-    AddAnimator();
-    GetAnimator()->AddClip(L"IDLE", true, 0, 6);
-    GetAnimator()->AddClip(L"WALK", true, 6, 8);
+	AddAnimator(); // 애니메이터 컴포넌트
+	GetAnimator()->AddClip(L"IDLE", true, 0, 6); // IDLE 애니메이션
+	GetAnimator()->AddClip(L"WALK", true, 6, 8); // WALK 애니메이션
+	GetAnimator()->AddClip(L"JUMP", false, 41, 4); // JUMP 애니메이션
+	GetAnimator()->AddClip(L"FALLING", false, 45, 4); // FALLING 애니메이션
 
-    AddRigidbody2D();
-    AddBoxCollider2D();
-    GetBoxCollider2D()->SetOffset({0.f, -50.f});
-    GetBoxCollider2D()->SetSize({64.f, 100.f});
+	AddRigidbody2D(); // 리자드 바디 컴포넌트
+	AddBoxCollider2D(); // 박스 콜라이더 컴폰넌트
+	GetBoxCollider2D()->SetOffset({ 0.f, -50.f });
+	GetBoxCollider2D()->SetSize({ 64.f, 100.f });
 
-    StateMachine::Initiate();
+	// 상태 머신 초기화
+	StateMachine::Initiate();
 }
 
 void Player::Update()
 {
-    Object::Update();
-    StateMachine::Update();
+	Object::Update();
+	StateMachine::Update();
 
-    horizontal = (INPUT->GetKey('D') - INPUT->GetKey('A')) * move_speed_;
-
-    Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
-    
-    if (MOUSE_POSITION.x_ > render_position.x_)
-    {
-        direction_ = 1;
-    }
-
-    if (MOUSE_POSITION.x_ < render_position.x_)
-    {
-        direction_ = -1;
-    }
-
-    if (INPUT->GetKeyDown(VK_SPACE))
-    {
-        GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
-        if (is_ground_)
-        {
-        }
-    }
-
-    if (INPUT->GetKey(VK_LSHIFT))
-    {
-        move_speed_ = 400.f;
-        //SCENE->Destroy(shared_from_this());
-    }
-
-    if (INPUT->GetKeyUp(VK_LSHIFT))
-    {
-        move_speed_ = 200.f;
-    }
-
-    if (INPUT->GetKey(MK_LBUTTON))
-    {
-        timer_ += DELTA_TIME;
-
-        if (timer_ > .01f)
-        {
-            Vector2 render_position = CAMERA->GetRenderPosition(GetPosition() + Vector2({0, -66.f}));
-
-            shared_ptr<Object> bullet = make_shared<Bullet>();
-            Vector2 difference = MOUSE_POSITION - render_position;
-            Vector2 normalized = difference.Normalized();
-
-            (*(Bullet*)bullet.get()).SetDirection(normalized);
-            SCENE->Instantiate(bullet, LayerType::kBullet, L"Bullet", GetPosition() + Vector2({0, -66.f}), {});
-
-            timer_ = 0;
-        }
-    }
-
-    if (INPUT->GetKeyUp(MK_LBUTTON))
-    {
-        timer_ = 0;
-    }
-
-    if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
-    {
-        if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
-        {
-            ChangeState(states_[(size_t)PlayerStateType::kWalk]);
-        }
-    }
-    else
-    {
-        if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
-        {
-            ChangeState(states_[(size_t)PlayerStateType::kIdle]);
-        }
-    }
-
-    if (direction_ == 1)
-    {
-        GetSpriteRenderer()->SetTexture(right_);
-    }
-    else if (direction_ == -1)
-    {
-        GetSpriteRenderer()->SetTexture(left_);
-    }
-    
-    if (!is_ground_)
-    {
-        GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 800.f);
-    }
+	// 땅이 아닐 경우 아래방향으로 중력 가속도를 줌
+	if (!is_ground_)
+	{
+		GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 800.f);
+	}
 }
 
 void Player::LateUpdate()
 {
-    Object::LateUpdate();
+	Object::LateUpdate();
 }
 
 void Player::PhysicsUpdate()
 {
-    Object::PhysicsUpdate();
+	Object::PhysicsUpdate();
 
 }
 
 void Player::Render()
 {
-    Object::Render();
+	Object::Render();
 
-    Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
+	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
 
-    WCHAR word[1024];
-    _stprintf_s(word, L"X: %f, Y: %f\n", render_position.x_, render_position.y_);
-    OutputDebugString(word);
+	WCHAR word[1024];
+	_stprintf_s(word, L"X: %f, Y: %f\n", render_position.x_, render_position.y_);
+	OutputDebugString(word);
 }
 
 void Player::OnTriggerEnter(Object* other)
 {
-    if (wcscmp(other->GetName(), L"Ground") == 0)
-    {
-        is_ground_ = true;
-        GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f });
-    }
+	if (wcscmp(other->GetName(), L"Ground") == 0)
+	{
+		is_ground_ = true;
+		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f });
+	}
 }
 
 void Player::OnTriggerStay(Object* other)
@@ -183,8 +111,45 @@ void Player::OnTriggerStay(Object* other)
 
 void Player::OnTriggerExit(Object* other)
 {
-    if (wcscmp(other->GetName(), L"Ground") == 0)
-    {
-        is_ground_ = false;
-    }
+	if (wcscmp(other->GetName(), L"Ground") == 0)
+	{
+		is_ground_ = false;
+	}
+}
+
+void Player::Movement()
+{
+	shared_ptr<Rigidbody2D> rigid = GetRigidbody2D();
+	shared_ptr<SpriteRenderer> sprite = GetSpriteRenderer();
+
+	// D입력 시 1, A 입력 시 -1, 입력되지 않을 경우 0
+	horizontal_ = (INPUT->GetKey(RIGHT) - INPUT->GetKey(LEFT));
+
+	rigid->SetVelocity({ move_speed_ * horizontal_, rigid->GetVelocity().y_ });
+
+	if (INPUT->GetKey(JUMP))
+	{
+		rigid->SetVelocity({ rigid->GetVelocity().x_, -jump_force_ });
+	}
+
+	if (INPUT->GetKeyDown(RUN))
+	{
+		move_speed_ = 400.f;
+	}
+
+	if (INPUT->GetKeyUp(RUN))
+	{
+		move_speed_ = 200.f;
+	}
+
+	if (rigid->GetVelocity().x_ > 0.f)
+	{
+		direction_ = 1;
+		sprite->SetTexture(right_);
+	}
+	else if (rigid->GetVelocity().x_ < 0.f)
+	{
+		direction_ = -1;
+		sprite->SetTexture(left_);
+	}
 }
