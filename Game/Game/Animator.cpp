@@ -10,17 +10,23 @@ Coroutine Animator::Play()
 {
 	while (is_play_)
 	{
-		if (!clips_[current_clip_].is_loop && owner_->GetSpriteRenderer()->GetCurrentFrame() == clips_[current_clip_].
-			frame_count - 1)
+		// 현재 이 구문에서 계산에 문제가 있음
+		if (!clips_[current_clip_].is_loop && owner_->GetSpriteRenderer()->GetCurrentFrame() == clips_[current_clip_].start_frame + (clips_[current_clip_].frame_count - 1))
 		{
 			is_play_ = false;
 		}
 
 		co_await suspend_always{};
 
-		owner_->GetSpriteRenderer()->SetFrame(
-			clips_[current_clip_].start_frame + ((owner_->GetSpriteRenderer()->GetCurrentFrame() + 1) % clips_[
-				current_clip_].frame_count));
+		//owner_->GetSpriteRenderer()->SetFrame(clips_[current_clip_].start_frame + ((owner_->GetSpriteRenderer()->GetCurrentFrame() + 1) % clips_[current_clip_].frame_count));
+		if (owner_->GetSpriteRenderer()->GetCurrentFrame() != clips_[current_clip_].start_frame + (clips_[current_clip_].frame_count - 1))
+		{
+			owner_->GetSpriteRenderer()->SetFrame(clips_[current_clip_].start_frame + (owner_->GetSpriteRenderer()->GetCurrentFrame() + 1));
+		}
+		else
+		{
+			owner_->GetSpriteRenderer()->SetFrame(clips_[current_clip_].start_frame);
+		}
 	}
 }
 
@@ -29,7 +35,7 @@ Animator::Animator() :
 	clips_{},
 	is_play_(),
 	timer_(),
-	frame_rate_(15),
+	frame_rate_(5),
 	current_clip_()
 {
 }

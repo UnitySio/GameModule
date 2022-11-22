@@ -18,12 +18,6 @@ void PlayerWalk::OnStateEnter()
 void PlayerWalk::OnStateUpdate()
 {
     owner_->Movement();
-
-    // 입력된 값이 0일 경우 상태를 바꿈
-    if (owner_->horizontal_ == 0.f)
-    {
-        owner_->ChangeState(owner_->states_[(size_t)PlayerStateType::kIdle]);
-    }
 }
 
 void PlayerWalk::OnStateExit()

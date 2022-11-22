@@ -9,7 +9,7 @@
 #include "PlayerIdle.h"
 #include "PlayerWalk.h"
 #include "PlayerJump.h"
-//#include "PlayerFalling.h"
+#include "PlayerFalling.h"
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Camera.h"
@@ -33,7 +33,7 @@ Player::Player() :
 	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
 	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
 	states_[(size_t)PlayerStateType::kJump] = make_shared<PlayerJump>(this);
-	//states_[(size_t)PlayerStateType::kFalling] = make_shared<PlayerFalling>(this);
+	states_[(size_t)PlayerStateType::kFalling] = make_shared<PlayerFalling>(this);
 
 	// 추후 리소스 매니저에서 리소스들을 관리할 수 있도록 변경 예정
 	right_ = make_shared<Texture>();
@@ -50,8 +50,8 @@ Player::Player() :
 	AddAnimator(); // 애니메이터 컴포넌트
 	GetAnimator()->AddClip(L"IDLE", true, 0, 6); // IDLE 애니메이션
 	GetAnimator()->AddClip(L"WALK", true, 6, 8); // WALK 애니메이션
-	GetAnimator()->AddClip(L"JUMP", false, 41, 4); // JUMP 애니메이션
-	GetAnimator()->AddClip(L"FALLING", false, 45, 4); // FALLING 애니메이션
+	GetAnimator()->AddClip(L"JUMP", false, 40, 4); // JUMP 애니메이션
+	GetAnimator()->AddClip(L"FALLING", false, 43, 6); // FALLING 애니메이션
 
 	AddRigidbody2D(); // 리자드 바디 컴포넌트
 	AddBoxCollider2D(); // 박스 콜라이더 컴폰넌트
@@ -88,12 +88,6 @@ void Player::PhysicsUpdate()
 void Player::Render()
 {
 	Object::Render();
-
-	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
-
-	WCHAR word[1024];
-	_stprintf_s(word, L"X: %f, Y: %f\n", render_position.x_, render_position.y_);
-	OutputDebugString(word);
 }
 
 void Player::OnTriggerEnter(Object* other)
@@ -151,5 +145,40 @@ void Player::Movement()
 	{
 		direction_ = -1;
 		sprite->SetTexture(left_);
+	}
+
+	if (is_ground_)
+	{
+		if (rigid->GetVelocity().x_ != 0.f)
+		{
+			if (current_state_ != states_[(size_t)PlayerStateType::kWalk])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kWalk]);
+			}
+		}
+		else if (rigid->GetVelocity().x_ == 0.f)
+		{
+			if (current_state_ != states_[(size_t)PlayerStateType::kIdle])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kIdle]);
+			}
+		}
+	}
+	else
+	{
+		if (rigid->GetVelocity().y_ < 0.f)
+		{
+			if (current_state_ != states_[(size_t)PlayerStateType::kJump])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kJump]);
+			}
+		}
+		else if (rigid->GetVelocity().y_ > 0.f)
+		{
+			if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
+			{
+				ChangeState(states_[(size_t)PlayerStateType::kFalling]);
+			}
+		}
 	}
 }

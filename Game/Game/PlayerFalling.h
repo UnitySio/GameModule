@@ -3,14 +3,14 @@
 #include "State.h"
 #include "Player.h"
 
-class PlayerJump :
+class PlayerFalling :
 	public State
 {
 private:
 	Player* owner_;
 public:
-	PlayerJump(Player* owner);
-	~PlayerJump() final = default;
+	PlayerFalling(Player* owner);
+	~PlayerFalling() final = default;
 
 	void OnStateEnter() final;
 	void OnStateUpdate() final;

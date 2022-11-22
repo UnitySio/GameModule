@@ -126,6 +126,9 @@
     <ClInclude Include="PlayerJump.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerFalling.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Object.cpp">
@@ -204,6 +207,9 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="PlayerJump.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFalling.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
