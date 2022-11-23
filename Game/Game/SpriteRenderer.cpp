@@ -39,11 +39,19 @@ void SpriteRenderer::Render()
     if (texture_ != nullptr)
     {
         Vector2 render_position = CAMERA->GetRenderPosition(owner_->GetPosition());
+        shared_ptr<Animator> animator = owner_->GetAnimator();
+        UINT start_frame = 0;
 
         Vector2 multiple = {
             texture_->GetSpriteSize().x_ * owner_->GetScale().x_, texture_->GetSpriteSize().y_ * owner_->GetScale().y_
         };
+
         pivot_position_ = render_position - multiple * texture_->GetPivot();
+
+        if (animator != nullptr)
+        {
+            start_frame = animator->GetClips().at(animator->GetCurrentClip()).start_frame;
+        }
 
         TransparentBlt(WINDOW->GetHDC(),
                        pivot_position_.x_,
@@ -51,8 +59,8 @@ void SpriteRenderer::Render()
                        multiple.x_,
                        multiple.y_,
                        texture_->GetMemDC(),
-                       texture_->GetFrames()[current_frame_].x_,
-                       texture_->GetFrames()[current_frame_].y_,
+                       texture_->GetFrames()[current_frame_ + start_frame].x_,
+                       texture_->GetFrames()[current_frame_ + start_frame].y_,
                        texture_->GetSpriteSize().x_,
                        texture_->GetSpriteSize().y_,
                        RGB(255, 0, 255));

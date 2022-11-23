@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "PlayerJump.h"
-#include "InputManager.h"
 #include "Animator.h"
-#include "Rigidbody2D.h"
 
 PlayerJump::PlayerJump(Player* owner) :
 	owner_(owner)

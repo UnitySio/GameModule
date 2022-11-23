@@ -1,10 +1,7 @@
 #include "pch.h"
 #include "BoxCollider2D.h"
 #include "Object.h"
-#include "SpriteRenderer.h"
-#include "Texture.h"
 #include "Window.h"
-#include "Camera.h"
 
 using namespace std;
 

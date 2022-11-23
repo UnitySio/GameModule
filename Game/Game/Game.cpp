@@ -47,6 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
     else
     {
+        MessageBox(NULL, L"The client is already running.", L"Game", MB_OK);
         return 0;
     }
 
@@ -72,6 +73,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             WINDOW->InputUpdate();
         }
     }
+
+    CloseHandle(mutex);
 
 #ifdef _DEBUG
     _CrtDumpMemoryLeaks();

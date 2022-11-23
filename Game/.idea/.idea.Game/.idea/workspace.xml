@@ -5,197 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41f38ec8-37ce-4d9f-b1d8-cdbde8350262" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.h" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod_common.h" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod_common.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Animator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Animator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Animator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Animator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/BoxCollider2D.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BoxCollider2D.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/BoxCollider2D.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BoxCollider2D.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Bullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Bullet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Bullet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Bullet.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/CollisionManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/CollisionManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/CollisionManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/CollisionManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Coroutine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Coroutine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Coroutine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Coroutine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/DefaultScene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/DefaultScene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/DefaultScene.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/DefaultScene.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Game.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/GroundObject.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/GroundObject.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/InputManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/InputManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/InputManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/InputManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Object.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Object.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Object.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Object.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/PlayerFalling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerFalling.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/PlayerIdle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerIdle.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/PlayerIdle.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerIdle.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/PlayerJump.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerJump.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/PlayerWalk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerWalk.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/PlayerWalk.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerWalk.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Contact.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Attack/Warrior_Attack_9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Crouch/Warrior_Crouch_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Crouch/Warrior_Crouch_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Crouch/Warrior_Crouch_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Crouch/Warrior_Crouch_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Crouch/Warrior_Crouch_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Crouch/Warrior_Crouch_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash Attack/Warrior_Dash-Attack_9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash-Attack_noDust/Warrior_Dash-Attack_9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash/Warrior_Dash_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash/Warrior_Dash_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash/Warrior_Dash_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash/Warrior_Dash_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash/Warrior_Dash_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash/Warrior_Dash_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash/Warrior_Dash_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash_NoDust/Warrior_Dash_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash_NoDust/Warrior_Dash_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash_NoDust/Warrior_Dash_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash_NoDust/Warrior_Dash_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash_NoDust/Warrior_Dash_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash_NoDust/Warrior_Dash_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Dash_NoDust/Warrior_Dash_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Death-Effect/Warrior_Death_9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/DeathnoEffect/Warrior_Death_9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Edge-Idle/Warrior_Edge-Idle_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Edge-Idle/Warrior_Edge-Idle_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Edge-Idle/Warrior_Edge-Idle_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Edge-Idle/Warrior_Edge-Idle_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Edge-Idle/Warrior_Edge-Idle_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Edge-Idle/Warrior_Edge-Idle_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/EdgeGrab/Warrior_Edge-Grab_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/EdgeGrab/Warrior_Edge-Grab_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/EdgeGrab/Warrior_Edge-Grab_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/EdgeGrab/Warrior_Edge-Grab_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/EdgeGrab/Warrior_Edge-Grab_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Fall/Warrior_Fall_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Fall/Warrior_Fall_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Fall/Warrior_Fall_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Hurt-Effect/Warrior_hurt_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Hurt-Effect/Warrior_hurt_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Hurt-Effect/Warrior_hurt_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Hurt-Effect/Warrior_hurt_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/HurtnoEffect/Warrior_hurt_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/HurtnoEffect/Warrior_hurt_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/HurtnoEffect/Warrior_hurt_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/HurtnoEffect/Warrior_hurt_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Jump/Warrior_Jump_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Jump/Warrior_Jump_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Jump/Warrior_Jump_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Ladder-Grab/Warrior-Ladder-Grab_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Run/Warrior_Run_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Slide/Warrior-Slide_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Slide/Warrior-Slide_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Slide/Warrior-Slide_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Slide/Warrior-Slide_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/Slide/Warrior-Slide_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/SlideNoEffect/Warrior-SlideNoEffect_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/SlideNoEffect/Warrior-SlideNoEffect_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/SlideNoEffect/Warrior-SlideNoEffect_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/SlideNoEffect/Warrior-SlideNoEffect_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/SlideNoEffect/Warrior-SlideNoEffect_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/UptoFall/Warrior_UptoFall_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/UptoFall/Warrior_UptoFall_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/WallSlide/Warrior_WallSlide_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/WallSlide/Warrior_WallSlide_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/WallSlide/Warrior_WallSlide_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/WallSlide_NoDust/Warrior_WallSlide_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/WallSlide_NoDust/Warrior_WallSlide_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/WallSlide_NoDust/Warrior_WallSlide_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/idle/Warrior_Idle_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/idle/Warrior_Idle_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/idle/Warrior_Idle_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/idle/Warrior_Idle_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/idle/Warrior_Idle_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/Individual Sprite/idle/Warrior_Idle_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/License.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/SpriteSheet/Warrior_Sheet-Effect.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Warrior/SpriteSheet/Warrior_SheetnoEffect.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Rigidbody2D.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Rigidbody2D.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Rigidbody2D.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Rigidbody2D.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Resources/Fonts/Silver.ttf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/SceneManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/SceneManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/SceneManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/SceneManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/SpriteRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/SpriteRenderer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/SpriteRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/SpriteRenderer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/State.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/State.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/StateMachine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/StateMachine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/StateMachine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/StateMachine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Texture.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Texture.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Texture.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Texture.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/TimeManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/TimeManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/TimeManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/TimeManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Vector2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Vector2.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Vector2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Vector2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Window.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Window.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Window.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/pch.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/pch.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,14 +39,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Game" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -276,6 +104,10 @@
       <option name="presentableId" value="Default" />
       <updated>1668944935747</updated>
       <workItem from="1668944938952" duration="1361000" />
+      <workItem from="1669128202206" duration="8632000" />
+      <workItem from="1669204514531" duration="925000" />
+      <workItem from="1669205861364" duration="1158000" />
+      <workItem from="1669244845282" duration="16000" />
     </task>
     <servers />
   </component>

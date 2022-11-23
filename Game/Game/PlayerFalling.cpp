@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "PlayerFalling.h"
-#include "InputManager.h"
 #include "Animator.h"
-#include "Rigidbody2D.h"
 
 PlayerFalling::PlayerFalling(Player* owner) :
 	owner_(owner)

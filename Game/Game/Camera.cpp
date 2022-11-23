@@ -3,8 +3,6 @@
 #include "Object.h"
 #include "Window.h"
 
-#include <random>
-
 using namespace std;
 
 // 멤버 변수 초기화
