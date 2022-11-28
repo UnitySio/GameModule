@@ -5,30 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41f38ec8-37ce-4d9f-b1d8-cdbde8350262" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Game/Entity.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Game/Entity.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Game/PlayerAttack.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Game/PlayerAttack.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Game/PlayerHitBox.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Game/PlayerHitBox.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.h" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Extension/FMOD/inc/fmod_common.h" beforeDir="false" afterPath="$PROJECT_DIR$/Extension/FMOD/inc/fmod_common.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Animator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Animator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Animator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Animator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Boss.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Boss.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Boss.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Boss.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/BoxCollider2D.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BoxCollider2D.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/InputManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/InputManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/DefaultScene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/DefaultScene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Game.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Game.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.vcxproj.filters" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/PlayerFalling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerFalling.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/PlayerIdle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerIdle.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/PlayerJump.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerJump.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/PlayerWalk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerWalk.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Resources/Fonts/Silver.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/SpriteRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/SpriteRenderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/pch.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/pch.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.34.31933/include/xmemory" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -108,6 +114,10 @@
       <workItem from="1669204514531" duration="925000" />
       <workItem from="1669205861364" duration="1158000" />
       <workItem from="1669244845282" duration="16000" />
+      <workItem from="1669244930556" duration="2037000" />
+      <workItem from="1669252536484" duration="1086000" />
+      <workItem from="1669253870558" duration="12976000" />
+      <workItem from="1669633978132" duration="4362000" />
     </task>
     <servers />
   </component>

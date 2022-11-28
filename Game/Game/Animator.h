@@ -23,6 +23,7 @@ private:
     std::map<std::wstring, Clip> clips_;
 
     bool is_play_;
+    bool is_done_;
 
     float timer_;
 
@@ -44,6 +45,7 @@ public:
     void Update();
 
     bool IsPlay();
+    bool IsDone();
 
     const std::map<std::wstring, Clip>& GetClips();
 

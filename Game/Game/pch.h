@@ -33,6 +33,7 @@
 #define RIGHT 'D'
 #define JUMP VK_SPACE
 #define RUN VK_SHIFT
+#define ATTACK MK_LBUTTON
 
 struct FloatRect
 {
@@ -51,6 +52,7 @@ enum class SceneType : size_t
 enum class LayerType : size_t
 {
     kDefault = 0,
+    kPlayerHitBox,
     kGround,
     kMonster,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.

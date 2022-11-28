@@ -2,11 +2,13 @@
 
 #include "Object.h"
 #include "StateMachine.h"
+#include "Entity.h"
 #include "Texture.h"
 
 class Boss :
     public Object,
-    public StateMachine
+    public StateMachine,
+    public Entity
 {
 private:
     std::shared_ptr<Object> target_;
@@ -19,9 +21,6 @@ private:
     bool is_ground_;
     
     int direction_;
-
-    float hp_;
-    float max_hp_;
 protected:
     std::shared_ptr<State> GetInitiateState() final;
 public:
@@ -36,4 +35,5 @@ public:
     void OnTriggerEnter(Object* other) final;
     void OnTriggerStay(Object* other) final;
     void OnTriggerExit(Object* other) final;
+    void OnDeath() final;
 };

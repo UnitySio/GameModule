@@ -2,11 +2,13 @@
 
 #include "Object.h"
 #include "StateMachine.h"
+#include "Entity.h"
 #include "Texture.h"
 
 class Player :
-    public Object,
-    public StateMachine
+    public Object, // 오브젝트
+    public StateMachine, // 유한 상태 머신
+    public Entity // 엔티티
 {
 private:
     // 각 상태 클래스에서 접근할 수 있도록 friend로 선언
@@ -14,11 +16,12 @@ private:
     friend class PlayerWalk;
     friend class PlayerJump;
     friend class PlayerFalling;
+    friend class PlayerAttack;
 
     float move_speed_;
     float jump_force_;
 
-    std::shared_ptr<State> states_[4];
+    std::shared_ptr<State> states_[5];
 
     std::shared_ptr<Texture> left_;
     std::shared_ptr<Texture> right_;
@@ -26,12 +29,12 @@ private:
     bool is_ground_;
 
     int horizontal_;
+    int direction_;
+
+    void Movement();
 protected:
     std::shared_ptr<State> GetInitiateState() final;
 public:
-    bool is_attack_;
-    int direction_;
-
     Player();
     ~Player() final = default;
 
@@ -42,6 +45,5 @@ public:
     void OnTriggerEnter(Object* other) final;
     void OnTriggerStay(Object* other) final;
     void OnTriggerExit(Object* other) final;
-    
-    void Movement();
+    void OnDeath() final;
 };

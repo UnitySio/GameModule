@@ -18,10 +18,11 @@ shared_ptr<State> Boss::GetInitiateState()
 Boss::Boss() :
 	target_(),
 	is_ground_(),
-	direction_(1),
-	hp_(1000000.f),
-	max_hp_(hp_)
+	direction_(1)
 {
+	SetHP(10000.f);
+	SetMaxHP(10000.f);
+	
 	left_idle_ = make_shared<Texture>();
 	left_idle_->Load(L"Resources/BossLeftIdleSheet.bmp", 11);
 	left_idle_->SetPivot({ .46f, .63f });
@@ -38,15 +39,15 @@ Boss::Boss() :
 	right_run_->Load(L"Resources/BossRightRunSheet.bmp", 8);
 	right_run_->SetPivot({ .54f, .63f });
 
-	AddSpriteRenderer(); // 스프라이트 렌더러
+	AddSpriteRenderer(); // ????????? ??????
 	GetSpriteRenderer()->SetTexture(left_idle_);
 
-	AddBoxCollider2D(); // 박스 콜라이더
+	AddBoxCollider2D(); // ??? ??????
 	GetBoxCollider2D()->SetSize({ 100.f, 150.f });
 	GetBoxCollider2D()->SetOffset({ 0.f, -75.f });
 
-	AddRigidbody2D(); // 리자드 바디
-	AddAnimator(); // 애니메이터
+	AddRigidbody2D(); // ????? ???
+	AddAnimator(); // ????????
 	GetAnimator()->AddClip(L"IDLE", true, 0, 11);
 	GetAnimator()->AddClip(L"WALK", true, 0, 8);
 	GetAnimator()->SetClip(L"IDLE");
@@ -65,7 +66,7 @@ void Boss::Update()
 
 	if (distance < 300.f)
 	{
-		// 플레이어가 왼쪽에 있을 경우
+		// ?÷???? ????? ???? ???
 		if (target_->GetPosition().x_ < GetPosition().x_ - 100)
 		{
 			direction_ = -1;
@@ -136,11 +137,6 @@ void Boss::Update()
 	{
 		GetRigidbody2D()->SetGravityAcceleration(Vector2().Down() * 800.f);
 	}
-
-	if (hp_ <= 0)
-	{
-		SCENE->Destroy(shared_from_this());
-	}
 }
 
 void Boss::LateUpdate()
@@ -164,13 +160,13 @@ void Boss::Render()
 	HBRUSH new_brush = CreateSolidBrush(RGB(255, 0, 0));
 	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
 	
-	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + (hp_ / max_hp_) * 100, render_position.y_ + 24);
+	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + (GetHP() / GetMaxHP()) * 100, render_position.y_ + 24);
 	
 	SelectObject(WINDOW->GetHDC(), old_brush);
 	DeleteObject(new_brush);
 	
 	WCHAR word[1024];
-	_stprintf_s(word, L"%.f%%", (hp_ / max_hp_) * 100);
+	_stprintf_s(word, L"%.f%%", (GetHP() / GetMaxHP()) * 100);
 	RECT rect = { render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24 };
 	DrawText(WINDOW->GetHDC(), word, -1, &rect, DT_CENTER);
 }
@@ -181,11 +177,6 @@ void Boss::OnTriggerEnter(Object* other)
 	{
 		is_ground_ = true;
 		GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, 0.f });
-	}
-
-	if (wcscmp(other->GetName(), L"Bullet") == 0)
-	{
-		hp_ -= 100.f;
 	}
 }
 
@@ -199,4 +190,9 @@ void Boss::OnTriggerExit(Object* other)
 	{
 		is_ground_ = false;
 	}
+}
+
+void Boss::OnDeath()
+{
+	SCENE->Destroy(shared_from_this());
 }
