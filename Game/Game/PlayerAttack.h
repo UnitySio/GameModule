@@ -17,4 +17,6 @@ public:
     void OnStateEnter() final;
     void OnStateUpdate() final;
     void OnStateExit() final;
+    void CreateHitBox(); // 추후 함수명 변경 예정
+    void DestroyHitBox();
 };

@@ -37,6 +37,9 @@
     <Filter Include="Module\Scene">
       <UniqueIdentifier>{3317ba62-bf79-47e8-b298-98c860aea01e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Boss State">
+      <UniqueIdentifier>{7b3172ec-0d6b-4bdf-a0ba-ade0173305f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -123,11 +126,32 @@
     <ClInclude Include="Ground.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerJump.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="PlayerAttack.h">
+      <Filter>Object\Player State</Filter>
     </ClInclude>
     <ClInclude Include="PlayerFalling.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Object\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJump.h">
+      <Filter>Object\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHitBox.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BossIdle.h">
+      <Filter>Object\Boss State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossWalk.h">
+      <Filter>Object\Boss State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDeath.h">
+      <Filter>Object\Boss State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossHit.h">
+      <Filter>Object\Boss State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,11 +230,32 @@
     <ClCompile Include="Ground.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerJump.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="PlayerAttack.cpp">
+      <Filter>Object\Player State</Filter>
     </ClCompile>
     <ClCompile Include="PlayerFalling.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Object\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJump.cpp">
+      <Filter>Object\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHitBox.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BossIdle.cpp">
+      <Filter>Object\Boss State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossWalk.cpp">
+      <Filter>Object\Boss State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDeath.cpp">
+      <Filter>Object\Boss State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossHit.cpp">
+      <Filter>Object\Boss State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

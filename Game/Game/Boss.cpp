@@ -7,21 +7,32 @@
 #include "Window.h"
 #include "SceneManager.h"
 #include "Camera.h"
+#include "BossIdle.h"
+#include "BossWalk.h"
+#include "BossHit.h"
+#include "BossDeath.h"
 
 using namespace std;
 
 shared_ptr<State> Boss::GetInitiateState()
 {
-	return nullptr;
+	return states_[(size_t)BossStateType::kIdle];
 }
 
 Boss::Boss() :
+	move_speed_(200.f),
 	target_(),
 	is_ground_(),
 	direction_(1)
 {
 	SetHP(10000.f);
-	SetMaxHP(10000.f);
+	SetMaxHP(GetHP());
+
+	// 상태 추가
+	states_[(size_t)BossStateType::kIdle] = make_shared<BossIdle>(this);
+	states_[(size_t)BossStateType::kWalk] = make_shared<BossWalk>(this);
+	states_[(size_t)BossStateType::kHit] = make_shared<BossHit>(this);
+	states_[(size_t)BossStateType::kDeath] = make_shared<BossDeath>(this);
 	
 	left_idle_ = make_shared<Texture>();
 	left_idle_->Load(L"Resources/BossLeftIdleSheet.bmp", 11);
@@ -31,6 +42,14 @@ Boss::Boss() :
 	left_run_->Load(L"Resources/BossLeftRunSheet.bmp", 8);
 	left_run_->SetPivot({ .46f, .63f });
 
+	left_hit_ = make_shared<Texture>();
+	left_hit_->Load(L"Resources/BossLeftHitSheet.bmp", 4);
+	left_hit_->SetPivot({ .46f, .63f });
+
+	left_death_ = make_shared<Texture>();
+	left_death_->Load(L"Resources/BossLeftDeathSheet.bmp", 11);
+	left_death_->SetPivot({ .46f, .63f });
+
 	right_idle_ = make_shared<Texture>();
 	right_idle_->Load(L"Resources/BossRightIdleSheet.bmp", 11);
 	right_idle_->SetPivot({ .54f, .63f });
@@ -39,18 +58,30 @@ Boss::Boss() :
 	right_run_->Load(L"Resources/BossRightRunSheet.bmp", 8);
 	right_run_->SetPivot({ .54f, .63f });
 
-	AddSpriteRenderer(); // ????????? ??????
+	right_hit_ = make_shared<Texture>();
+	right_hit_->Load(L"Resources/BossRightHitSheet.bmp", 4);
+	right_hit_->SetPivot({ .54f, .63f });
+
+	right_death_ = make_shared<Texture>();
+	right_death_->Load(L"Resources/BossRightDeathSheet.bmp", 11);
+	right_death_->SetPivot({ .54f, .63f });
+
+	AddSpriteRenderer();
 	GetSpriteRenderer()->SetTexture(left_idle_);
 
-	AddBoxCollider2D(); // ??? ??????
+	AddBoxCollider2D();
 	GetBoxCollider2D()->SetSize({ 100.f, 150.f });
 	GetBoxCollider2D()->SetOffset({ 0.f, -75.f });
 
-	AddRigidbody2D(); // ????? ???
-	AddAnimator(); // ????????
+	AddRigidbody2D();
+	AddAnimator();
 	GetAnimator()->AddClip(L"IDLE", true, 0, 11);
 	GetAnimator()->AddClip(L"WALK", true, 0, 8);
-	GetAnimator()->SetClip(L"IDLE");
+	GetAnimator()->AddClip(L"HIT", false, 0, 4);
+	GetAnimator()->AddClip(L"DEATH", false, 0, 11);
+
+	// 상태 머신 초기화
+	StateMachine::Initiate();
 }
 
 void Boss::SetTarget(shared_ptr<Object> target)
@@ -61,60 +92,21 @@ void Boss::SetTarget(shared_ptr<Object> target)
 void Boss::Update()
 {
 	Object::Update();
-
-	float distance = Vector2().Distance(target_->GetPosition(), GetPosition());
-
-	if (distance < 300.f)
-	{
-		// ?÷???? ????? ???? ???
-		if (target_->GetPosition().x_ < GetPosition().x_ - 100)
-		{
-			direction_ = -1;
-			GetRigidbody2D()->SetVelocity({ -200.f, GetRigidbody2D()->GetVelocity().y_ });
-		}
-		else if (target_->GetPosition().x_ > GetPosition().x_ + 100)
-		{
-			direction_ = 1;
-			GetRigidbody2D()->SetVelocity({ 200.f, GetRigidbody2D()->GetVelocity().y_ });
-		}
-		else
-		{
-			GetRigidbody2D()->SetVelocity({ 0.f, GetRigidbody2D()->GetVelocity().y_ });
-		}
-
-		if (target_->GetPosition().y_ < GetPosition().y_ - 150.f)
-		{
-			if (is_ground_)
-			{
-				GetRigidbody2D()->SetVelocity({ GetRigidbody2D()->GetVelocity().x_, -500.f });
-			}
-		}
-	}
-	else
-	{
-		GetRigidbody2D()->SetVelocity({ 0.f, GetRigidbody2D()->GetVelocity().y_ });
-	}
-
-	if (GetRigidbody2D()->GetVelocity().x_ != 0.f)
-	{
-		if (GetAnimator()->GetCurrentClip() != L"WALK")
-		{
-			GetAnimator()->SetClip(L"WALK");
-		}
-	}
-	else
-	{
-		if (GetAnimator()->GetCurrentClip() != L"IDLE")
-		{
-			GetAnimator()->SetClip(L"IDLE");
-		}
-	}
+	StateMachine::Update();
 
 	if (direction_ == 1)
 	{
 		if (GetAnimator()->GetCurrentClip() == L"WALK")
 		{
 			GetSpriteRenderer()->SetTexture(right_run_);
+		}
+		else if (GetAnimator()->GetCurrentClip() == L"HIT")
+		{
+			GetSpriteRenderer()->SetTexture(right_hit_);
+		}
+		else if (GetAnimator()->GetCurrentClip() == L"DEATH")
+		{
+			GetSpriteRenderer()->SetTexture(right_death_);
 		}
 		else
 		{
@@ -126,6 +118,14 @@ void Boss::Update()
 		if (GetAnimator()->GetCurrentClip() == L"WALK")
 		{
 			GetSpriteRenderer()->SetTexture(left_run_);
+		}
+		else if (GetAnimator()->GetCurrentClip() == L"HIT")
+		{
+			GetSpriteRenderer()->SetTexture(left_hit_);
+		}
+		else if (GetAnimator()->GetCurrentClip() == L"DEATH")
+		{
+			GetSpriteRenderer()->SetTexture(left_death_);
 		}
 		else
 		{
@@ -152,6 +152,8 @@ void Boss::PhysicsUpdate()
 void Boss::Render()
 {
 	Object::Render();
+
+	// 추후 UI 전용 오브젝트를 만들 예정
 
 	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
 
@@ -192,7 +194,18 @@ void Boss::OnTriggerExit(Object* other)
 	}
 }
 
+void Boss::OnDamage(UINT damage)
+{
+	Entity::OnDamage(damage);
+	
+	if (GetHP() > 0.f)
+	{
+		ChangeState(states_[(size_t)BossStateType::kHit]);
+	}
+}
+
 void Boss::OnDeath()
 {
-	SCENE->Destroy(shared_from_this());
+	//SCENE->Destroy(shared_from_this());
+	ChangeState(states_[(size_t)BossStateType::kDeath]);
 }

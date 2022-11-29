@@ -29,11 +29,14 @@ shared_ptr<State> StateMachine::GetInitiateState()
 
 void StateMachine::ChangeState(shared_ptr<State> state)
 {
-    if (current_state_ != nullptr)
+    if (current_state_ != state)
     {
-        current_state_->OnStateExit();
-    }
+        if (current_state_ != nullptr)
+        {
+            current_state_->OnStateExit();
+        }
 
-    current_state_ = state;
-    current_state_->OnStateEnter();
+        current_state_ = state;
+        current_state_->OnStateEnter();
+    }
 }

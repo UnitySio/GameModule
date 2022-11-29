@@ -8,7 +8,7 @@ using namespace std;
 PlayerHitBox::PlayerHitBox()
 {
     AddBoxCollider2D();
-    GetBoxCollider2D()->SetSize({ 100.f, 100.f });
+    GetBoxCollider2D()->SetSize({ 120.f, 120.f });
 }
 
 void PlayerHitBox::Render()

@@ -56,8 +56,8 @@ shared_ptr<State> Player::GetInitiateState()
 Player::Player() :
     move_speed_(200.f),
     jump_force_(500.f),
-    direction_(1),
     is_ground_(),
+    direction_(1),
     horizontal_()
 {
     // 상태 추가

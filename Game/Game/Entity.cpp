@@ -3,11 +3,14 @@
 
 void Entity::OnDamage(UINT damage)
 {
-    hp_ -= damage;
-
-    if (hp_ <= 0.f)
+    if (hp_ > 0.f)
     {
-        OnDeath();
+        hp_ -= damage;
+
+        if (hp_ <= 0.f)
+        {
+            OnDeath();
+        }
     }
 }
 

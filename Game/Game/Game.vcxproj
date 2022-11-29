@@ -165,6 +165,10 @@
   <ItemGroup>
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossDeath.h" />
+    <ClInclude Include="BossHit.h" />
+    <ClInclude Include="BossIdle.h" />
+    <ClInclude Include="BossWalk.h" />
     <ClInclude Include="BoxCollider2D.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -200,6 +204,10 @@
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossDeath.cpp" />
+    <ClCompile Include="BossHit.cpp" />
+    <ClCompile Include="BossIdle.cpp" />
+    <ClCompile Include="BossWalk.cpp" />
     <ClCompile Include="BoxCollider2D.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionManager.cpp" />

@@ -68,6 +68,15 @@ enum class PlayerStateType : size_t
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 
+enum class BossStateType : size_t
+{
+    kIdle = 0,
+    kWalk,
+    kHit,
+    kDeath,
+    kEnd // kEnd는 항상 마지막에 있어야 합니다.
+};
+
 class pch
 {
 };
