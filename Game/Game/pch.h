@@ -31,9 +31,11 @@
 // 키 입력
 #define LEFT 'A'
 #define RIGHT 'D'
+#define DASH MK_RBUTTON
 #define JUMP VK_SPACE
 #define RUN VK_SHIFT
 #define ATTACK MK_LBUTTON
+#define RESTART 'R'
 
 struct FloatRect
 {
@@ -52,8 +54,9 @@ enum class SceneType : size_t
 enum class LayerType : size_t
 {
     kDefault = 0,
-    kPlayerHitBox,
     kGround,
+    kPlayer,
+    kPlayerHitBox,
     kBoss,
     kBossHitBox,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
@@ -63,6 +66,7 @@ enum class PlayerStateType : size_t
 {
     kIdle = 0,
     kWalk,
+    kDash,
     kJump,
     kFalling,
     kAttack,

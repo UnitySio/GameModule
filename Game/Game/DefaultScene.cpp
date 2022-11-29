@@ -15,15 +15,14 @@ void DefaultScene::Enter()
     CreateObject(ground, LayerType::kGround, L"Ground", { 800.f, 768.f }, { 1.f, 1.f });
 
     shared_ptr<Object> player = make_shared<Player>();
-    CreateObject(player, LayerType::kDefault, L"Player", {100.f, 240.f}, {3.f, 3.f});
+    CreateObject(player, LayerType::kPlayer, L"Player", {400.f, 240.f}, {3.f, 3.f});
 
     shared_ptr<Object> boss = make_shared<Boss>();
-    CreateObject(boss, LayerType::kBoss, L"Boss", { 100.f, 100.f }, { 3.f, 3.f });
+    CreateObject(boss, LayerType::kBoss, L"Boss", { 280.f, 100.f }, { 3.f, 3.f });
     (*(Boss*)boss.get()).SetTarget(player);
 
-    COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kGround);
-    COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kBoss);
-    COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kBossHitBox);
+    COLLISION->SetCollisionMatrix(LayerType::kGround, LayerType::kPlayer);
+    COLLISION->SetCollisionMatrix(LayerType::kPlayer, LayerType::kBossHitBox);
     COLLISION->SetCollisionMatrix(LayerType::kGround, LayerType::kBoss);
     COLLISION->SetCollisionMatrix(LayerType::kPlayerHitBox, LayerType::kBoss);
 
@@ -33,4 +32,5 @@ void DefaultScene::Enter()
 
 void DefaultScene::Exit()
 {
+    Scene::Exit();
 }

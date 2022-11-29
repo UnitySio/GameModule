@@ -134,6 +134,16 @@ void CollisionManager::SetCollisionMatrix(LayerType first, LayerType second)
     collision_matrix_[row][column] = true;
 }
 
+void CollisionManager::Reset()
+{
+    for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
+    {
+        memset(collision_matrix_[i], false, sizeof(bool) * (size_t)LayerType::kEnd);
+    }
+
+    //collision_info_.clear();
+}
+
 bool CollisionManager::IsCollision(shared_ptr<BoxCollider2D> first, shared_ptr<BoxCollider2D> second)
 {
     Vector2 first_position = first->GetPosition();

@@ -176,19 +176,25 @@ void Boss::Render()
 
 	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
 
+	HBRUSH new_brush1 = CreateSolidBrush(RGB(100, 100, 100));
+	HBRUSH old_brush1 = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush1);
+	
 	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24);
 	
-	HBRUSH new_brush = CreateSolidBrush(RGB(255, 0, 0));
-	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
+	SelectObject(WINDOW->GetHDC(), old_brush1);
+	DeleteObject(new_brush1);
+	
+	HBRUSH new_brush2 = CreateSolidBrush(RGB(255, 0, 0));
+	HBRUSH old_brush2 = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush2);
 	
 	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + (GetHP() / GetMaxHP()) * 100, render_position.y_ + 24);
 	
-	SelectObject(WINDOW->GetHDC(), old_brush);
-	DeleteObject(new_brush);
+	SelectObject(WINDOW->GetHDC(), old_brush2);
+	DeleteObject(new_brush2);
 	
 	WCHAR word[1024];
 	_stprintf_s(word, L"%.f%%", (GetHP() / GetMaxHP()) * 100);
-	RECT rect = { render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24 };
+	RECT rect = { (LONG)(render_position.x_ - 50), (LONG)(render_position.y_ + 8), (LONG)(render_position.x_ + 50), (LONG)(render_position.y_ + 24) };
 	DrawText(WINDOW->GetHDC(), word, -1, &rect, DT_CENTER);
 }
 

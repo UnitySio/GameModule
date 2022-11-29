@@ -9,11 +9,13 @@
 #include "PlayerAttack.h"
 #include "PlayerIdle.h"
 #include "PlayerWalk.h"
+#include "PlayerDash.h"
 #include "PlayerJump.h"
 #include "PlayerFalling.h"
 #include "PlayerHit.h"
 #include "PlayerDeath.h"
 #include "Camera.h"
+#include "SceneManager.h"
 
 using namespace std;
 
@@ -42,7 +44,7 @@ void Player::Movement()
 		}
 	}
 
-	if (rigid->GetVelocity().y_ > 0.f)
+	if (rigid->GetVelocity().y_ > 100.f)
 	{
 		if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
 		{
@@ -60,6 +62,7 @@ Player::Player() :
 	move_speed_(200.f),
 	jump_force_(500.f),
 	is_ground_(),
+	is_dash_(),
 	direction_(1),
 	horizontal_()
 {
@@ -69,6 +72,7 @@ Player::Player() :
 	// 상태 추가
 	states_[(size_t)PlayerStateType::kIdle] = make_shared<PlayerIdle>(this);
 	states_[(size_t)PlayerStateType::kWalk] = make_shared<PlayerWalk>(this);
+	states_[(size_t)PlayerStateType::kDash] = make_shared<PlayerDash>(this);
 	states_[(size_t)PlayerStateType::kJump] = make_shared<PlayerJump>(this);
 	states_[(size_t)PlayerStateType::kFalling] = make_shared<PlayerFalling>(this);
 	states_[(size_t)PlayerStateType::kAttack] = make_shared<PlayerAttack>(this);
@@ -90,11 +94,12 @@ Player::Player() :
 	AddAnimator(); // 애니메이터 컴포넌트
 	GetAnimator()->AddClip(L"IDLE", true, 0, 6); // IDLE 애니메이션
 	GetAnimator()->AddClip(L"WALK", true, 6, 8); // WALK 애니메이션
+	GetAnimator()->AddClip(L"DASH", false, 87, 5); // DASH 애니메이션
 	GetAnimator()->AddClip(L"JUMP", false, 41, 3); // JUMP 애니메이션
 	GetAnimator()->AddClip(L"FALLING", false, 44, 5); // FALLING 애니메이션
 	GetAnimator()->AddClip(L"ATTACK", false, 14, 12); // ATTACK 애니메이션
 	GetAnimator()->AddClip(L"HIT", false, 37, 4); // HIT 애니메이션
-	GetAnimator()->AddClip(L"DEATH", false, 26, 11); // HIT 애니메이션
+	GetAnimator()->AddClip(L"DEATH", false, 26, 11); // DEATH 애니메이션
 
 	AddRigidbody2D(); // 리자드 바디 컴포넌트
 	AddBoxCollider2D(); // 박스 콜라이더 컴폰넌트
@@ -109,6 +114,11 @@ void Player::Update()
 {
 	Object::Update();
 	StateMachine::Update();
+
+	if (INPUT->GetKeyDown(RESTART))
+	{
+		SCENE->LoadScene(SceneType::kDefault);
+	}
 
 	// 땅이 아닐 경우 아래방향으로 중력 가속도를 줌
 	if (!is_ground_)
@@ -135,19 +145,25 @@ void Player::Render()
 
 	Vector2 render_position = CAMERA->GetRenderPosition(GetPosition());
 
+	HBRUSH new_brush1 = CreateSolidBrush(RGB(100, 100, 100));
+	HBRUSH old_brush1 = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush1);
+	
 	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24);
-
-	HBRUSH new_brush = CreateSolidBrush(RGB(255, 0, 0));
-	HBRUSH old_brush = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush);
-
+	
+	SelectObject(WINDOW->GetHDC(), old_brush1);
+	DeleteObject(new_brush1);
+	
+	HBRUSH new_brush2 = CreateSolidBrush(RGB(255, 0, 0));
+	HBRUSH old_brush2 = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush2);
+	
 	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + (GetHP() / GetMaxHP()) * 100, render_position.y_ + 24);
-
-	SelectObject(WINDOW->GetHDC(), old_brush);
-	DeleteObject(new_brush);
-
+	
+	SelectObject(WINDOW->GetHDC(), old_brush2);
+	DeleteObject(new_brush2);
+	
 	WCHAR word[1024];
 	_stprintf_s(word, L"%.f%%", (GetHP() / GetMaxHP()) * 100);
-	RECT rect = { render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24 };
+	RECT rect = { (LONG)(render_position.x_ - 50), (LONG)(render_position.y_ + 8), (LONG)(render_position.x_ + 50), (LONG)(render_position.y_ + 24) };
 	DrawText(WINDOW->GetHDC(), word, -1, &rect, DT_CENTER);
 }
 
@@ -186,4 +202,9 @@ void Player::OnDeath()
 {
 	//SCENE->Destroy(shared_from_this());
 	ChangeState(states_[(size_t)PlayerStateType::kDeath]);
+}
+
+bool Player::IsDash()
+{
+	return is_dash_;
 }

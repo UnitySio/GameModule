@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
@@ -185,6 +185,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAttack.h" />
+    <ClInclude Include="PlayerDash.h" />
     <ClInclude Include="PlayerDeath.h" />
     <ClInclude Include="PlayerHit.h" />
     <ClInclude Include="PlayerHitBox.h" />
@@ -232,6 +233,7 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAttack.cpp" />
+    <ClCompile Include="PlayerDash.cpp" />
     <ClCompile Include="PlayerDeath.cpp" />
     <ClCompile Include="PlayerHit.cpp" />
     <ClCompile Include="PlayerHitBox.cpp" />

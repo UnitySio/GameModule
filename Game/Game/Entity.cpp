@@ -1,6 +1,13 @@
 ﻿#include "pch.h"
 #include "Entity.h"
 
+Entity::Entity() :
+    hp_(),
+    max_hp_(),
+    is_death_()
+{
+}
+
 void Entity::OnDamage(UINT damage)
 {
     if (hp_ > 0.f)
@@ -10,6 +17,7 @@ void Entity::OnDamage(UINT damage)
         if (hp_ <= 0.f)
         {
             OnDeath();
+            is_death_ = true;
         }
     }
 }
@@ -32,4 +40,9 @@ float Entity::GetHP()
 float Entity::GetMaxHP()
 {
     return max_hp_;
+}
+
+bool Entity::IsDeath()
+{
+    return is_death_;
 }

@@ -32,9 +32,9 @@ public:
     static std::shared_ptr<CollisionManager> GetInstance();
 
     void Release();
-
     void PhysicsUpdate();
     void SetCollisionMatrix(LayerType first, LayerType second);
+    void Reset();
 
     bool IsCollision(std::shared_ptr<BoxCollider2D> first, std::shared_ptr<BoxCollider2D> second);
 };

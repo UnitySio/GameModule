@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Scene.h"
 #include "Object.h"
-#include "Camera.h"
+#include "CollisionManager.h"
 
 using namespace std;
 
@@ -64,6 +64,24 @@ shared_ptr<Object> Scene::FindObject(LPCWSTR kName)
 LPCWSTR Scene::GetName()
 {
     return name_;
+}
+
+void Scene::Exit()
+{
+    // 새로운 씬을 불러오기 전 해당 씬에 있는 모든 오브젝트를 메모리 해제
+    for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
+    {
+        vector<shared_ptr<Object>>::iterator iter = objects_[i].begin();
+        for (; iter != objects_[i].end(); ++iter)
+        {
+            (*iter).reset();
+        }
+
+        objects_[i].clear();
+    }
+
+    // 충돌 정보 초기화
+    COLLISION->Reset();
 }
 
 void Scene::Update()

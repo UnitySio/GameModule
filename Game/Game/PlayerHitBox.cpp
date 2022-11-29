@@ -18,7 +18,7 @@ void PlayerHitBox::Render()
 
 void PlayerHitBox::OnTriggerEnter(Object* other)
 {
-    (*(Boss*)other).OnDamage(500);
+    (*(Boss*)other).OnDamage(1000);
 }
 
 void PlayerHitBox::OnTriggerStay(Object* other)

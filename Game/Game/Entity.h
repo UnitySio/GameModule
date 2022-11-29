@@ -5,8 +5,10 @@ class Entity
 private:
     float hp_;
     float max_hp_;
+
+    bool is_death_;
 public:
-    Entity() = default;
+    Entity();
     virtual ~Entity() = default;
 
     virtual void OnDamage(UINT damage);
@@ -17,4 +19,6 @@ public:
 
     float GetHP();
     float GetMaxHP();
+
+    bool IsDeath();
 };

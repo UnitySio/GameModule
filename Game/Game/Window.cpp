@@ -239,9 +239,9 @@ void Window::Render()
 
     SCENE->Render();
 
-    WCHAR fps_word[128];
-    wsprintf(fps_word, L"FPS: %d", TIME->GetFPS());
-    TextOut(hdc, 0, 0, fps_word, wcslen(fps_word));
+    SetTextColor(hdc, RGB(255, 255, 255));
+    RECT rect = { 0, 0, 500, 500 };
+    DrawText(WINDOW->GetHDC(), L"RESTART: R\nMOVE: W, A, S, D\nRUN: SHIFT\nJUMP: SPACE\nATTACK: MOUSE LBUTTON\nDASH: MOUSE RBUTTON", -1, &rect, DT_LEFT);
 
     BitBlt(memDC, 0, 0, resolution_.x, resolution_.y, hdc, 0, 0, SRCCOPY);
 }

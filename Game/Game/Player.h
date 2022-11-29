@@ -14,6 +14,7 @@ private:
     // 각 상태 클래스에서 접근할 수 있도록 friend로 선언
     friend class PlayerIdle;
     friend class PlayerWalk;
+    friend class PlayerDash;
     friend class PlayerJump;
     friend class PlayerFalling;
     friend class PlayerAttack;
@@ -29,6 +30,7 @@ private:
     std::shared_ptr<Texture> right_;
 
     bool is_ground_;
+    bool is_dash_;
 
     int horizontal_;
     int direction_;
@@ -49,4 +51,6 @@ public:
     void OnTriggerExit(Object* other) final;
     void OnDamage(UINT damage) final;
     void OnDeath() final;
+
+    bool IsDash();
 };

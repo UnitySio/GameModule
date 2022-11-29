@@ -24,9 +24,9 @@ public:
 
     // 추상 함수
     virtual void Enter() = 0;
-    virtual void Exit() = 0;
 
     // 가상 함수
+    virtual void Exit();
     virtual void Update();
     virtual void LateUpdate();
     virtual void PhysicsUpdate();

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BossIdle.h"
 #include "Animator.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -21,14 +22,20 @@ void BossIdle::OnStateUpdate()
 	// 타켓과의 거리
 	float distance = Vector2().Distance(target->GetPosition(), owner_->GetPosition());
 
-	if (distance > 100.f && distance < 300.f)
+	if (!(*(Player*)target.get()).IsDeath())
 	{
-		owner_->ChangeState(owner_->states_[(size_t)BossStateType::kWalk]);
-	}
+		if (distance > 100.f && distance < 300.f)
+		{
+			owner_->ChangeState(owner_->states_[(size_t)BossStateType::kWalk]);
+		}
 
-	if (distance < 100.f)
-	{
-		owner_->ChangeState(owner_->states_[(size_t)BossStateType::kAttack]);
+		if (distance < 100.f)
+		{
+			if (!(*(Player*)target.get()).IsDash())
+			{
+				owner_->ChangeState(owner_->states_[(size_t)BossStateType::kAttack]);
+			}
+		}
 	}
 }
 

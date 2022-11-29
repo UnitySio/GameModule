@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "Rigidbody2D.h"
 #include "SpriteRenderer.h"
+#include "InputManager.h"
 
 using namespace std;
 
@@ -33,6 +34,11 @@ void PlayerWalk::OnStateUpdate()
     {
         owner_->direction_ = -1;
         sprite->SetTexture(owner_->left_);
+    }
+
+    if (INPUT->GetKeyDown(DASH))
+    {
+        owner_->ChangeState(owner_->states_[(size_t)PlayerStateType::kDash]);
     }
 
     if (*h == 0)
