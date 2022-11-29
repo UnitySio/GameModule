@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
@@ -165,8 +165,10 @@
   <ItemGroup>
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossAttack.h" />
     <ClInclude Include="BossDeath.h" />
     <ClInclude Include="BossHit.h" />
+    <ClInclude Include="BossHitBox.h" />
     <ClInclude Include="BossIdle.h" />
     <ClInclude Include="BossWalk.h" />
     <ClInclude Include="BoxCollider2D.h" />
@@ -183,6 +185,8 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAttack.h" />
+    <ClInclude Include="PlayerDeath.h" />
+    <ClInclude Include="PlayerHit.h" />
     <ClInclude Include="PlayerHitBox.h" />
     <ClInclude Include="PlayerFalling.h" />
     <ClInclude Include="PlayerIdle.h" />
@@ -204,8 +208,10 @@
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossAttack.cpp" />
     <ClCompile Include="BossDeath.cpp" />
     <ClCompile Include="BossHit.cpp" />
+    <ClCompile Include="BossHitBox.cpp" />
     <ClCompile Include="BossIdle.cpp" />
     <ClCompile Include="BossWalk.cpp" />
     <ClCompile Include="BoxCollider2D.cpp" />
@@ -226,6 +232,8 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAttack.cpp" />
+    <ClCompile Include="PlayerDeath.cpp" />
+    <ClCompile Include="PlayerHit.cpp" />
     <ClCompile Include="PlayerHitBox.cpp" />
     <ClCompile Include="PlayerFalling.cpp" />
     <ClCompile Include="PlayerIdle.cpp" />

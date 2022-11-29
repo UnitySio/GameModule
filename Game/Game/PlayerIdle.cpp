@@ -19,7 +19,7 @@ void PlayerIdle::OnStateUpdate()
 
 	owner_->Movement();
 
-	if (INPUT->GetKeyDown(ATTACK))
+	if (INPUT->GetKey(ATTACK))
 	{
 		owner_->ChangeState(owner_->states_[(size_t)PlayerStateType::kAttack]);
 	}

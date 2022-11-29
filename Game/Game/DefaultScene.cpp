@@ -12,19 +12,20 @@ using namespace std;
 void DefaultScene::Enter()
 {
     shared_ptr<Object> ground = make_shared<Ground>();
-    CreateObject(ground, LayerType::kGround, L"Ground", {800.f, 768.f}, {1.f, 1.f});
+    CreateObject(ground, LayerType::kGround, L"Ground", { 800.f, 768.f }, { 1.f, 1.f });
 
     shared_ptr<Object> player = make_shared<Player>();
     CreateObject(player, LayerType::kDefault, L"Player", {100.f, 240.f}, {3.f, 3.f});
 
     shared_ptr<Object> boss = make_shared<Boss>();
-    CreateObject(boss, LayerType::kMonster, L"Boss", { 100.f, 100.f }, { 3.f, 3.f });
+    CreateObject(boss, LayerType::kBoss, L"Boss", { 100.f, 100.f }, { 3.f, 3.f });
     (*(Boss*)boss.get()).SetTarget(player);
 
     COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kGround);
-    COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kMonster);
-    COLLISION->SetCollisionMatrix(LayerType::kGround, LayerType::kMonster);
-    COLLISION->SetCollisionMatrix(LayerType::kPlayerHitBox, LayerType::kMonster);
+    COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kBoss);
+    COLLISION->SetCollisionMatrix(LayerType::kDefault, LayerType::kBossHitBox);
+    COLLISION->SetCollisionMatrix(LayerType::kGround, LayerType::kBoss);
+    COLLISION->SetCollisionMatrix(LayerType::kPlayerHitBox, LayerType::kBoss);
 
     CAMERA->SetTarget(player);
     CAMERA->SetLimitArea({0.f, 0.f, 1600.f, 800.f});

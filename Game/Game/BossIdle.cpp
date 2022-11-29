@@ -25,6 +25,11 @@ void BossIdle::OnStateUpdate()
 	{
 		owner_->ChangeState(owner_->states_[(size_t)BossStateType::kWalk]);
 	}
+
+	if (distance < 100.f)
+	{
+		owner_->ChangeState(owner_->states_[(size_t)BossStateType::kAttack]);
+	}
 }
 
 void BossIdle::OnStateExit()

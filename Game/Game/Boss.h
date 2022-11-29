@@ -13,6 +13,7 @@ class Boss :
 private:
     friend class BossIdle;
     friend class BossWalk;
+    friend class BossAttack;
     friend class BossHit;
     friend class BossDeath;
 
@@ -23,11 +24,14 @@ private:
     std::shared_ptr<Object> target_;
 
     std::shared_ptr<Texture> left_idle_;
-    std::shared_ptr<Texture> left_run_;
+    std::shared_ptr<Texture> left_walk_;
+    std::shared_ptr<Texture> left_attack_;
     std::shared_ptr<Texture> left_hit_;
     std::shared_ptr<Texture> left_death_;
+
     std::shared_ptr<Texture> right_idle_;
-    std::shared_ptr<Texture> right_run_;
+    std::shared_ptr<Texture> right_walk_;
+    std::shared_ptr<Texture> right_attack_;
     std::shared_ptr<Texture> right_hit_;
     std::shared_ptr<Texture> right_death_;
 

@@ -17,6 +17,8 @@ private:
     friend class PlayerJump;
     friend class PlayerFalling;
     friend class PlayerAttack;
+    friend class PlayerHit;
+    friend class PlayerDeath;
 
     float move_speed_;
     float jump_force_;
@@ -45,5 +47,6 @@ public:
     void OnTriggerEnter(Object* other) final;
     void OnTriggerStay(Object* other) final;
     void OnTriggerExit(Object* other) final;
+    void OnDamage(UINT damage) final;
     void OnDeath() final;
 };

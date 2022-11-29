@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "BossIdle.h"
 #include "BossWalk.h"
+#include "BossAttack.h"
 #include "BossHit.h"
 #include "BossDeath.h"
 
@@ -31,6 +32,7 @@ Boss::Boss() :
 	// 상태 추가
 	states_[(size_t)BossStateType::kIdle] = make_shared<BossIdle>(this);
 	states_[(size_t)BossStateType::kWalk] = make_shared<BossWalk>(this);
+	states_[(size_t)BossStateType::kAttack] = make_shared<BossAttack>(this);
 	states_[(size_t)BossStateType::kHit] = make_shared<BossHit>(this);
 	states_[(size_t)BossStateType::kDeath] = make_shared<BossDeath>(this);
 	
@@ -38,9 +40,13 @@ Boss::Boss() :
 	left_idle_->Load(L"Resources/BossLeftIdleSheet.bmp", 11);
 	left_idle_->SetPivot({ .46f, .63f });
 
-	left_run_ = make_shared<Texture>();
-	left_run_->Load(L"Resources/BossLeftRunSheet.bmp", 8);
-	left_run_->SetPivot({ .46f, .63f });
+	left_walk_ = make_shared<Texture>();
+	left_walk_->Load(L"Resources/BossLeftRunSheet.bmp", 8);
+	left_walk_->SetPivot({ .46f, .63f });
+
+	left_attack_ = make_shared<Texture>();
+	left_attack_->Load(L"Resources/BossLeftAttack2Sheet.bmp", 7);
+	left_attack_->SetPivot({ .46f, .63f });
 
 	left_hit_ = make_shared<Texture>();
 	left_hit_->Load(L"Resources/BossLeftHitSheet.bmp", 4);
@@ -54,9 +60,13 @@ Boss::Boss() :
 	right_idle_->Load(L"Resources/BossRightIdleSheet.bmp", 11);
 	right_idle_->SetPivot({ .54f, .63f });
 
-	right_run_ = make_shared<Texture>();
-	right_run_->Load(L"Resources/BossRightRunSheet.bmp", 8);
-	right_run_->SetPivot({ .54f, .63f });
+	right_walk_ = make_shared<Texture>();
+	right_walk_->Load(L"Resources/BossRightRunSheet.bmp", 8);
+	right_walk_->SetPivot({ .54f, .63f });
+
+	right_attack_ = make_shared<Texture>();
+	right_attack_->Load(L"Resources/BossRightAttack2Sheet.bmp", 7);
+	right_attack_->SetPivot({ .54f, .63f });
 
 	right_hit_ = make_shared<Texture>();
 	right_hit_->Load(L"Resources/BossRightHitSheet.bmp", 4);
@@ -77,6 +87,7 @@ Boss::Boss() :
 	AddAnimator();
 	GetAnimator()->AddClip(L"IDLE", true, 0, 11);
 	GetAnimator()->AddClip(L"WALK", true, 0, 8);
+	GetAnimator()->AddClip(L"ATTACK", false, 0, 7);
 	GetAnimator()->AddClip(L"HIT", false, 0, 4);
 	GetAnimator()->AddClip(L"DEATH", false, 0, 11);
 
@@ -98,7 +109,11 @@ void Boss::Update()
 	{
 		if (GetAnimator()->GetCurrentClip() == L"WALK")
 		{
-			GetSpriteRenderer()->SetTexture(right_run_);
+			GetSpriteRenderer()->SetTexture(right_walk_);
+		}
+		else if (GetAnimator()->GetCurrentClip() == L"ATTACK")
+		{
+			GetSpriteRenderer()->SetTexture(right_attack_);
 		}
 		else if (GetAnimator()->GetCurrentClip() == L"HIT")
 		{
@@ -117,7 +132,11 @@ void Boss::Update()
 	{
 		if (GetAnimator()->GetCurrentClip() == L"WALK")
 		{
-			GetSpriteRenderer()->SetTexture(left_run_);
+			GetSpriteRenderer()->SetTexture(left_walk_);
+		}
+		else if (GetAnimator()->GetCurrentClip() == L"ATTACK")
+		{
+			GetSpriteRenderer()->SetTexture(left_attack_);
 		}
 		else if (GetAnimator()->GetCurrentClip() == L"HIT")
 		{

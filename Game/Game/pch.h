@@ -54,7 +54,8 @@ enum class LayerType : size_t
     kDefault = 0,
     kPlayerHitBox,
     kGround,
-    kMonster,
+    kBoss,
+    kBossHitBox,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 
@@ -65,6 +66,8 @@ enum class PlayerStateType : size_t
     kJump,
     kFalling,
     kAttack,
+    kHit,
+    kDeath,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 
@@ -72,6 +75,7 @@ enum class BossStateType : size_t
 {
     kIdle = 0,
     kWalk,
+    kAttack,
     kHit,
     kDeath,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.

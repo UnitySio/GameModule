@@ -153,6 +153,18 @@
     <ClInclude Include="BossHit.h">
       <Filter>Object\Boss State</Filter>
     </ClInclude>
+    <ClInclude Include="BossAttack.h">
+      <Filter>Object\Boss State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossHitBox.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHit.h">
+      <Filter>Object\Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDeath.h">
+      <Filter>Object\Player State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Object.cpp">
@@ -256,6 +268,18 @@
     </ClCompile>
     <ClCompile Include="BossHit.cpp">
       <Filter>Object\Boss State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossAttack.cpp">
+      <Filter>Object\Boss State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossHitBox.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHit.cpp">
+      <Filter>Object\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDeath.cpp">
+      <Filter>Object\Player State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
