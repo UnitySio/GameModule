@@ -64,6 +64,11 @@ void Animator::SetClip(std::wstring clip)
     timer_ = 0;
 }
 
+void Animator::SetFrameRate(UINT frame_rate)
+{
+    frame_rate_ = frame_rate;
+}
+
 void Animator::Update()
 {
     if (is_play_)

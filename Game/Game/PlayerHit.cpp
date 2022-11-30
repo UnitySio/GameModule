@@ -13,8 +13,6 @@ PlayerHit::PlayerHit(Player* owner) :
 void PlayerHit::OnStateEnter()
 {
 	owner_->GetAnimator()->SetClip(L"HIT");
-
-	owner_->GetRigidbody2D()->SetVelocity({ -owner_->direction_ * 200.f, -200.f });
 }
 
 void PlayerHit::OnStateUpdate()

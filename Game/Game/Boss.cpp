@@ -178,22 +178,22 @@ void Boss::Render()
 
 	HBRUSH new_brush1 = CreateSolidBrush(RGB(100, 100, 100));
 	HBRUSH old_brush1 = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush1);
-	
+
 	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ + 50, render_position.y_ + 24);
-	
+
 	SelectObject(WINDOW->GetHDC(), old_brush1);
 	DeleteObject(new_brush1);
-	
-	HBRUSH new_brush2 = CreateSolidBrush(RGB(255, 0, 0));
+
+	HBRUSH new_brush2 = CreateSolidBrush(RGB(200, 0, 0));
 	HBRUSH old_brush2 = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush2);
-	
-	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + (GetHP() / GetMaxHP()) * 100, render_position.y_ + 24);
-	
+
+	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + clamp((int)((GetHP() / GetMaxHP()) * 100), 0, 100), render_position.y_ + 24);
+
 	SelectObject(WINDOW->GetHDC(), old_brush2);
 	DeleteObject(new_brush2);
-	
+
 	WCHAR word[1024];
-	_stprintf_s(word, L"%.f%%", (GetHP() / GetMaxHP()) * 100);
+	wsprintf(word, L"%d%%", clamp((int)((GetHP() / GetMaxHP()) * 100), 0, 100));
 	RECT rect = { (LONG)(render_position.x_ - 50), (LONG)(render_position.y_ + 8), (LONG)(render_position.x_ + 50), (LONG)(render_position.y_ + 24) };
 	DrawText(WINDOW->GetHDC(), word, -1, &rect, DT_CENTER);
 }

@@ -16,6 +16,7 @@ private:
     friend class BossAttack;
     friend class BossHit;
     friend class BossDeath;
+    friend class BossHitBox;
 
     float move_speed_;
 

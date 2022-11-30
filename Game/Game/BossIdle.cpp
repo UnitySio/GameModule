@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BossIdle.h"
 #include "Animator.h"
+#include "Rigidbody2D.h"
 #include "Player.h"
 
 using namespace std;
@@ -31,10 +32,7 @@ void BossIdle::OnStateUpdate()
 
 		if (distance < 100.f)
 		{
-			if (!(*(Player*)target.get()).IsDash())
-			{
-				owner_->ChangeState(owner_->states_[(size_t)BossStateType::kAttack]);
-			}
+			owner_->ChangeState(owner_->states_[(size_t)BossStateType::kAttack]);
 		}
 	}
 }

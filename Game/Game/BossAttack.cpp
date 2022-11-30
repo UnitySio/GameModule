@@ -54,7 +54,7 @@ void BossAttack::CreateHitBox()
 
 	if (hit_box == nullptr)
 	{
-		hit_box = make_shared<BossHitBox>();
+		hit_box = make_shared<BossHitBox>(owner_);
 		SCENE->Instantiate(hit_box, LayerType::kBossHitBox, L"HitBox", create_position, {});
 	}
 }

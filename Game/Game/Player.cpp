@@ -64,7 +64,8 @@ Player::Player() :
 	is_ground_(),
 	is_dash_(),
 	direction_(1),
-	horizontal_()
+	horizontal_(),
+	timer_()
 {
 	SetHP(10000.f);
 	SetMaxHP(GetHP());
@@ -120,6 +121,24 @@ void Player::Update()
 		SCENE->LoadScene(SceneType::kDefault);
 	}
 
+	if (!IsDeath())
+	{
+		if (GetHP() != 10000.f)
+		{
+			timer_ += DELTA_TIME;
+
+			if (timer_ > .001f)
+			{
+				SetHP(GetHP() + 1.f);
+				timer_ = 0;
+			}
+		}
+		else
+		{
+			timer_ = 0;
+		}
+	}
+
 	// 땅이 아닐 경우 아래방향으로 중력 가속도를 줌
 	if (!is_ground_)
 	{
@@ -153,16 +172,16 @@ void Player::Render()
 	SelectObject(WINDOW->GetHDC(), old_brush1);
 	DeleteObject(new_brush1);
 	
-	HBRUSH new_brush2 = CreateSolidBrush(RGB(255, 0, 0));
+	HBRUSH new_brush2 = CreateSolidBrush(RGB(200, 0, 0));
 	HBRUSH old_brush2 = (HBRUSH)SelectObject(WINDOW->GetHDC(), new_brush2);
 	
-	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + (GetHP() / GetMaxHP()) * 100, render_position.y_ + 24);
+	Rectangle(WINDOW->GetHDC(), render_position.x_ - 50, render_position.y_ + 8, render_position.x_ - 50 + clamp((int)((GetHP() / GetMaxHP()) * 100), 0, 100), render_position.y_ + 24);
 	
 	SelectObject(WINDOW->GetHDC(), old_brush2);
 	DeleteObject(new_brush2);
 	
 	WCHAR word[1024];
-	_stprintf_s(word, L"%.f%%", (GetHP() / GetMaxHP()) * 100);
+	wsprintf(word, L"%d%%", clamp((int)((GetHP() / GetMaxHP()) * 100), 0, 100));
 	RECT rect = { (LONG)(render_position.x_ - 50), (LONG)(render_position.y_ + 8), (LONG)(render_position.x_ + 50), (LONG)(render_position.y_ + 24) };
 	DrawText(WINDOW->GetHDC(), word, -1, &rect, DT_CENTER);
 }

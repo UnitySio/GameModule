@@ -64,7 +64,7 @@ void PlayerAttack::CreateHitBox()
 
 	if (hit_box == nullptr)
 	{
-		hit_box = make_shared<PlayerHitBox>();
+		hit_box = make_shared<PlayerHitBox>(owner_);
 		SCENE->Instantiate(hit_box, LayerType::kPlayerHitBox, L"HitBox", create_position, {});
 	}
 }

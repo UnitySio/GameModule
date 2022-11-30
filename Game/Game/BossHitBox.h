@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Object.h"
+#include "Boss.h"
 
 class BossHitBox :
 	public Object
 {
+private:
+    Boss* owner_;
 public:
-    BossHitBox();
+    BossHitBox(Boss* owner);
     ~BossHitBox() final = default;
 
     void Render() final;

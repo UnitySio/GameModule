@@ -165,6 +165,9 @@
     <ClInclude Include="PlayerDeath.h">
       <Filter>Object\Player State</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerDash.h">
+      <Filter>Object\Player State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Object.cpp">
@@ -279,6 +282,9 @@
       <Filter>Object\Player State</Filter>
     </ClCompile>
     <ClCompile Include="PlayerDeath.cpp">
+      <Filter>Object\Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDash.cpp">
       <Filter>Object\Player State</Filter>
     </ClCompile>
   </ItemGroup>

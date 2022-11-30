@@ -20,6 +20,7 @@ private:
     friend class PlayerAttack;
     friend class PlayerHit;
     friend class PlayerDeath;
+    friend class PlayerHitBox;
 
     float move_speed_;
     float jump_force_;
@@ -34,6 +35,8 @@ private:
 
     int horizontal_;
     int direction_;
+
+    float timer_;
 
     void Movement();
 protected:

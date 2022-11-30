@@ -13,8 +13,6 @@ BossHit::BossHit(Boss* owner) :
 void BossHit::OnStateEnter()
 {
 	owner_->GetAnimator()->SetClip(L"HIT");
-
-	owner_->GetRigidbody2D()->SetVelocity({ -owner_->direction_ * 100.f, -100.f });
 }
 
 void BossHit::OnStateUpdate()

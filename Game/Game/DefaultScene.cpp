@@ -15,10 +15,10 @@ void DefaultScene::Enter()
     CreateObject(ground, LayerType::kGround, L"Ground", { 800.f, 768.f }, { 1.f, 1.f });
 
     shared_ptr<Object> player = make_shared<Player>();
-    CreateObject(player, LayerType::kPlayer, L"Player", {400.f, 240.f}, {3.f, 3.f});
+    CreateObject(player, LayerType::kPlayer, L"Player", {600.f, 600.f}, {3.f, 3.f});
 
     shared_ptr<Object> boss = make_shared<Boss>();
-    CreateObject(boss, LayerType::kBoss, L"Boss", { 280.f, 100.f }, { 3.f, 3.f });
+    CreateObject(boss, LayerType::kBoss, L"Boss", { 200.f, 600.f }, { 3.f, 3.f });
     (*(Boss*)boss.get()).SetTarget(player);
 
     COLLISION->SetCollisionMatrix(LayerType::kGround, LayerType::kPlayer);

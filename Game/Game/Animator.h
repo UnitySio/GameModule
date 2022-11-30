@@ -42,6 +42,7 @@ public:
 
     void AddClip(std::wstring clip, bool is_loop, UINT start_frame, UINT frame_count);
     void SetClip(std::wstring clip);
+    void SetFrameRate(UINT frame_rate);
     void Update();
 
     bool IsPlay();
