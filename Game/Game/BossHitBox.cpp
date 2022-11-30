@@ -25,7 +25,7 @@ void BossHitBox::OnTriggerEnter(Object* other)
         if (!(*(Player*)other).IsDash())
         {
             (*(Player*)other).OnDamage(2000);
-            (*(Player*)other).GetRigidbody2D()->SetVelocity({ owner_->direction_ * 200.f, -200.f });
+            (*(Player*)other).GetRigidbody2D()->SetVelocity({ owner_->direction_ * 300.f, -300.f });
         }
     }
 }

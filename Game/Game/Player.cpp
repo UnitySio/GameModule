@@ -44,7 +44,7 @@ void Player::Movement()
 		}
 	}
 
-	if (rigid->GetVelocity().y_ > 100.f)
+	if (GetRigidbody2D()->GetVelocity().y_ > 0.f)
 	{
 		if (current_state_ != states_[(size_t)PlayerStateType::kFalling])
 		{
@@ -95,7 +95,7 @@ Player::Player() :
 	AddAnimator(); // 애니메이터 컴포넌트
 	GetAnimator()->AddClip(L"IDLE", true, 0, 6); // IDLE 애니메이션
 	GetAnimator()->AddClip(L"WALK", true, 6, 8); // WALK 애니메이션
-	GetAnimator()->AddClip(L"DASH", false, 87, 5); // DASH 애니메이션
+	GetAnimator()->AddClip(L"DASH", false, 85, 5); // DASH 애니메이션
 	GetAnimator()->AddClip(L"JUMP", false, 41, 3); // JUMP 애니메이션
 	GetAnimator()->AddClip(L"FALLING", false, 44, 5); // FALLING 애니메이션
 	GetAnimator()->AddClip(L"ATTACK", false, 14, 12); // ATTACK 애니메이션
@@ -149,6 +149,9 @@ void Player::Update()
 void Player::LateUpdate()
 {
 	Object::LateUpdate();
+
+	// 맵 밖으로 못나가게 막음
+	SetPosition({ clamp(GetPosition().x_, 0.f, 1600.f), clamp(GetPosition().y_, 0.f, 800.f) });
 }
 
 void Player::PhysicsUpdate()

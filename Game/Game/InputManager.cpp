@@ -38,6 +38,8 @@ void InputManager::Initiate()
     AddKey(VK_LSHIFT);
     AddKey(MK_LBUTTON);
     AddKey('R');
+    AddKey(VK_LEFT);
+    AddKey(VK_RIGHT);
 }
 
 void InputManager::AddKey(int key)

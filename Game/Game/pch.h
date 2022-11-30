@@ -36,6 +36,8 @@
 #define RUN VK_SHIFT
 #define ATTACK MK_LBUTTON
 #define RESTART 'R'
+#define NEXT VK_RIGHT
+#define PREVIOUS VK_LEFT
 
 struct FloatRect
 {
@@ -48,6 +50,7 @@ struct FloatRect
 enum class SceneType : size_t
 {
     kDefault = 0,
+    kTest,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 

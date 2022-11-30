@@ -161,6 +161,9 @@ void Boss::Update()
 void Boss::LateUpdate()
 {
 	Object::LateUpdate();
+
+	// 맵 밖으로 못나가게 막음
+	SetPosition({ clamp(GetPosition().x_, 0.f, 1600.f), clamp(GetPosition().y_, 0.f, 800.f) });
 }
 
 void Boss::PhysicsUpdate()
