@@ -53,7 +53,7 @@ shared_ptr<Object> Scene::FindObject(LPCWSTR kName)
 		vector<shared_ptr<Object>>::iterator iter = objects_[i].begin();
 		for (; iter != objects_[i].end(); ++iter)
 		{
-			if (wcscmp(kName, (*iter)->GetName()))
+			if (wcscmp(kName, (*iter)->GetName()) == 0)
 			{
 				return (*iter);
 			}

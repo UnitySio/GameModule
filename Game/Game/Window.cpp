@@ -185,10 +185,10 @@ void Window::SetThread(HANDLE handle)
 // 서브 스레드에서 동작
 void Window::Logic()
 {
-	ReleaseSemaphore(semaphore_, 1, NULL);
 	instance_->Update();
 	instance_->LateUpdate();
 	instance_->PhysicsUpdate();
+	ReleaseSemaphore(semaphore_, 1, NULL);
 	instance_->Render();
 	SCENE->SceneUpdate();
 }
@@ -198,8 +198,6 @@ void Window::InputUpdate()
 {
 	WaitForSingleObject(semaphore_, INFINITE);
 	INPUT->InputUpdate();
-
-	SetWindowText(WINDOW->GetHWND(), SCENE->GetCurrentScene()->GetName());
 }
 
 void Window::Update()
@@ -210,16 +208,6 @@ void Window::Update()
 	TIME->Update();
 	SCENE->Update();
 	CAMERA->Update();
-
-	if (INPUT->GetKeyDown(NEXT))
-	{
-		SCENE->LoadScene(SceneType::kTest);
-	}
-
-	if (INPUT->GetKeyDown(PREVIOUS))
-	{
-		SCENE->LoadScene(SceneType::kDefault);
-	}
 }
 
 void Window::LateUpdate()

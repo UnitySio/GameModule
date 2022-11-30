@@ -136,12 +136,14 @@ void CollisionManager::SetCollisionMatrix(LayerType first, LayerType second)
 
 void CollisionManager::Reset()
 {
+    // 충돌 매트릭스 초기화
     for (size_t i = 0; i < (size_t)LayerType::kEnd; i++)
     {
         memset(collision_matrix_[i], false, sizeof(bool) * (size_t)LayerType::kEnd);
     }
 
-    //collision_info_.clear();
+    // 충돌 정보 초기화
+    collision_info_.clear();
 }
 
 bool CollisionManager::IsCollision(shared_ptr<BoxCollider2D> first, shared_ptr<BoxCollider2D> second)

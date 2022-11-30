@@ -2,9 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "DefaultScene.h"
-#include "TestScene.h"
 #include "Object.h"
-#include "InputManager.h"
 #include "Window.h"
 
 using namespace std;
@@ -39,10 +37,7 @@ void SceneManager::Release()
 void SceneManager::Initiate()
 {
     shared_ptr<Scene> default_scene = make_shared<DefaultScene>();
-    CreateScene(default_scene, SceneType::kDefault, L"Vacuity 1");
-
-    shared_ptr<Scene> test_scene = make_shared<TestScene>();
-    CreateScene(test_scene, SceneType::kTest, L"Vacuity 2");
+    CreateScene(default_scene, SceneType::kDefault, L"Vacuity");
 
     LoadScene(SceneType::kDefault);
 }

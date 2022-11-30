@@ -5,24 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41f38ec8-37ce-4d9f-b1d8-cdbde8350262" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Game/PlayerDash.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game/PlayerDash.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Boss.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Boss.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/BossIdle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BossIdle.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/CollisionManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/CollisionManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/CollisionManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/CollisionManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/DefaultScene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/DefaultScene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Entity.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Entity.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Game.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/InputManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/InputManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/PlayerHitBox.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerHitBox.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/PlayerWalk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/PlayerWalk.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/SceneManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/SceneManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/TestScene.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/TestScene.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Window.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Window.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/pch.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/pch.h" afterDir="false" />
     </list>
@@ -120,6 +109,8 @@
       <workItem from="1669648402914" duration="164000" />
       <workItem from="1669719535502" duration="6240000" />
       <workItem from="1669732243752" duration="4073000" />
+      <workItem from="1669808549825" duration="1753000" />
+      <workItem from="1669810328975" duration="992000" />
     </task>
     <servers />
   </component>
