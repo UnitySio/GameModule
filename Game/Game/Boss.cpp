@@ -222,9 +222,9 @@ void Boss::OnTriggerExit(Object* other)
 	}
 }
 
-void Boss::OnDamage(UINT damage)
+void Boss::OnDamage(Vector2 position, UINT damage)
 {
-	Entity::OnDamage(damage);
+	Entity::OnDamage(position, damage);
 	
 	if (GetHP() > 0.f)
 	{

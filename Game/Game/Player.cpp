@@ -210,9 +210,9 @@ void Player::OnTriggerExit(Object* other)
 	}
 }
 
-void Player::OnDamage(UINT damage)
+void Player::OnDamage(Vector2 position, UINT damage)
 {
-	Entity::OnDamage(damage);
+	Entity::OnDamage(position, damage);
 
 	if (GetHP() > 0.f)
 	{

@@ -52,7 +52,7 @@ public:
     void OnTriggerEnter(Object* other) final;
     void OnTriggerStay(Object* other) final;
     void OnTriggerExit(Object* other) final;
-    void OnDamage(UINT damage) final;
+    void OnDamage(Vector2 position, UINT damage) final;
     void OnDeath() final;
 
     bool IsDash();

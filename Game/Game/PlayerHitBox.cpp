@@ -22,7 +22,7 @@ void PlayerHitBox::OnTriggerEnter(Object* other)
 {
     if (wcscmp(other->GetName(), L"Boss") == 0)
     {
-        (*(Boss*)other).OnDamage(500);
+        (*(Boss*)other).OnDamage((*(Boss*)other).GetPosition(), 500);
         (*(Boss*)other).GetRigidbody2D()->SetVelocity({ owner_->direction_ * 100.f, -100.f });
     }
 }

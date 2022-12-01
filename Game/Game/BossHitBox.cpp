@@ -9,7 +9,7 @@ using namespace std;
 BossHitBox::BossHitBox(Boss* owner) :
     owner_(owner)
 {
-    AddBoxCollider2D();
+    AddBoxCollider2D(); 
     GetBoxCollider2D()->SetSize({ 200.f, 180.f });
 }
 
@@ -24,7 +24,7 @@ void BossHitBox::OnTriggerEnter(Object* other)
     {
         if (!(*(Player*)other).IsDash())
         {
-            (*(Player*)other).OnDamage(2000);
+            (*(Player*)other).OnDamage((*(Player*)other).GetPosition(), 5000);
             (*(Player*)other).GetRigidbody2D()->SetVelocity({ owner_->direction_ * 300.f, -300.f });
         }
     }

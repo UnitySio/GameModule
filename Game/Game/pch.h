@@ -59,6 +59,8 @@ enum class LayerType : size_t
     kPlayerHitBox,
     kBoss,
     kBossHitBox,
+    kDamage,
+    kUI,
     kEnd // kEnd는 항상 마지막에 있어야 합니다.
 };
 

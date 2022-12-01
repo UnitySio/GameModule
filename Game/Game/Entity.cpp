@@ -1,5 +1,9 @@
 ﻿#include "pch.h"
 #include "Entity.h"
+#include "SceneManager.h"
+#include "Damage.h"
+
+using namespace std;
 
 Entity::Entity() :
     hp_(),
@@ -8,10 +12,14 @@ Entity::Entity() :
 {
 }
 
-void Entity::OnDamage(UINT damage)
+void Entity::OnDamage(Vector2 position, UINT damage)
 {
     if (hp_ > 0.f)
     {
+        // 추후 최적화를 위해 Object Pool로 변경 예정
+        shared_ptr<Object> obj = make_shared<Damage>(damage);
+        SCENE->Instantiate(obj, LayerType::kDamage, L"Damage", position, {});
+
         hp_ -= damage;
 
         if (hp_ <= 0.f)

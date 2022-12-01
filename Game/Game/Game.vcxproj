@@ -175,6 +175,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Coroutine.h" />
+    <ClInclude Include="Damage.h" />
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="framework.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Coroutine.cpp" />
+    <ClCompile Include="Damage.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />

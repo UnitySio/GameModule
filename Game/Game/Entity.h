@@ -11,7 +11,7 @@ public:
     Entity();
     virtual ~Entity() = default;
 
-    virtual void OnDamage(UINT damage);
+    virtual void OnDamage(Vector2 position, UINT damage);
     virtual void OnDeath() = 0;
 
     void SetHP(float hp);

@@ -2,8 +2,6 @@
 #include "Texture.h"
 #include "Window.h"
 
-#include <cassert>
-
 using namespace std;
 
 Texture::Texture() :
@@ -25,7 +23,6 @@ Texture::~Texture()
 void Texture::Load(LPCWSTR path, UINT column, UINT row)
 {
     bitmap_ = (HBITMAP)LoadImage(NULL, path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-    assert(bitmap_);
 
     memDC = CreateCompatibleDC(WINDOW->GetHDC());
 

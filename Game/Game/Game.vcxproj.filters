@@ -168,7 +168,7 @@
     <ClInclude Include="PlayerDash.h">
       <Filter>Object\Player State</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h">
+    <ClInclude Include="Damage.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -290,7 +290,7 @@
     <ClCompile Include="PlayerDash.cpp">
       <Filter>Object\Player State</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
+    <ClCompile Include="Damage.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
