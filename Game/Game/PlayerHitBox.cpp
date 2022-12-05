@@ -3,6 +3,9 @@
 #include "BoxCollider2D.h"
 #include "Rigidbody2D.h"
 #include "Boss.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "Combo.h"
 
 using namespace std;
 
@@ -24,6 +27,9 @@ void PlayerHitBox::OnTriggerEnter(Object* other)
     {
         (*(Boss*)other).OnDamage((*(Boss*)other).GetPosition(), 500);
         (*(Boss*)other).GetRigidbody2D()->SetVelocity({ owner_->direction_ * 100.f, -100.f });
+
+        shared_ptr<Object> combo = SCENE->GetCurrentScene()->FindObject(L"Combo");
+        (*(Combo*)combo.get()).AddCombo();
     }
 }
 

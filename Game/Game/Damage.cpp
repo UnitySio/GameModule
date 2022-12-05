@@ -29,5 +29,6 @@ void Damage::Render()
 	WCHAR word[1024];
 	wsprintf(word, L"%d", damage_);
 
-	TextOut(WINDOW->GetHDC(), render_position.x_, render_position.y_, word, wcslen(word));
+	RECT rect = { render_position.x_ - 50, render_position.y_ - 15, render_position.x_ + 50, render_position.y_ + 15 };
+	DrawText(WINDOW->GetHDC(), word, -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
 }
