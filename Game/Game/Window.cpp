@@ -9,10 +9,6 @@
 using namespace std;
 using namespace Gdiplus;
 
-// 멤버 변수 초기화
-shared_ptr<Window> Window::instance_ = nullptr;
-once_flag Window::flag_;
-
 // 창 클래스를 등록
 ATOM Window::MyRegisterClass(HINSTANCE hInstance)
 {
@@ -76,7 +72,7 @@ BOOL Window::InitInstance(HINSTANCE hInstance, int nCmdShow)
 // 주 창의 메시지를 처리
 LRESULT Window::StaticWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	return instance_->WndProc(hWnd, message, wParam, lParam);
+	return GetInstance()->WndProc(hWnd, message, wParam, lParam);
 }
 
 LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -116,7 +112,7 @@ LRESULT Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SCENE->Release();
 		COLLISION->Release();
 		CAMERA->Release();
-		instance_.reset();
+		GetInstance()->Release();
 		PostQuitMessage(0);
 		break;
 	default:
@@ -142,16 +138,6 @@ Window::Window() :
 	semaphore_ = CreateSemaphore(NULL, 0, 1, NULL); // 세마포 생성
 }
 
-shared_ptr<Window> Window::GetInstance()
-{
-	call_once(flag_, [] // 람다식
-		{
-			instance_.reset(new Window);
-		});
-
-	return instance_;
-}
-
 HWND Window::GetHWND()
 {
 	return hWnd;
@@ -166,9 +152,9 @@ DWORD WINAPI Window::LogicThread(LPVOID lpParam)
 {
 	while (TRUE)
 	{
-		instance_->Logic();
+		GetInstance()->Logic();
 
-		if (!instance_->is_logic_loop_)
+		if (!GetInstance()->is_logic_loop_)
 		{
 			break;
 		}
@@ -185,11 +171,11 @@ void Window::SetThread(HANDLE handle)
 // 서브 스레드에서 동작
 void Window::Logic()
 {
-	instance_->Update();
-	instance_->LateUpdate();
-	instance_->PhysicsUpdate();
+	GetInstance()->Update();
+	GetInstance()->LateUpdate();
+	GetInstance()->PhysicsUpdate();
 	ReleaseSemaphore(semaphore_, 1, NULL);
-	instance_->Render();
+	GetInstance()->Render();
 	SCENE->SceneUpdate();
 }
 

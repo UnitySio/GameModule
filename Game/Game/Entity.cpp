@@ -14,11 +14,12 @@ Entity::Entity() :
 
 void Entity::OnDamage(Vector2 position, UINT damage)
 {
+    Vector2 final_position = { position.x_, position.y_ - 160.f };
     if (hp_ > 0.f)
     {
         // 추후 최적화를 위해 Object Pool로 변경 예정
         shared_ptr<Object> obj = make_shared<Damage>(damage);
-        SCENE->Instantiate(obj, LayerType::kDamage, L"Damage", position, {});
+        SCENE->Instantiate(obj, LayerType::kDamage, L"Damage", final_position, {});
 
         hp_ -= damage;
 

@@ -2,10 +2,12 @@
 
 #include "resource.h"
 #include "framework.h"
+#include "Singleton.h"
 
 #define MAX_LOADSTRING 100
 
-class Window
+class Window :
+    public Singleton<Window>
 {
 private:
     HINSTANCE hInst; // 현재 인스턴스
@@ -21,10 +23,6 @@ private:
     static LRESULT CALLBACK StaticWndProc(HWND, UINT, WPARAM, LPARAM);
     LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-    // 싱글톤
-    static std::shared_ptr<Window> instance_;
-    static std::once_flag flag_;
-
     bool is_logic_loop_;
 
     POINT mouse_position_;
@@ -33,10 +31,7 @@ private:
     HANDLE semaphore_;
 public:
     Window();
-    ~Window() = default;
-
-    Window(const Window&) = delete;
-    Window& operator=(const Window&) = delete;
+    ~Window() final = default;
 
     WCHAR szTitle[MAX_LOADSTRING]; // 제목 표시줄 텍스트입니다.
     WCHAR szWindowClass[MAX_LOADSTRING]; // 기본 창 클래스 이름입니다.
@@ -44,7 +39,6 @@ public:
     ATOM MyRegisterClass(HINSTANCE hinstance);
     BOOL InitInstance(HINSTANCE, int);
 
-    static std::shared_ptr<Window> GetInstance();
     static DWORD WINAPI LogicThread(LPVOID lpParam);
 
     HWND GetHWND();

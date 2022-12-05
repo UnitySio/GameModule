@@ -168,8 +168,11 @@
     <ClInclude Include="PlayerDash.h">
       <Filter>Object\Player State</Filter>
     </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Module</Filter>
+    </ClInclude>
     <ClInclude Include="Damage.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -290,8 +293,11 @@
     <ClCompile Include="PlayerDash.cpp">
       <Filter>Object\Player State</Filter>
     </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
     <ClCompile Include="Damage.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

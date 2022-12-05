@@ -1,14 +1,13 @@
 #pragma once
 
+#include "Singleton.h"
+
 class Object;
 
-class Camera
+class Camera :
+    public Singleton<Camera>
 {
 private:
-    // ΩÃ±€≈Ê
-    static std::shared_ptr<Camera> instance_;
-    static std::once_flag flag_;
-
     Vector2 position_;
     Vector2 screen_position_;
     Vector2 resolution_;
@@ -22,14 +21,8 @@ private:
     std::shared_ptr<Object> target_;
 public:
     Camera();
-    ~Camera() = default;
+    ~Camera() final = default;
 
-    Camera(const Camera&) = delete;
-    Camera& operator=(const Camera&) = delete;
-
-    static std::shared_ptr<Camera> GetInstance();
-
-    void Release();
     void Initiate();
     void Update();
     void LateUpdate();

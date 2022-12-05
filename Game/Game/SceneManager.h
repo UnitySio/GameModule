@@ -1,10 +1,13 @@
 #pragma once
 
+#include "Singleton.h"
+
 // Å¬·¡½º Àü¹æ ¼±¾ð
 class Scene;
 class Object;
 
-class SceneManager
+class SceneManager :
+    public Singleton<SceneManager>
 {
 private:
     struct ObjectInfo
@@ -16,24 +19,14 @@ private:
         Vector2 scale;
     };
 
-    // ½Ì±ÛÅæ
-    static std::shared_ptr<SceneManager> instance_;
-    static std::once_flag flag_;
-
     std::shared_ptr<Scene> scenes_[(size_t)SceneType::kEnd];
     std::shared_ptr<Scene> current_scene_;
 
     std::vector<ObjectInfo> objects_;
 public:
     SceneManager();
-    ~SceneManager() = default;
+    ~SceneManager() final = default;
 
-    SceneManager(const SceneManager&) = delete;
-    SceneManager& operator=(const SceneManager&) = delete;
-
-    static std::shared_ptr<SceneManager> GetInstance();
-
-    void Release();
     void Initiate();
     void CreateScene(std::shared_ptr<Scene> scene, SceneType scene_type, LPCWSTR kName);
     void LoadScene(SceneType scene_type);

@@ -4,10 +4,6 @@
 
 using namespace std;
 
-// 멤버 변수 초기화
-shared_ptr<TimeManager> TimeManager::instance_ = nullptr;
-once_flag TimeManager::flag_;
-
 TimeManager::TimeManager() :
     frequency_{},
     previous_count_{},
@@ -18,21 +14,6 @@ TimeManager::TimeManager() :
     fps_(),
     frame_counter_()
 {
-}
-
-std::shared_ptr<TimeManager> TimeManager::GetInstance()
-{
-    call_once(flag_, [] // 람다식
-    {
-        instance_.reset(new TimeManager);
-    });
-
-    return instance_;
-}
-
-void TimeManager::Release()
-{
-    instance_.reset();
 }
 
 void TimeManager::Initiate()

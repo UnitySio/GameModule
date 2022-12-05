@@ -3,28 +3,9 @@
 
 using namespace std;
 
-// 멤버 변수 초기화
-shared_ptr<InputManager> InputManager::instance_ = nullptr;
-once_flag InputManager::flag_;
-
 InputManager::InputManager() :
     keys_()
 {
-}
-
-shared_ptr<InputManager> InputManager::GetInstance()
-{
-    call_once(flag_, [] // 람다식
-    {
-        instance_.reset(new InputManager);
-    });
-
-    return instance_;
-}
-
-void InputManager::Release()
-{
-    instance_.reset();
 }
 
 void InputManager::Initiate()

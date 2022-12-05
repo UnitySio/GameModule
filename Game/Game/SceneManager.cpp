@@ -8,30 +8,11 @@
 using namespace std;
 using namespace Gdiplus;
 
-// 멤버 변수 초기화
-shared_ptr<SceneManager> SceneManager::instance_ = nullptr;
-once_flag SceneManager::flag_;
-
 SceneManager::SceneManager() :
     scenes_{},
     current_scene_(),
     objects_{}
 {
-}
-
-shared_ptr<SceneManager> SceneManager::GetInstance()
-{
-    call_once(flag_, [] // 람다식
-    {
-        instance_.reset(new SceneManager);
-    });
-
-    return instance_;
-}
-
-void SceneManager::Release()
-{
-    instance_.reset();
 }
 
 void SceneManager::Initiate()

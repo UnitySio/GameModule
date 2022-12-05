@@ -1,6 +1,9 @@
 #pragma once
 
-class InputManager
+#include "Singleton.h"
+
+class InputManager :
+    public Singleton<InputManager>
 {
 private:
     enum class KeyType : UINT
@@ -17,21 +20,11 @@ private:
         bool is_down;
     };
 
-    // ΩÃ±€≈Ê
-    static std::shared_ptr<InputManager> instance_;
-    static std::once_flag flag_;
-
     std::map<int, Key> keys_;
 public:
     InputManager();
-    ~InputManager() = default;
+    ~InputManager() final = default;
 
-    InputManager(const InputManager&) = delete;
-    InputManager& operator=(const InputManager&) = delete;
-
-    static std::shared_ptr<InputManager> GetInstance();
-
-    void Release();
     void Initiate();
     void AddKey(int key);
     void InputUpdate();

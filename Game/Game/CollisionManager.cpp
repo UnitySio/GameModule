@@ -7,29 +7,10 @@
 
 using namespace std;
 
-// 멤버 변수 초기화
-shared_ptr<CollisionManager> CollisionManager::instance_ = nullptr;
-once_flag CollisionManager::flag_;
-
 CollisionManager::CollisionManager() :
     collision_matrix_{},
     collision_info_{}
 {
-}
-
-shared_ptr<CollisionManager> CollisionManager::GetInstance()
-{
-    call_once(flag_, [] // 람다식
-    {
-        instance_.reset(new CollisionManager);
-    });
-
-    return instance_;
-}
-
-void CollisionManager::Release()
-{
-    instance_.reset();
 }
 
 void CollisionManager::PhysicsUpdate()
