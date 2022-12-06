@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="41f38ec8-37ce-4d9f-b1d8-cdbde8350262" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/CollisionManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/CollisionManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Combo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Combo.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Game.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/SceneManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/SceneManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/TestScene.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/TestScene.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Window.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Window.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/pch.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/pch.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +105,11 @@
       <workItem from="1669732243752" duration="4073000" />
       <workItem from="1669808549825" duration="1753000" />
       <workItem from="1669810328975" duration="992000" />
+      <workItem from="1670082205436" duration="720000" />
+      <workItem from="1670117699388" duration="775000" />
+      <workItem from="1670166376004" duration="17000" />
+      <workItem from="1670245566991" duration="100000" />
+      <workItem from="1670320693405" duration="556000" />
     </task>
     <servers />
   </component>
